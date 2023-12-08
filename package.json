@@ -1,0 +1,42 @@
+{
+  "name": "frogbase",
+  "version": "0.0.1",
+  "description": "An open source extended verision of pocketbase backend using node js and postgresql for your next SaaS software.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frogbase/frogbase.git"
+  },
+  "keywords": [
+    "database",
+    "postgresql",
+    "node",
+    "saas"
+  ],
+  "author": "Algoramming",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frogbase/frogbase/issues"
+  },
+  "homepage": "https://github.com/frogbase/frogbase#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^7.1.0",
+    "moment": "^2.29.4",
+    "morgan": "^1.10.0",
+    "pino": "^6.11.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "pino-pretty": "^4.8.0",
+    "prettier": "^3.1.0"
+  }
+}

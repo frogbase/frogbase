@@ -1,0 +1,6 @@
+.env
+node_modules
+.vscode
+request.http
+*.rest
+uploads
