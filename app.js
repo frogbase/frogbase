@@ -6,6 +6,7 @@ const routes = require("./routes");
 const helmet = require("helmet");
 const compression = require("compression");
 const unknownEndpoint = require("./middleware/unKnownEndpoint");
+const { handleError } = require("./helpers/error");
 
 const app = express();
 
@@ -19,17 +20,17 @@ app.use("/uploads", express.static("uploads"));
 
 app.use(`/api/${process.env.VERSION}`, routes);
 
-// app.get("/", (_, res) =>
-//   res.send("<h1 style='text-align: center'>Hey Rahat! Server is up and running! :)</h1>"),
-// );
+const PORT = process.env.PORT || 9000;
+const IP = process.env.IP || `0.0.0.0`;
 
-app.use("/", (req, res, next) => {
+app.use(`/api/${process.env.VERSION}/check`, (_, res, __) => {
     return res.status(200).json({
         success: true,
-        message: "Hey Rahat! Server is up and running! :)",
+        message: `Hey buddy! Server is up and running (${process.env.NODE_ENV}) on ip: ${IP} and port: ${PORT} 🌐`,
     });
 });
 
-app.use('*', unknownEndpoint);
+app.use(unknownEndpoint);
+app.use(handleError);
 
 module.exports = app;

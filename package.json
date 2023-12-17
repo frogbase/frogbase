@@ -24,19 +24,23 @@
   },
   "homepage": "https://github.com/frogbase/frogbase#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
-    "pino": "^6.11.3"
+    "nodemailer": "^6.9.7",
+    "pg": "^8.11.3",
+    "pino": "^6.14.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
     "pino-pretty": "^4.8.0",
-    "prettier": "^3.1.0"
+    "prettier": "^3.1.1"
   }
 }

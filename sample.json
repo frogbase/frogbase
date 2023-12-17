@@ -1,0 +1,18 @@
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2xsZWN0aW9uSWQiOiJfcGJfdXNlcnNfYXV0aF8iLCJleHAiOjE3MDM1ODgyMzcsImlkIjoiYzdraWdscGN4Z3Z3NTlmIiwidHlwZSI6ImF1dGhSZWNvcmQifQ.U9Zpqh7cHsr6p0mdGa5Zlmc1BHoi2F8BqlvrYwWGmHk",
+    "model": {
+        "id": "c7kiglpcxgvw59f",
+        "created": "2023-11-22 09:50:41.650Z",
+        "updated": "2023-11-28 22:21:21.333Z",
+        "collectionId": "_pb_users_auth_",
+        "collectionName": "users",
+        "expand": {},
+        "avatar": "only_logo_with_padding_v8wKUZy3Hs.png",
+        "email": "rahat@algoramming.com",
+        "emailVisibility": true,
+        "name": "Md. Sabik Alam Rahat",
+        "type": "Admin",
+        "username": "sabikrahat",
+        "verified": true
+    }
+}

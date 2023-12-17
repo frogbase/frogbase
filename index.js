@@ -11,6 +11,6 @@ const IP = process.env.IP || `0.0.0.0`;
 
 server.listen(PORT, IP, () =>
     logger.info(
-        `Server is running (${process.env.NODE_ENV}) on ip: ${IP} and port: ${PORT}.\n >> Visit http://localhost:${PORT}/check/\nPlease press CTRL + C to stop the server`,
+        `Server is running (${process.env.NODE_ENV}) on ip: ${IP} and port: ${PORT}.\n >> Visit http://localhost:${PORT}/api/${process.env.VERSION}/check/\nPlease press CTRL + C to stop the server`,
     ),
 );
