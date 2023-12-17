@@ -1,6 +1,5 @@
 const authService = require("../services/auth.service");
 const mail = require("../services/mail.service");
-const { ErrorHandler } = require("../helpers/error");
 
 const signup = async (req, res) => {
   const { token, user } = await authService.signUp(req.body);
@@ -37,9 +36,4 @@ const resetPassword = async (req, res) => {
   });
 };
 
-
-module.exports = {
-  signup,
-  signin,
-  resetPassword,
-};
+module.exports = { signup, signin, resetPassword };

@@ -24,23 +24,17 @@ const createUserDb = async ({ username, email, password, name, avatar }) => {
 
 const getUserByIdDb = async (id) => {
   const { rows: users } = await pool.query(`SELECT * FROM users WHERE id = $1`, [id]);
-  user = users[0];
-  delete user.password;
-  return user;
+  return users[0];
 };
 
 const getUserByUsernameDb = async (username) => {
   const { rows: users } = await pool.query(`SELECT * FROM users WHERE username = lower($1)`, [username]);
-  user = users[0];
-  delete user.password;
-  return user;
+  return users[0];
 };
 
 const getUserByEmailDb = async (email) => {
   const { rows: users } = await pool.query(`SELECT * FROM users WHERE email = lower($1)`, [email]);
-  user = users[0];
-  delete user.password;
-  return user;
+  return users[0];
 };
 
 const updateUserDb = async ({ id, username, email, name, avatar }) => {
@@ -50,23 +44,17 @@ const updateUserDb = async ({ id, username, email, name, avatar }) => {
     RETURNING *`,
     [id, username, email, name, avatar],
   );
-  user = users[0];
-  delete user.password;
-  return user;
+  return users[0];
 };
 
 const deleteUserDb = async (id) => {
   const { rows: users } = await pool.query(`DELETE FROM users WHERE id = $1 RETURNING *`, [id]);
-  user = users[0];
-  delete user.password;
-  return user;
+  return users[0];
 };
 
 const changeUserPasswordDb = async (email, password) => {
   const { rows: users } = await pool.query(`UPDATE users SET password = $2 WHERE email = $1 RETURNING *`, [email, password]);
-  user = users[0];
-  delete user.password;
-  return user;
+  return users[0];
 };
 
 module.exports = {
