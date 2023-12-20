@@ -32,14 +32,15 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(`/api/${process.env.VERSION}`, routes);
+app.use(`/api`, routes);
 
 const PORT = process.env.PORT || 9000;
 const IP = process.env.IP || `0.0.0.0`;
 
-app.use(`/api/${process.env.VERSION}/check`, (_, res, __) => {
+app.use(`/api/health`, (_, res, __) => {
     return res.status(200).json({
         success: true,
+        statusCode: 200,
         message: `Hey buddy! Server is up and running (${process.env.NODE_ENV}) on ip: ${IP} and port: ${PORT} 🌐`,
     });
 });
