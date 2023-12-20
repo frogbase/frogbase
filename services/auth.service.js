@@ -1,3 +1,4 @@
+const { setTokenStatusDb, createResetTokenDb, deleteResetTokenDb, isValidTokenDb } = require("../db/functions/auth.db");
 const { getUserByUsernameDb, getUserByEmailDb, createUserDb } = require("../db/functions/user.db");
 const { validateEmail, validatePassword } = require("../helpers/validateUser");
 const { hashPassword, comparePassword } = require("../helpers/hashPassword");
@@ -6,6 +7,9 @@ const { ErrorHandler } = require("../helpers/error");
 const { logger } = require("../utils/logger");
 const mail = require("./mail.service");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
+const crypto = require("crypto");
+let curDate = moment().format();
 
 class AuthService {
   async signUp(user) {
@@ -26,16 +30,18 @@ class AuthService {
 
       const newUser = await createUserDb({ ...user, password: hashedPassword });
 
-      const token = await this.signToken({ id: newUser.id });
+      const accessToken = await this.signAccessToken({ id: newUser.id });
 
-      return { token, user: newUser };
+      const refreshToken = await this.signRefreshToken({ id: newUser.id });
+
+      return { accessToken, refreshToken, user: newUser };
 
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
   }
 
-  async login(user) {
+  async signin(user) {
     try {
       const { email, password } = user;
 
@@ -49,60 +55,140 @@ class AuthService {
 
       if (!isCorrectPassword) throw new ErrorHandler(403, "Password is incorrect.");
 
-      const token = await this.signToken({ id: newUser.id });
+      const accessToken = await this.signAccessToken({ id: newUser.id });
 
-      return { token, user: newUser };
+      const refreshToken = await this.signRefreshToken({ id: newUser.id });
 
-    } catch (error) {
-      throw new ErrorHandler(error.statusCode, error.message);
-    }
-  }
-
-  async resetPassword(user) {
-    try {
-      const { email } = user;
-
-      if (!validateEmail(email)) throw new ErrorHandler(401, "Invalid email!");
-
-      const newUser = await getUserByEmailDb(email);
-
-      if (!newUser) throw new ErrorHandler(403, "No user found with this email.");
-
-      await mail.resetPasswordMail(newUser);
+      return { accessToken, refreshToken, user: newUser };
 
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
   }
 
-  // will used later in email verification
-  async changePassword(user) {
-    try {
-      const { email, password } = user;
-
-      if (!validateEmail(email)) throw new ErrorHandler(401, "Invalid email!");
-
-      const newUser = await getUserByEmailDb(email);
-
-      if (!newUser) throw new ErrorHandler(403, "No user found with this email.");
-
-      if (!validatePassword(password)) throw new ErrorHandler(401, "Password must be at least 6 characters!");
-
-      const hashedPassword = await hashPassword(password);
-
-      await changeUserPasswordDb(email, hashedPassword);
-      await mail.resetPasswordMail(email);
-    } catch (error) {
-      throw new ErrorHandler(error.statusCode, error.message);
-    }
-  }
-
-  async signToken(data) {
+  async signAccessToken(data) {
     try {
       return jwt.sign(data, process.env.SECRET, { expiresIn: process.env.SECRET_EXP });
     } catch (error) {
       logger.error(error);
       throw new ErrorHandler(500, "An error occurred while signing token.");
+    }
+  }
+
+  async signRefreshToken(data) {
+    try {
+      return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: process.env.REFRESH_SECRET_EXP });
+    } catch (error) {
+      logger.error(error);
+      throw new ErrorHandler(500, error.message);
+    }
+  }
+
+  async verifyAccessToken(token) {
+    try {
+      return jwt.verify(token, process.env.SECRET);
+    } catch (error) {
+      logger.error(error);
+      throw new ErrorHandler(500, `An error occurred while verifying access token. ${error.message}`);
+    }
+  }
+
+  async verifyRefreshToken(token) {
+    try {
+      return jwt.verify(token, process.env.REFRESH_SECRET);
+    } catch (error) {
+      logger.error(error);
+      throw new ErrorHandler(500, `An error occurred while verifying refresh token. ${error.message}`);
+    }
+  }
+
+  async regenerateTokens(token) {
+    const payload = await this.verifyRefreshToken(token);
+
+    const accessToken = await this.signAccessToken({ id: payload.id });
+    const refreshToken = await this.signRefreshToken({ id: payload.id });
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
+  async forgetPassword(email) {
+
+    if (!validateEmail(email)) throw new ErrorHandler(401, "Invalid email!");
+
+    const user = await getUserByEmailDb(email);
+
+    if (!user) throw new ErrorHandler(403, "No user found with this email.");
+
+    try {
+      await deleteResetTokenDb(curDate);
+      await setTokenStatusDb(email);
+
+      //Create a random reset token
+      var fpSalt = crypto.randomBytes(64).toString("base64").slice(0, 6);
+
+      //token expires after 15 mintues
+      var expireDate = moment().add(15, "m").format();
+
+      await createResetTokenDb({ email, expireDate, fpSalt });
+
+      return { user, fpSalt };
+    } catch (error) {
+      throw new ErrorHandler(error.statusCode, error.message);
+    }
+  }
+
+  async resetPassword(email, token, password) {
+
+    if (!validateEmail(email)) throw new ErrorHandler(401, "Invalid email!");
+    if (!validatePassword(password)) throw new ErrorHandler(401, "Password must be at least 6 characters!");
+
+    const user = await getUserByEmailDb(email);
+    if (!user) throw new ErrorHandler(403, "No user found with this email.");
+
+    try {
+      const isTokenValid = await isValidTokenDb({ token, email, curDate });
+
+      if (!isTokenValid) throw new ErrorHandler(400, "Token is invalid! Please try the reset password process again.",);
+
+      await setTokenStatusDb(email);
+
+      const hashedPassword = await hashPassword(password);
+
+      return await changeUserPasswordDb(email, hashedPassword);
+
+    } catch (error) {
+      throw new ErrorHandler(error.statusCode, error.message);
+    }
+  }
+
+  async changePassword(email, oldPassword, newPassword) {
+    try {
+
+      if (!validateEmail(email)) throw new ErrorHandler(401, "Invalid email!");
+
+      const user = await getUserByEmailDb(email);
+
+      if (!user) throw new ErrorHandler(403, "No user found with this email.");
+
+      const isCorrectPassword = await comparePassword(oldPassword, user.password);
+
+      if (!isCorrectPassword) throw new ErrorHandler(403, "Password is incorrect.");
+
+      if (!validatePassword(newPassword)) throw new ErrorHandler(401, "Password must be at least 6 characters!");
+
+      const hashedPassword = await hashPassword(newPassword);
+
+      const newUser = await changeUserPasswordDb(email, hashedPassword);
+
+      await mail.changePasswordMail(newUser);
+
+      return newUser;
+
+    } catch (error) {
+      throw new ErrorHandler(error.statusCode, error.message);
     }
   }
 }

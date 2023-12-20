@@ -2,10 +2,7 @@ const pool = require("../config");
 
 const getAllUsersDb = async () => {
   const { rows: users } = await pool.query("SELECT * FROM users");
-  return users.map(user => {
-    delete user.password;
-    return user;
-  });
+  return users;
 };
 
 const createUserDb = async ({ username, email, password, name, avatar }) => {
@@ -17,9 +14,7 @@ const createUserDb = async ({ username, email, password, name, avatar }) => {
     returning *`,
     [username, email, password, name, avatar],
   );
-  user = users[0];
-  delete user.password;
-  return user;
+  return users[0];
 };
 
 const getUserByIdDb = async (id) => {

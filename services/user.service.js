@@ -19,8 +19,7 @@ class UserService {
 
   async getUserById(id) {
     try {
-      const user = await getUserByIdDb(id);
-      return user;
+      return await getUserByIdDb(id);
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
@@ -28,8 +27,7 @@ class UserService {
 
   async getUserByEmail(email) {
     try {
-      const user = await getUserByEmailDb(email);
-      return user;
+      return await getUserByEmailDb(email);
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
@@ -37,8 +35,7 @@ class UserService {
 
   async getUserByUsername(username) {
     try {
-      const user = await getUserByUsernameDb(username);
-      return user;
+      return await getUserByUsernameDb(username);
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }

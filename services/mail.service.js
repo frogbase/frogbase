@@ -63,7 +63,48 @@ const signinMail = async (user) => {
   }
 };
 
-const resetPasswordMail = async (user) => {
+const forgetPasswordMail = async (user, fpSalt) => {
+  try {
+    // Calculate the expiration time (15 minutes from now)
+    const expirationTime = new Date(Date.now() + 15 * 60 * 1000).toLocaleString(); // 15 minutes in milliseconds
+    const date = expirationTime.split(",")[0].trim();
+    const time = expirationTime.split(",")[1].trim();
+
+    const message = {
+      from: {
+        name: process.env.SMTP_SENDER_NAME,
+        address: process.env.SMTP_FROM,
+      },
+      to: user.email,
+      subject: `Forget Password token of your ${process.env.PROJECT_NAME}.`,
+      html: `
+        <p>Hello ${user.name},</p>
+        <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
+          <h2 style="color: #333; font-size: 24px;">Forgot Password</h2>
+          <p style="color: #666; font-size: 16px;">Your reset password token is:</p>
+          <div style="background-color: #fff; border: 1px solid #ccc; padding: 10px; border-radius: 5px; font-weight: bold; font-size: 26px; margin-top: 10px;">
+            ${fpSalt}
+          </div>
+          <p style="color: #666; font-size: 14px; margin-top: 20px;">
+            <b>Note: This token will expire on ${time}, ${date} (15 minutes).</b>
+          </p>
+        </div >
+        <p>
+          Thanks,<br/>
+          ${process.env.PROJECT_NAME} team
+        </p>
+      `,
+    };
+
+    const res = await transporter.sendMail(message);
+    return res;
+  } catch (error) {
+    logger.error(error);
+    throw new ErrorHandler(500, error.message);
+  }
+};
+
+const changePasswordMail = async (user) => {
   try {
     const message = {
       from: {
@@ -71,14 +112,10 @@ const resetPasswordMail = async (user) => {
         address: process.env.SMTP_FROM,
       },
       to: user.email,
-      subject: `Reset your ${process.env.PROJECT_NAME} password`,
+      subject: `Password Changed of your ${process.env.PROJECT_NAME}.`,
       html: `
         <p>Hello ${user.name},</p>
-        <p>Click on the button below to reset your password.</p>
-        <p>
-          <a class="btn" href="{ACTION_URL}" target="_blank" rel="noopener">Reset password</a>
-        </p>
-        <p><i>If you didn't ask to reset your password, you can ignore this email.</i></p>
+        <p>Your password has been changed successfully.</p>
         <p>
           Thanks,<br/>
           ${process.env.PROJECT_NAME} team
@@ -93,4 +130,5 @@ const resetPasswordMail = async (user) => {
   }
 };
 
-module.exports = { signupMail, signinMail, resetPasswordMail };
+
+module.exports = { signupMail, signinMail, forgetPasswordMail, changePasswordMail };
