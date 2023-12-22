@@ -7,6 +7,8 @@ const {
   getUserByUsernameDb,
 } = require("../db/functions/user.db");
 const { ErrorHandler } = require("../helpers/error");
+const { logger } = require("../utils/logger");
+const fs = require('fs');
 
 class UserService {
   async getAllUsers() {
@@ -19,7 +21,9 @@ class UserService {
 
   async getUserById(id) {
     try {
-      return await getUserByIdDb(id);
+      const user = await getUserByIdDb(id);
+      if (!user) throw new ErrorHandler(404, "User not found with this user id.");
+      return user;
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
@@ -27,7 +31,9 @@ class UserService {
 
   async getUserByEmail(email) {
     try {
-      return await getUserByEmailDb(email);
+      const user = await getUserByEmailDb(email);
+      if (!user) throw new ErrorHandler(404, "User not found with this email.");
+      return user;
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
@@ -35,7 +41,9 @@ class UserService {
 
   async getUserByUsername(username) {
     try {
-      return await getUserByUsernameDb(username);
+      const user = await getUserByUsernameDb(username);
+      if (!user) throw new ErrorHandler(404, "User not found with this username.");
+      return user;
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
@@ -64,6 +72,7 @@ class UserService {
       if (!user.email) user.email = getUser.email;
       if (!user.name) user.name = getUser.name;
       if (!user.avatar) user.avatar = getUser.avatar;
+      if (user.avatar && getUser.avatar) await this.deleteFile(getUser.avatar)
 
       return await updateUserDb(user);
     } catch (error) {
@@ -73,11 +82,24 @@ class UserService {
 
   async deleteUser(id) {
     try {
-      return await deleteUserDb(id);
+      const user = await deleteUserDb(id);
+      if (!user) throw new ErrorHandler(404, "User not found");
+      if (user.avatar) await this.deleteFile(user.avatar)
+      return user;
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
   };
+
+  async deleteFile(path) {
+    fs.unlink(path, (err) => {
+      if (err) {
+        logger.debug(`Error deleting file path: ${path} Error: ${err.message}`);
+      } else {
+        logger.debug(`File ${path} has been deleted successfully`);
+      }
+    });
+  }
 }
 
 module.exports = new UserService();
