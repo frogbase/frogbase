@@ -42,39 +42,27 @@ class UserService {
   };
 
   async updateUser(user) {
-    const {
-      id, username, email, name, avatar } = user;
+    const { id, username, email, name, avatar } = user;
     const errors = {};
     try {
       const getUser = await getUserByIdDb(id);
+      if (!getUser) throw new ErrorHandler(403, "User not found");
+
       const findUserByEmail = await getUserByEmailDb(email);
       const findUserByUsername = await getUserByUsernameDb(username);
-      const findUserByPhone = await getUserByPhoneDb(phone);
-      const emailChanged =
-        email && getUser.email.toLowerCase() !== email.toLowerCase();
-      const usernameChanged =
-        username && getUser.username.toLowerCase() !== username.toLowerCase();
-      const phoneChanged = phone && getUser.phone !== phone;
 
-      if (emailChanged && typeof findUserByEmail === "object") {
-        errors["email"] = "Email is already taken";
-      }
+      const emailChanged = email && getUser.email.toLowerCase() !== email.toLowerCase();
+      const usernameChanged = username && getUser.username.toLowerCase() !== username.toLowerCase();
 
-      if (usernameChanged && typeof findUserByUsername === "object") {
-        errors["username"] = "Username is already taken";
-      }
+      if (emailChanged && typeof findUserByEmail === "object") errors["email"] = "Email is already taken";
 
-      if (phoneChanged && typeof findUserByPhone === "object") {
-        errors["phone"] = "Phone is already taken";
-      }
+      if (usernameChanged && typeof findUserByUsername === "object") errors["username"] = "Username is already taken";
 
-      if (Object.keys(errors).length > 0) {
-        throw new ErrorHandler(403, errors);
-      }
+      if (Object.keys(errors).length > 0) throw new ErrorHandler(403, errors);
 
       if (!user.username) user.username = getUser.username;
       if (!user.email) user.email = getUser.email;
-      if (!user.name) user.name = getUser.fullname;
+      if (!user.name) user.name = getUser.name;
       if (!user.avatar) user.avatar = getUser.avatar;
 
       return await updateUserDb(user);
