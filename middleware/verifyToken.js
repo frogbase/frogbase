@@ -10,10 +10,10 @@ const verifyToken = async (req, res, next) => {
   try {
     const verified = jwt.verify(token, process.env.SECRET);
     const { rows: users } = await pool.query(
-      `SELECT EXISTS (SELECT * FROM users WHERE id = $1)`,
+      `SELECT * FROM users WHERE id = $1`,
       [verified.id],
     );
-    if (!users[0].exists) throw new ErrorHandler(404, "Invalid user access.")
+    if (!users[0]) throw new ErrorHandler(404, "Invalid user access.")
     req.user = users[0]
     next();
   } catch (error) {

@@ -25,6 +25,7 @@ CREATE TABLE public."resetTokens" (
     updated timestamp with time zone DEFAULT CURRENT_TIMESTAMP
 );
 
+-- posts table
 CREATE TABLE public.posts (
     id SERIAL PRIMARY KEY NOT NULL,
     title character varying(100) NOT NULL,

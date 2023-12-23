@@ -1,32 +1,116 @@
 const pool = require("../config");
 
 const getAllPostsDb = async () => {
-    const { rows: posts } = await pool.query("SELECT * FROM posts");
+    const { rows: posts } = await pool.query(
+        `
+        SELECT
+            posts.id,
+            posts.title,
+            posts.description,
+            posts.image,
+            json_build_object(
+                'id', users_creator.id,
+                'username', users_creator.username,
+                'email', users_creator.email,
+                'password', users_creator.password,
+                'name', users_creator.name,
+                'avatar', users_creator.avatar,
+                'created', users_creator.created,
+                'updated', users_creator.updated
+            ) AS creator,
+            CASE
+                WHEN posts.updator IS NOT NULL THEN
+                    json_build_object(
+                        'id', users_updator.id,
+                        'username', users_updator.username,
+                        'email', users_updator.email,
+                        'password', users_updator.password,
+                        'name', users_updator.name,
+                        'avatar', users_updator.avatar,
+                        'created', users_updator.created,
+                        'updated', users_updator.updated
+                    )
+                ELSE
+                    NULL
+            END AS updator,
+            posts.created,
+            posts.updated
+        FROM
+            public.posts
+        JOIN
+            public.users AS users_creator ON posts.creator = users_creator.id
+        LEFT JOIN
+            public.users AS users_updator ON posts.updator = users_updator.id;
+        `
+    );
     return posts;
 };
 
-const createPostDb = async ({ title, description, image }) => {
+const createPostDb = async ({ title, description, image, creator }) => {
     image = image || null;
     const { rows: posts } = await pool.query(
-        `INSERT INTO posts(title, description, image)
-    VALUES($1, $2, $3)
+        `INSERT INTO posts(title, description, image, creator)
+    VALUES($1, $2, $3, $4)
     returning *`,
-        [title, description, image],
+        [title, description, image, creator.id],
     );
     return posts[0];
 };
 
 const getPostByIdDb = async (id) => {
-    const { rows: posts } = await pool.query(`SELECT * FROM posts WHERE id = $1`, [id]);
+    const { rows: posts } = await pool.query(
+        `
+        SELECT
+            posts.id,
+            posts.title,
+            posts.description,
+            posts.image,
+            json_build_object(
+                'id', users_creator.id,
+                'username', users_creator.username,
+                'email', users_creator.email,
+                'password', users_creator.password,
+                'name', users_creator.name,
+                'avatar', users_creator.avatar,
+                'created', users_creator.created,
+                'updated', users_creator.updated
+            ) AS creator,
+            CASE
+                WHEN posts.updator IS NOT NULL THEN
+                    json_build_object(
+                        'id', users_updator.id,
+                        'username', users_updator.username,
+                        'email', users_updator.email,
+                        'password', users_updator.password,
+                        'name', users_updator.name,
+                        'avatar', users_updator.avatar,
+                        'created', users_updator.created,
+                        'updated', users_updator.updated
+                    )
+                ELSE
+                    NULL
+            END AS updator,
+            posts.created,
+            posts.updated
+        FROM
+            public.posts
+        JOIN
+            public.users AS users_creator ON posts.creator = users_creator.id
+        LEFT JOIN
+            public.users AS users_updator ON posts.updator = users_updator.id
+        WHERE
+            posts.id = $1;
+        `,
+        [id]);
     return posts[0];
 };
 
-const updatePostDb = async ({ id, title, description, image }) => {
+const updatePostDb = async ({ id, title, description, image, updator }) => {
     const { rows: posts } = await pool.query(
-        `UPDATE posts set title = $2, description = $3, image = $4
+        `UPDATE posts set title = $2, description = $3, image = $4, updator = $5
     WHERE id = $1
     RETURNING *`,
-        [id, title, description, image],
+        [id, title, description, image, updator.id],
     );
     return posts[0];
 };

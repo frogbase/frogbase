@@ -10,9 +10,9 @@ const { ErrorHandler } = require("../helpers/error");
 class PostService {
 
     async createPost(post) {
-        const { title, description, image } = post;
+        const { title, description, image, creator } = post;
         try {
-            return await createPostDb({ title, description, image });
+            return await createPostDb({ title, description, image, creator });
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message);
         }
@@ -34,10 +34,10 @@ class PostService {
     };
 
     async updatePost(post) {
-        const {
-            id, title, description, image } = post;
+        const { id, title, description, image, updator } = post;
         try {
             const getPost = await getPostByIdDb(id);
+            if (!getPost) throw new ErrorHandler(403, "Post not found");
 
             if (!post.title) post.title = getPost.title;
             if (!post.description) post.description = getPost.description;

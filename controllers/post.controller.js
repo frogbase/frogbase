@@ -4,7 +4,7 @@ const { ErrorHandler } = require("../helpers/error");
 const createPost = async (req, res) => {
     const { title, description, image } = req.body;
     try {
-        const result = await postService.createPost({ title, description, image });
+        const result = await postService.createPost({ title, description, image, creator: req.user });
         res.status(201).json({
             success: true,
             message: "Post created successfully!",
@@ -42,12 +42,7 @@ const getPostById = async (req, res) => {
 const updatePost = async (req, res) => {
     const { title, description, image } = req.body;
     try {
-        const result = await postService.updatePost({
-            id: req.params.id,
-            title,
-            description,
-            image,
-        });
+        const result = await postService.updatePost({ id: req.params.id, title, description, image, updator: req.user });;
 
         return res.status(201).json({
             success: true,
