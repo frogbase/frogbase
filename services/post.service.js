@@ -6,6 +6,8 @@ const {
     deletePostDb,
 } = require("../db/functions/post.db");
 const { ErrorHandler } = require("../helpers/error");
+const { logger } = require("../utils/logger");
+const fs = require('fs');
 
 class PostService {
 
@@ -42,6 +44,7 @@ class PostService {
             if (!post.title) post.title = getPost.title;
             if (!post.description) post.description = getPost.description;
             if (!post.image) post.image = getPost.image;
+            if (post.image && getPost.image) await this.deleteFile(getPost.image)
 
             return await updatePostDb(post);
         } catch (error) {
@@ -51,11 +54,24 @@ class PostService {
 
     async deletePost(id) {
         try {
-            return await deletePostDb(id);
+            const post = await deletePostDb(id);
+            if (!post) throw new ErrorHandler(404, "Post not found");
+            if (post.image) await this.deleteFile(post.image)
+            return post;
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message);
         }
     };
+
+    async deleteFile(path) {
+        fs.unlink(path, (err) => {
+            if (err) {
+                logger.debug(`Error deleting file path: ${path} Error: ${err.message}`);
+            } else {
+                logger.debug(`File ${path} has been deleted successfully`);
+            }
+        });
+    }
 }
 
 module.exports = new PostService();
