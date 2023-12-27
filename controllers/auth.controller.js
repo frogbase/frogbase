@@ -41,7 +41,7 @@ const regenerateTokens = async (req, res) => {
   res.status(200).json({
     success: true,
     message: "Tokens refreshed successfully!",
-    tokens: {
+    data: {
       "access-token": accessToken,
       "refresh-token": refreshToken,
     },
