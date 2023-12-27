@@ -38,7 +38,6 @@ const PORT = process.env.PORT || 9000;
 const IP = process.env.IP || `0.0.0.0`;
 
 app.use(`/api/health`, (req, res, _) => {
-    // TODO: Add device information
     return res.status(200).json({
         success: true,
         statusCode: 200,
