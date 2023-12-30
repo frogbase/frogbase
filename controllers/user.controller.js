@@ -5,6 +5,7 @@ const getAllUsers = async (req, res) => {
   const results = await userService.getAllUsers();
   res.status(200).json({
     success: true,
+    statusCode: 200,
     message: "Users retrieved successfully!",
     data: results,
   });
@@ -15,6 +16,7 @@ const getUserById = async (req, res) => {
     const user = await userService.getUserById(req.params.id);
     return res.status(200).json({
       success: true,
+      statusCode: 200,
       message: "User found!",
       data: user,
     });
@@ -34,8 +36,9 @@ const updateUser = async (req, res) => {
       avatar,
     });
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
+      statusCode: 200,
       message: "User updated successfully!",
       data: result,
     });
@@ -49,6 +52,7 @@ const deleteUser = async (req, res) => {
     const result = await userService.deleteUser(req.params.id);
     res.status(200).json({
       success: true,
+      statusCode: 200,
       message: "User deleted successfully!",
       data: result,
     });

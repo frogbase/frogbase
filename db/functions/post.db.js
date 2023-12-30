@@ -1,8 +1,27 @@
 const pool = require("../config");
 
-const getAllPostsDb = async () => {
-    const { rows: posts } = await pool.query(
-        `
+const getAllPostsDb = async (page, limit, filter) => {
+    const offset = (page - 1) * limit;
+
+    let whereClause = '';
+    let filterParam = '';
+
+    if (filter) {
+        whereClause = `
+            WHERE
+                posts.title ILIKE $3 OR
+                posts.description ILIKE $3 OR
+                users_creator.username ILIKE $3 OR
+                users_creator.name ILIKE $3 OR
+                users_creator.email ILIKE $3 OR
+                (users_updator.username ILIKE $3 AND users_updator.username IS NOT NULL) OR
+                (users_updator.name ILIKE $3 AND users_updator.name IS NOT NULL) OR
+                (users_updator.email ILIKE $3 AND users_updator.email IS NOT NULL)
+        `;
+        filterParam = `%${filter}%`;
+    }
+
+    const queryString = `
         SELECT
             posts.id,
             posts.title,
@@ -40,9 +59,15 @@ const getAllPostsDb = async () => {
         JOIN
             public.users AS users_creator ON posts.creator = users_creator.id
         LEFT JOIN
-            public.users AS users_updator ON posts.updator = users_updator.id;
-        `
-    );
+            public.users AS users_updator ON posts.updator = users_updator.id
+        ${whereClause}
+        ORDER BY posts.created DESC
+        LIMIT $1 OFFSET $2
+    `;
+
+    const queryParams = filter ? [limit, offset, filterParam] : [limit, offset];
+
+    const { rows: posts } = await pool.query(queryString, queryParams);
     return posts;
 };
 

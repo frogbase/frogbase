@@ -2,6 +2,7 @@
 const fileUpload = async (req, res) => {
     return res.status(201).json({
         success: true,
+        statusCode: 201,
         message: "File uploaded successfully!",
         data: req.files.map((file) => {
             return {

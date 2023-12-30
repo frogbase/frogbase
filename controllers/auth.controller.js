@@ -8,6 +8,7 @@ const signup = async (req, res) => {
 
   res.status(201).json({
     success: true,
+    statusCode: 201,
     message: "Account created successfully!",
     data: user,
     tokens: {
@@ -24,6 +25,7 @@ const signin = async (req, res) => {
 
   res.status(200).json({
     success: true,
+    statusCode: 200,
     message: "User credentials are correct!",
     data: user,
     tokens: {
@@ -40,6 +42,7 @@ const regenerateTokens = async (req, res) => {
   const { accessToken, refreshToken } = await authService.regenerateTokens(rft);
   res.status(200).json({
     success: true,
+    statusCode: 200,
     message: "Tokens refreshed successfully!",
     data: {
       "access-token": accessToken,
@@ -57,6 +60,7 @@ const forgetPassword = async (req, res) => {
 
   res.status(200).json({
     success: true,
+    statusCode: 200,
     message: "A reset password token has been sent to your registered email address.",
     data: fpSalt,
   });
@@ -69,6 +73,7 @@ const resetPassword = async (req, res) => {
 
   res.status(200).json({
     success: true,
+    statusCode: 200,
     message: "Password has been reset successfully!",
     data: user,
   });
@@ -81,6 +86,7 @@ const changePassword = async (req, res) => {
 
   res.status(200).json({
     success: true,
+    statusCode: 200,
     message: "Password has been changed successfully!",
     data: user,
   });

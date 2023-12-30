@@ -7,6 +7,7 @@ const createPost = async (req, res) => {
         const result = await postService.createPost({ title, description, image, creator: req.user });
         res.status(201).json({
             success: true,
+            statusCode: 201,
             message: "Post created successfully!",
             data: result,
         });
@@ -16,10 +17,17 @@ const createPost = async (req, res) => {
 }
 
 const getAllPosts = async (req, res) => {
-    const results = await postService.getAllPosts();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const filter = (req.query.filter !== undefined && req.query.filter !== '') ? req.query.filter : null;
+    const results = await postService.getAllPosts(page, limit, filter);
     res.status(200).json({
         success: true,
+        statusCode: 200,
         message: "Posts retrieved successfully!",
+        page: page,
+        limit: limit,
+        filter: filter,
         data: results,
     });
 };
@@ -31,6 +39,7 @@ const getPostById = async (req, res) => {
         const post = await postService.getPostById(id);
         return res.status(200).json({
             success: true,
+            statusCode: 200,
             message: "Post found!",
             data: post,
         });
@@ -46,6 +55,7 @@ const updatePost = async (req, res) => {
 
         return res.status(201).json({
             success: true,
+            statusCode: 201,
             message: "Post updated successfully!",
             data: result,
         });
@@ -60,6 +70,7 @@ const deletePost = async (req, res) => {
         const result = await postService.deletePost(id);
         res.status(200).json({
             success: true,
+            statusCode: 200,
             message: "Post deleted successfully!",
             data: result,
         });

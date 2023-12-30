@@ -19,9 +19,9 @@ class PostService {
             throw new ErrorHandler(error.statusCode, error.message);
         }
     }
-    async getAllPosts() {
+    async getAllPosts(page, limit, filter) {
         try {
-            return await getAllPostsDb();
+            return await getAllPostsDb(page, limit, filter);
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message);
         }
