@@ -1,41 +1,20 @@
-Full Request:  <ref *2> IncomingMessage {
+Request body:  <ref *2> IncomingMessage {
+  _events: {
+    close: undefined,
+    error: undefined,
+    data: undefined,
+    end: undefined,
+    readable: undefined
+  },
   _readableState: ReadableState {
-    objectMode: false,
     highWaterMark: 16384,
-    buffer: BufferList { head: null, tail: null, length: 0
-        },
+    buffer: [],
+    bufferIndex: 0,
     length: 0,
     pipes: [],
-    flowing: null,
-    ended: true,
-    endEmitted: false,
-    reading: false,
-    constructed: true,
-    sync: true,
-    needReadable: false,
-    emittedReadable: false,
-    readableListening: false,
-    resumeScheduled: false,
-    errorEmitted: false,
-    emitClose: true,
-    autoDestroy: true,
-    destroyed: false,
-    errored: null,
-    closed: false,
-    closeEmitted: false,
-    defaultEncoding: 'utf8',
     awaitDrainWriters: null,
-    multiAwaitDrain: false,
-    readingMore: true,
-    dataEmitted: false,
-    decoder: null,
-    encoding: null,
-        [Symbol(kPaused)
-        ]: null
-    },
-  _events: [Object: null prototype
-    ] {},
-  _eventsCount: 0,
+    [Symbol(kState)]: 1315084
+  },
   _maxListeners: undefined,
   socket: <ref *1> Socket {
     connecting: false,
@@ -43,99 +22,42 @@ Full Request:  <ref *2> IncomingMessage {
     _parent: null,
     _host: null,
     _closeAfterHandlingError: false,
+    _events: {
+      close: [Array],
+      error: [Array],
+      prefinish: undefined,
+      finish: undefined,
+      drain: [Function: bound socketOnDrain],
+      data: [Function: bound socketOnData],
+      end: [Array],
+      readable: undefined,
+      timeout: [Function: socketOnTimeout],
+      resume: [Function: onSocketResume],
+      pause: [Function: onSocketPause]
+    },
     _readableState: ReadableState {
-      objectMode: false,
       highWaterMark: 16384,
-      buffer: BufferList { head: null, tail: null, length: 0
-            },
+      buffer: [],
+      bufferIndex: 0,
       length: 0,
       pipes: [],
-      flowing: true,
-      ended: false,
-      endEmitted: false,
-      reading: true,
-      constructed: true,
-      sync: false,
-      needReadable: true,
-      emittedReadable: false,
-      readableListening: false,
-      resumeScheduled: false,
-      errorEmitted: false,
-      emitClose: false,
-      autoDestroy: true,
-      destroyed: false,
-      errored: null,
-      closed: false,
-      closeEmitted: false,
-      defaultEncoding: 'utf8',
       awaitDrainWriters: null,
-      multiAwaitDrain: false,
-      readingMore: false,
-      dataEmitted: false,
-      decoder: null,
-      encoding: null,
-            [Symbol(kPaused)
-            ]: false
-        },
-    _events: [Object: null prototype
-        ] {
-      end: [Array
-            ],
-      timeout: [Function: socketOnTimeout
-            ],
-      data: [Function: bound socketOnData
-            ],
-      error: [Array
-            ],
-      close: [Array
-            ],
-      drain: [Function: bound socketOnDrain
-            ],
-      resume: [Function: onSocketResume
-            ],
-      pause: [Function: onSocketPause
-            ]
-        },
-    _eventsCount: 8,
-    _maxListeners: undefined,
+      [Symbol(kState)]: 193997060
+    },
     _writableState: WritableState {
-      objectMode: false,
       highWaterMark: 16384,
-      finalCalled: false,
-      needDrain: false,
-      ending: false,
-      ended: false,
-      finished: false,
-      destroyed: false,
-      decodeStrings: false,
-      defaultEncoding: 'utf8',
       length: 0,
-      writing: false,
       corked: 0,
-      sync: true,
-      bufferProcessing: false,
-      onwrite: [Function: bound onwrite
-            ],
-      writecb: null,
+      onwrite: [Function: bound onwrite],
       writelen: 0,
-      afterWriteTickInfo: null,
-      buffered: [],
       bufferedIndex: 0,
-      allBuffers: true,
-      allNoop: true,
       pendingcb: 0,
-      constructed: true,
-      prefinished: false,
-      errorEmitted: false,
-      emitClose: false,
-      autoDestroy: true,
-      errored: null,
-      closed: false,
-      closeEmitted: false,
-            [Symbol(kOnFinished)
-            ]: []
-        },
+      [Symbol(kState)]: 17564420,
+      [Symbol(kBufferedValue)]: null
+    },
     allowHalfOpen: true,
+    _maxListeners: undefined,
+    _eventsCount: 8,
     _sockname: null,
     _pendingData: null,
     _pendingEncoding: '',
@@ -149,13 +71,11 @@ Full Request:  <ref *2> IncomingMessage {
       requireHostHeader: true,
       joinDuplicateHeaders: undefined,
       rejectNonStandardBodyWrites: false,
-      _events: [Object: null prototype
-            ],
+      _events: [Object: null prototype],
       _eventsCount: 3,
       _maxListeners: undefined,
       _connections: 1,
-      _handle: [TCP
-            ],
+      _handle: [TCP],
       _usingWorkers: false,
       _workers: [],
       _unref: false,
@@ -169,44 +89,29 @@ Full Request:  <ref *2> IncomingMessage {
       timeout: 0,
       maxHeadersCount: null,
       maxRequestsPerSocket: 0,
-      _connectionKey: '4: 0.0.0.0: 4200',
-            [Symbol(IncomingMessage)
-            ]: [Function: IncomingMessage
-            ],
-            [Symbol(ServerResponse)
-            ]: [Function: ServerResponse
-            ],
-            [Symbol(kCapture)
-            ]: false,
-            [Symbol(async_id_symbol)
-            ]: 14,
-            [Symbol(kUniqueHeaders)
-            ]: null,
-            [Symbol(http.server.connections)
-            ]: ConnectionsList {},
-            [Symbol(http.server.connectionsCheckingInterval)
-            ]: Timeout {
+      _connectionKey: '4:0.0.0.0:4200',
+      [Symbol(IncomingMessage)]: [Function: IncomingMessage],
+      [Symbol(ServerResponse)]: [Function: ServerResponse],
+      [Symbol(shapeMode)]: false,
+      [Symbol(kCapture)]: false,
+      [Symbol(async_id_symbol)]: 16,
+      [Symbol(kUniqueHeaders)]: null,
+      [Symbol(http.server.connections)]: ConnectionsList {},
+      [Symbol(http.server.connectionsCheckingInterval)]: Timeout {
         _idleTimeout: 30000,
-        _idlePrev: [TimersList
-                ],
-        _idleNext: [TimersList
-                ],
-        _idleStart: 60159,
-        _onTimeout: [Function: bound checkConnections
-                ],
+        _idlePrev: [TimersList],
+        _idleNext: [TimersList],
+        _idleStart: 160,
+        _onTimeout: [Function: bound checkConnections],
         _timerArgs: undefined,
         _repeat: 30000,
         _destroyed: false,
-                [Symbol(refed)
-                ]: false,
-                [Symbol(kHasPrimitive)
-                ]: false,
-                [Symbol(asyncId)
-                ]: 16,
-                [Symbol(triggerId)
-                ]: 15
-            }
-        },
+        [Symbol(refed)]: false,
+        [Symbol(kHasPrimitive)]: false,
+        [Symbol(asyncId)]: 18,
+        [Symbol(triggerId)]: 17
+      }
+    },
     _server: Server {
       maxHeaderSize: undefined,
       insecureHTTPParser: undefined,
@@ -217,13 +122,11 @@ Full Request:  <ref *2> IncomingMessage {
       requireHostHeader: true,
       joinDuplicateHeaders: undefined,
       rejectNonStandardBodyWrites: false,
-      _events: [Object: null prototype
-            ],
+      _events: [Object: null prototype],
       _eventsCount: 3,
       _maxListeners: undefined,
       _connections: 1,
-      _handle: [TCP
-            ],
+      _handle: [TCP],
       _usingWorkers: false,
       _workers: [],
       _unref: false,
@@ -237,86 +140,55 @@ Full Request:  <ref *2> IncomingMessage {
       timeout: 0,
       maxHeadersCount: null,
       maxRequestsPerSocket: 0,
-      _connectionKey: '4: 0.0.0.0: 4200',
-            [Symbol(IncomingMessage)
-            ]: [Function: IncomingMessage
-            ],
-            [Symbol(ServerResponse)
-            ]: [Function: ServerResponse
-            ],
-            [Symbol(kCapture)
-            ]: false,
-            [Symbol(async_id_symbol)
-            ]: 14,
-            [Symbol(kUniqueHeaders)
-            ]: null,
-            [Symbol(http.server.connections)
-            ]: ConnectionsList {},
-            [Symbol(http.server.connectionsCheckingInterval)
-            ]: Timeout {
+      _connectionKey: '4:0.0.0.0:4200',
+      [Symbol(IncomingMessage)]: [Function: IncomingMessage],
+      [Symbol(ServerResponse)]: [Function: ServerResponse],
+      [Symbol(shapeMode)]: false,
+      [Symbol(kCapture)]: false,
+      [Symbol(async_id_symbol)]: 16,
+      [Symbol(kUniqueHeaders)]: null,
+      [Symbol(http.server.connections)]: ConnectionsList {},
+      [Symbol(http.server.connectionsCheckingInterval)]: Timeout {
         _idleTimeout: 30000,
-        _idlePrev: [TimersList
-                ],
-        _idleNext: [TimersList
-                ],
-        _idleStart: 60159,
-        _onTimeout: [Function: bound checkConnections
-                ],
+        _idlePrev: [TimersList],
+        _idleNext: [TimersList],
+        _idleStart: 160,
+        _onTimeout: [Function: bound checkConnections],
         _timerArgs: undefined,
         _repeat: 30000,
         _destroyed: false,
-                [Symbol(refed)
-                ]: false,
-                [Symbol(kHasPrimitive)
-                ]: false,
-                [Symbol(asyncId)
-                ]: 16,
-                [Symbol(triggerId)
-                ]: 15
-            }
-        },
+        [Symbol(refed)]: false,
+        [Symbol(kHasPrimitive)]: false,
+        [Symbol(asyncId)]: 18,
+        [Symbol(triggerId)]: 17
+      }
+    },
     parser: HTTPParser {
       '0': null,
-      '1': [Function: parserOnHeaders
-            ],
-      '2': [Function: parserOnHeadersComplete
-            ],
-      '3': [Function: parserOnBody
-            ],
-      '4': [Function: parserOnMessageComplete
-            ],
-      '5': [Function: bound onParserExecute
-            ],
-      '6': [Function: bound onParserTimeout
-            ],
+      '1': [Function: parserOnHeaders],
+      '2': [Function: parserOnHeadersComplete],
+      '3': [Function: parserOnBody],
+      '4': [Function: parserOnMessageComplete],
+      '5': [Function: bound onParserExecute],
+      '6': [Function: bound onParserTimeout],
       _headers: [],
       _url: '',
-      socket: [Circular *1
-            ],
-      incoming: [Circular *2
-            ],
+      socket: [Circular *1],
+      incoming: [Circular *2],
       outgoing: null,
       maxHeaderPairs: 2000,
       _consumed: true,
-      onIncoming: [Function: bound parserOnIncoming
-            ],
+      onIncoming: [Function: bound parserOnIncoming],
       joinDuplicateHeaders: null,
-            [Symbol(resource_symbol)
-            ]: [HTTPServerAsyncResource
-            ]
-        },
-    on: [Function: socketListenerWrap
-        ],
-    addListener: [Function: socketListenerWrap
-        ],
-    prependListener: [Function: socketListenerWrap
-        ],
-    setEncoding: [Function: socketSetEncoding
-        ],
+      [Symbol(resource_symbol)]: [HTTPServerAsyncResource]
+    },
+    on: [Function: socketListenerWrap],
+    addListener: [Function: socketListenerWrap],
+    prependListener: [Function: socketListenerWrap],
+    setEncoding: [Function: socketSetEncoding],
     _paused: false,
     _httpMessage: ServerResponse {
-      _events: [Object: null prototype
-            ],
+      _events: [Object: null prototype],
       _eventsCount: 2,
       _maxListeners: undefined,
       outputData: [],
@@ -340,110 +212,82 @@ Full Request:  <ref *2> IncomingMessage {
       finished: false,
       _headerSent: false,
       _closed: false,
-      socket: [Circular *1
-            ],
       _header: null,
       _keepAliveTimeout: 5000,
-      _onPendingData: [Function: bound updateOutgoingData
-            ],
-      req: [Circular *2
-            ],
+      _onPendingData: [Function: bound updateOutgoingData],
+      req: [Circular *2],
       _sent100: false,
       _expect_continue: false,
       _maxRequestsPerSocket: 0,
-      locals: [Object: null prototype
-            ] {},
+      locals: [Object: null prototype] {},
       _startAt: undefined,
       _startTime: undefined,
-      writeHead: [Function: writeHead
-            ],
-      __onFinished: [Function
-            ],
-      flush: [Function: flush
-            ],
-      write: [Function: write
-            ],
-      end: [Function: end
-            ],
-      on: [Function: on
-            ],
-            [Symbol(kCapture)
-            ]: false,
-            [Symbol(kBytesWritten)
-            ]: 0,
-            [Symbol(kNeedDrain)
-            ]: false,
-            [Symbol(corked)
-            ]: 0,
-            [Symbol(kOutHeaders)
-            ]: [Object: null prototype
-            ],
-            [Symbol(errored)
-            ]: null,
-            [Symbol(kHighWaterMark)
-            ]: 16384,
-            [Symbol(kRejectNonStandardBodyWrites)
-            ]: false,
-            [Symbol(kUniqueHeaders)
-            ]: null
-        },
-    _peername: { address: '127.0.0.1', family: 'IPv4', port: 62878
-        },
-        [Symbol(async_id_symbol)
-        ]: 159,
-        [Symbol(kHandle)
-        ]: TCP {
+      writeHead: [Function: writeHead],
+      __onFinished: [Function],
+      flush: [Function: flush],
+      write: [Function: write],
+      end: [Function: end],
+      on: [Function: on],
+      [Symbol(shapeMode)]: false,
+      [Symbol(kCapture)]: false,
+      [Symbol(kBytesWritten)]: 0,
+      [Symbol(kNeedDrain)]: false,
+      [Symbol(corked)]: 0,
+      [Symbol(kChunkedBuffer)]: [],
+      [Symbol(kChunkedLength)]: 0,
+      [Symbol(kSocket)]: [Circular *1],
+      [Symbol(kOutHeaders)]: [Object: null prototype],
+      [Symbol(errored)]: null,
+      [Symbol(kHighWaterMark)]: 16384,
+      [Symbol(kRejectNonStandardBodyWrites)]: false,
+      [Symbol(kUniqueHeaders)]: null
+    },
+    _peername: { address: '103.177.166.78', family: 'IPv4', port: 54067 },
+    [Symbol(async_id_symbol)]: 20,
+    [Symbol(kHandle)]: TCP {
       reading: true,
       onconnection: null,
       _consumed: true,
-            [Symbol(owner_symbol)
-            ]: [Circular *1
-            ]
-        },
-        [Symbol(lastWriteQueueSize)
-        ]: 0,
-        [Symbol(timeout)
-        ]: null,
-        [Symbol(kBuffer)
-        ]: null,
-        [Symbol(kBufferCb)
-        ]: null,
-        [Symbol(kBufferGen)
-        ]: null,
-        [Symbol(kCapture)
-        ]: false,
-        [Symbol(kSetNoDelay)
-        ]: true,
-        [Symbol(kSetKeepAlive)
-        ]: false,
-        [Symbol(kSetKeepAliveInitialDelay)
-        ]: 0,
-        [Symbol(kBytesRead)
-        ]: 0,
-        [Symbol(kBytesWritten)
-        ]: 0
+      [Symbol(owner_symbol)]: [Circular *1]
     },
+    [Symbol(lastWriteQueueSize)]: 0,
+    [Symbol(timeout)]: null,
+    [Symbol(kBuffer)]: null,
+    [Symbol(kBufferCb)]: null,
+    [Symbol(kBufferGen)]: null,
+    [Symbol(shapeMode)]: true,
+    [Symbol(kCapture)]: false,
+    [Symbol(kSetNoDelay)]: true,
+    [Symbol(kSetKeepAlive)]: false,
+    [Symbol(kSetKeepAliveInitialDelay)]: 0,
+    [Symbol(kBytesRead)]: 0,
+    [Symbol(kBytesWritten)]: 0
+  },
   httpVersionMajor: 1,
   httpVersionMinor: 1,
   httpVersion: '1.1',
-  complete: true,
+  complete: false,
   rawHeaders: [
-    'user-agent',
-    'Dart/3.2 (dart:io)',
-    'content-type',
-    'application/json',
-    'accept-encoding',
-    'gzip',
-    'authorization',
-    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzAzOTY1ODIwLCJleHAiOjE3MDM5Njc2MjB9.HLiccBYtjf9iwvbETA8-z13t8Zc4haF1x2kNAXIy7Bo',
-    'host',
-    '127.0.0.1: 4200'
-    ],
+    'Host',
+    'home.algoramming.com:4200',
+    'Upgrade-Insecure-Requests',
+    '1',
+    'Accept',
+    'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'User-Agent',
+    'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) GSA/297.0.594082364 Mobile/15E148 Safari/604.1',
+    'Accept-Language',
+    'en-GB,en;q=0.9',
+    'Accept-Encoding',
+    'gzip, deflate',
+    'Connection',
+    'keep-alive'
+  ],
   rawTrailers: [],
   joinDuplicateHeaders: null,
   aborted: false,
   upgrade: false,
-  url: '/?page=1&limit=50&filter=',
+  url: '/',
   method: 'GET',
   statusCode: null,
   statusMessage: null,
@@ -453,99 +297,42 @@ Full Request:  <ref *2> IncomingMessage {
     _parent: null,
     _host: null,
     _closeAfterHandlingError: false,
+    _events: {
+      close: [Array],
+      error: [Array],
+      prefinish: undefined,
+      finish: undefined,
+      drain: [Function: bound socketOnDrain],
+      data: [Function: bound socketOnData],
+      end: [Array],
+      readable: undefined,
+      timeout: [Function: socketOnTimeout],
+      resume: [Function: onSocketResume],
+      pause: [Function: onSocketPause]
+    },
     _readableState: ReadableState {
-      objectMode: false,
       highWaterMark: 16384,
-      buffer: BufferList { head: null, tail: null, length: 0
-            },
+      buffer: [],
+      bufferIndex: 0,
       length: 0,
       pipes: [],
-      flowing: true,
-      ended: false,
-      endEmitted: false,
-      reading: true,
-      constructed: true,
-      sync: false,
-      needReadable: true,
-      emittedReadable: false,
-      readableListening: false,
-      resumeScheduled: false,
-      errorEmitted: false,
-      emitClose: false,
-      autoDestroy: true,
-      destroyed: false,
-      errored: null,
-      closed: false,
-      closeEmitted: false,
-      defaultEncoding: 'utf8',
       awaitDrainWriters: null,
-      multiAwaitDrain: false,
-      readingMore: false,
-      dataEmitted: false,
-      decoder: null,
-      encoding: null,
-            [Symbol(kPaused)
-            ]: false
-        },
-    _events: [Object: null prototype
-        ] {
-      end: [Array
-            ],
-      timeout: [Function: socketOnTimeout
-            ],
-      data: [Function: bound socketOnData
-            ],
-      error: [Array
-            ],
-      close: [Array
-            ],
-      drain: [Function: bound socketOnDrain
-            ],
-      resume: [Function: onSocketResume
-            ],
-      pause: [Function: onSocketPause
-            ]
-        },
-    _eventsCount: 8,
-    _maxListeners: undefined,
+      [Symbol(kState)]: 193997060
+    },
     _writableState: WritableState {
-      objectMode: false,
       highWaterMark: 16384,
-      finalCalled: false,
-      needDrain: false,
-      ending: false,
-      ended: false,
-      finished: false,
-      destroyed: false,
-      decodeStrings: false,
-      defaultEncoding: 'utf8',
       length: 0,
-      writing: false,
       corked: 0,
-      sync: true,
-      bufferProcessing: false,
-      onwrite: [Function: bound onwrite
-            ],
-      writecb: null,
+      onwrite: [Function: bound onwrite],
       writelen: 0,
-      afterWriteTickInfo: null,
-      buffered: [],
       bufferedIndex: 0,
-      allBuffers: true,
-      allNoop: true,
       pendingcb: 0,
-      constructed: true,
-      prefinished: false,
-      errorEmitted: false,
-      emitClose: false,
-      autoDestroy: true,
-      errored: null,
-      closed: false,
-      closeEmitted: false,
-            [Symbol(kOnFinished)
-            ]: []
-        },
+      [Symbol(kState)]: 17564420,
+      [Symbol(kBufferedValue)]: null
+    },
     allowHalfOpen: true,
+    _maxListeners: undefined,
+    _eventsCount: 8,
     _sockname: null,
     _pendingData: null,
     _pendingEncoding: '',
@@ -559,13 +346,11 @@ Full Request:  <ref *2> IncomingMessage {
       requireHostHeader: true,
       joinDuplicateHeaders: undefined,
       rejectNonStandardBodyWrites: false,
-      _events: [Object: null prototype
-            ],
+      _events: [Object: null prototype],
       _eventsCount: 3,
       _maxListeners: undefined,
       _connections: 1,
-      _handle: [TCP
-            ],
+      _handle: [TCP],
       _usingWorkers: false,
       _workers: [],
       _unref: false,
@@ -579,44 +364,29 @@ Full Request:  <ref *2> IncomingMessage {
       timeout: 0,
       maxHeadersCount: null,
       maxRequestsPerSocket: 0,
-      _connectionKey: '4: 0.0.0.0: 4200',
-            [Symbol(IncomingMessage)
-            ]: [Function: IncomingMessage
-            ],
-            [Symbol(ServerResponse)
-            ]: [Function: ServerResponse
-            ],
-            [Symbol(kCapture)
-            ]: false,
-            [Symbol(async_id_symbol)
-            ]: 14,
-            [Symbol(kUniqueHeaders)
-            ]: null,
-            [Symbol(http.server.connections)
-            ]: ConnectionsList {},
-            [Symbol(http.server.connectionsCheckingInterval)
-            ]: Timeout {
+      _connectionKey: '4:0.0.0.0:4200',
+      [Symbol(IncomingMessage)]: [Function: IncomingMessage],
+      [Symbol(ServerResponse)]: [Function: ServerResponse],
+      [Symbol(shapeMode)]: false,
+      [Symbol(kCapture)]: false,
+      [Symbol(async_id_symbol)]: 16,
+      [Symbol(kUniqueHeaders)]: null,
+      [Symbol(http.server.connections)]: ConnectionsList {},
+      [Symbol(http.server.connectionsCheckingInterval)]: Timeout {
         _idleTimeout: 30000,
-        _idlePrev: [TimersList
-                ],
-        _idleNext: [TimersList
-                ],
-        _idleStart: 60159,
-        _onTimeout: [Function: bound checkConnections
-                ],
+        _idlePrev: [TimersList],
+        _idleNext: [TimersList],
+        _idleStart: 160,
+        _onTimeout: [Function: bound checkConnections],
         _timerArgs: undefined,
         _repeat: 30000,
         _destroyed: false,
-                [Symbol(refed)
-                ]: false,
-                [Symbol(kHasPrimitive)
-                ]: false,
-                [Symbol(asyncId)
-                ]: 16,
-                [Symbol(triggerId)
-                ]: 15
-            }
-        },
+        [Symbol(refed)]: false,
+        [Symbol(kHasPrimitive)]: false,
+        [Symbol(asyncId)]: 18,
+        [Symbol(triggerId)]: 17
+      }
+    },
     _server: Server {
       maxHeaderSize: undefined,
       insecureHTTPParser: undefined,
@@ -627,13 +397,11 @@ Full Request:  <ref *2> IncomingMessage {
       requireHostHeader: true,
       joinDuplicateHeaders: undefined,
       rejectNonStandardBodyWrites: false,
-      _events: [Object: null prototype
-            ],
+      _events: [Object: null prototype],
       _eventsCount: 3,
       _maxListeners: undefined,
       _connections: 1,
-      _handle: [TCP
-            ],
+      _handle: [TCP],
       _usingWorkers: false,
       _workers: [],
       _unref: false,
@@ -647,86 +415,55 @@ Full Request:  <ref *2> IncomingMessage {
       timeout: 0,
       maxHeadersCount: null,
       maxRequestsPerSocket: 0,
-      _connectionKey: '4: 0.0.0.0: 4200',
-            [Symbol(IncomingMessage)
-            ]: [Function: IncomingMessage
-            ],
-            [Symbol(ServerResponse)
-            ]: [Function: ServerResponse
-            ],
-            [Symbol(kCapture)
-            ]: false,
-            [Symbol(async_id_symbol)
-            ]: 14,
-            [Symbol(kUniqueHeaders)
-            ]: null,
-            [Symbol(http.server.connections)
-            ]: ConnectionsList {},
-            [Symbol(http.server.connectionsCheckingInterval)
-            ]: Timeout {
+      _connectionKey: '4:0.0.0.0:4200',
+      [Symbol(IncomingMessage)]: [Function: IncomingMessage],
+      [Symbol(ServerResponse)]: [Function: ServerResponse],
+      [Symbol(shapeMode)]: false,
+      [Symbol(kCapture)]: false,
+      [Symbol(async_id_symbol)]: 16,
+      [Symbol(kUniqueHeaders)]: null,
+      [Symbol(http.server.connections)]: ConnectionsList {},
+      [Symbol(http.server.connectionsCheckingInterval)]: Timeout {
         _idleTimeout: 30000,
-        _idlePrev: [TimersList
-                ],
-        _idleNext: [TimersList
-                ],
-        _idleStart: 60159,
-        _onTimeout: [Function: bound checkConnections
-                ],
+        _idlePrev: [TimersList],
+        _idleNext: [TimersList],
+        _idleStart: 160,
+        _onTimeout: [Function: bound checkConnections],
         _timerArgs: undefined,
         _repeat: 30000,
         _destroyed: false,
-                [Symbol(refed)
-                ]: false,
-                [Symbol(kHasPrimitive)
-                ]: false,
-                [Symbol(asyncId)
-                ]: 16,
-                [Symbol(triggerId)
-                ]: 15
-            }
-        },
+        [Symbol(refed)]: false,
+        [Symbol(kHasPrimitive)]: false,
+        [Symbol(asyncId)]: 18,
+        [Symbol(triggerId)]: 17
+      }
+    },
     parser: HTTPParser {
       '0': null,
-      '1': [Function: parserOnHeaders
-            ],
-      '2': [Function: parserOnHeadersComplete
-            ],
-      '3': [Function: parserOnBody
-            ],
-      '4': [Function: parserOnMessageComplete
-            ],
-      '5': [Function: bound onParserExecute
-            ],
-      '6': [Function: bound onParserTimeout
-            ],
+      '1': [Function: parserOnHeaders],
+      '2': [Function: parserOnHeadersComplete],
+      '3': [Function: parserOnBody],
+      '4': [Function: parserOnMessageComplete],
+      '5': [Function: bound onParserExecute],
+      '6': [Function: bound onParserTimeout],
       _headers: [],
       _url: '',
-      socket: [Circular *1
-            ],
-      incoming: [Circular *2
-            ],
+      socket: [Circular *1],
+      incoming: [Circular *2],
       outgoing: null,
       maxHeaderPairs: 2000,
       _consumed: true,
-      onIncoming: [Function: bound parserOnIncoming
-            ],
+      onIncoming: [Function: bound parserOnIncoming],
       joinDuplicateHeaders: null,
-            [Symbol(resource_symbol)
-            ]: [HTTPServerAsyncResource
-            ]
-        },
-    on: [Function: socketListenerWrap
-        ],
-    addListener: [Function: socketListenerWrap
-        ],
-    prependListener: [Function: socketListenerWrap
-        ],
-    setEncoding: [Function: socketSetEncoding
-        ],
+      [Symbol(resource_symbol)]: [HTTPServerAsyncResource]
+    },
+    on: [Function: socketListenerWrap],
+    addListener: [Function: socketListenerWrap],
+    prependListener: [Function: socketListenerWrap],
+    setEncoding: [Function: socketSetEncoding],
     _paused: false,
     _httpMessage: ServerResponse {
-      _events: [Object: null prototype
-            ],
+      _events: [Object: null prototype],
       _eventsCount: 2,
       _maxListeners: undefined,
       outputData: [],
@@ -750,95 +487,62 @@ Full Request:  <ref *2> IncomingMessage {
       finished: false,
       _headerSent: false,
       _closed: false,
-      socket: [Circular *1
-            ],
       _header: null,
       _keepAliveTimeout: 5000,
-      _onPendingData: [Function: bound updateOutgoingData
-            ],
-      req: [Circular *2
-            ],
+      _onPendingData: [Function: bound updateOutgoingData],
+      req: [Circular *2],
       _sent100: false,
       _expect_continue: false,
       _maxRequestsPerSocket: 0,
-      locals: [Object: null prototype
-            ] {},
+      locals: [Object: null prototype] {},
       _startAt: undefined,
       _startTime: undefined,
-      writeHead: [Function: writeHead
-            ],
-      __onFinished: [Function
-            ],
-      flush: [Function: flush
-            ],
-      write: [Function: write
-            ],
-      end: [Function: end
-            ],
-      on: [Function: on
-            ],
-            [Symbol(kCapture)
-            ]: false,
-            [Symbol(kBytesWritten)
-            ]: 0,
-            [Symbol(kNeedDrain)
-            ]: false,
-            [Symbol(corked)
-            ]: 0,
-            [Symbol(kOutHeaders)
-            ]: [Object: null prototype
-            ],
-            [Symbol(errored)
-            ]: null,
-            [Symbol(kHighWaterMark)
-            ]: 16384,
-            [Symbol(kRejectNonStandardBodyWrites)
-            ]: false,
-            [Symbol(kUniqueHeaders)
-            ]: null
-        },
-    _peername: { address: '127.0.0.1', family: 'IPv4', port: 62878
-        },
-        [Symbol(async_id_symbol)
-        ]: 159,
-        [Symbol(kHandle)
-        ]: TCP {
+      writeHead: [Function: writeHead],
+      __onFinished: [Function],
+      flush: [Function: flush],
+      write: [Function: write],
+      end: [Function: end],
+      on: [Function: on],
+      [Symbol(shapeMode)]: false,
+      [Symbol(kCapture)]: false,
+      [Symbol(kBytesWritten)]: 0,
+      [Symbol(kNeedDrain)]: false,
+      [Symbol(corked)]: 0,
+      [Symbol(kChunkedBuffer)]: [],
+      [Symbol(kChunkedLength)]: 0,
+      [Symbol(kSocket)]: [Circular *1],
+      [Symbol(kOutHeaders)]: [Object: null prototype],
+      [Symbol(errored)]: null,
+      [Symbol(kHighWaterMark)]: 16384,
+      [Symbol(kRejectNonStandardBodyWrites)]: false,
+      [Symbol(kUniqueHeaders)]: null
+    },
+    _peername: { address: '103.177.166.78', family: 'IPv4', port: 54067 },
+    [Symbol(async_id_symbol)]: 20,
+    [Symbol(kHandle)]: TCP {
       reading: true,
       onconnection: null,
       _consumed: true,
-            [Symbol(owner_symbol)
-            ]: [Circular *1
-            ]
-        },
-        [Symbol(lastWriteQueueSize)
-        ]: 0,
-        [Symbol(timeout)
-        ]: null,
-        [Symbol(kBuffer)
-        ]: null,
-        [Symbol(kBufferCb)
-        ]: null,
-        [Symbol(kBufferGen)
-        ]: null,
-        [Symbol(kCapture)
-        ]: false,
-        [Symbol(kSetNoDelay)
-        ]: true,
-        [Symbol(kSetKeepAlive)
-        ]: false,
-        [Symbol(kSetKeepAliveInitialDelay)
-        ]: 0,
-        [Symbol(kBytesRead)
-        ]: 0,
-        [Symbol(kBytesWritten)
-        ]: 0
+      [Symbol(owner_symbol)]: [Circular *1]
     },
+    [Symbol(lastWriteQueueSize)]: 0,
+    [Symbol(timeout)]: null,
+    [Symbol(kBuffer)]: null,
+    [Symbol(kBufferCb)]: null,
+    [Symbol(kBufferGen)]: null,
+    [Symbol(shapeMode)]: true,
+    [Symbol(kCapture)]: false,
+    [Symbol(kSetNoDelay)]: true,
+    [Symbol(kSetKeepAlive)]: false,
+    [Symbol(kSetKeepAliveInitialDelay)]: 0,
+    [Symbol(kBytesRead)]: 0,
+    [Symbol(kBytesWritten)]: 0
+  },
   _consuming: false,
   _dumped: false,
-  next: [Function: next
-    ],
-  baseUrl: '/api/posts',
-  originalUrl: '/api/posts?page=1&limit=50&filter=',
+  next: [Function: next],
+  baseUrl: '/api/health',
+  originalUrl: '/api/health/',
   _parsedUrl: Url {
     protocol: null,
     slashes: null,
@@ -847,24 +551,20 @@ Full Request:  <ref *2> IncomingMessage {
     port: null,
     hostname: null,
     hash: null,
-    search: '?page=1&limit=50&filter=',
-    query: 'page=1&limit=50&filter=',
-    pathname: '/',
-    path: '/?page=1&limit=50&filter=',
-    href: '/?page=1&limit=50&filter=',
-    _raw: '/?page=1&limit=50&filter='
-    },
+    search: null,
+    query: null,
+    pathname: '/api/health/',
+    path: '/api/health/',
+    href: '/api/health/',
+    _raw: '/api/health/'
+  },
   params: {},
-  query: { page: '1', limit: '50', filter: ''
-    },
+  query: {},
   res: <ref *3> ServerResponse {
-    _events: [Object: null prototype
-        ] {
-      finish: [Array
-            ],
-      end: [Function: onevent
-            ]
-        },
+    _events: [Object: null prototype] {
+      finish: [Array],
+      end: [Function: onevent]
+    },
     _eventsCount: 2,
     _maxListeners: undefined,
     outputData: [],
@@ -888,193 +588,108 @@ Full Request:  <ref *2> IncomingMessage {
     finished: false,
     _headerSent: false,
     _closed: false,
-    socket: <ref *1> Socket {
+    _header: null,
+    _keepAliveTimeout: 5000,
+    _onPendingData: [Function: bound updateOutgoingData],
+    req: [Circular *2],
+    _sent100: false,
+    _expect_continue: false,
+    _maxRequestsPerSocket: 0,
+    locals: [Object: null prototype] {},
+    _startAt: undefined,
+    _startTime: undefined,
+    writeHead: [Function: writeHead],
+    __onFinished: [Function: listener] { queue: [Array] },
+    flush: [Function: flush],
+    write: [Function: write],
+    end: [Function: end],
+    on: [Function: on],
+    [Symbol(shapeMode)]: false,
+    [Symbol(kCapture)]: false,
+    [Symbol(kBytesWritten)]: 0,
+    [Symbol(kNeedDrain)]: false,
+    [Symbol(corked)]: 0,
+    [Symbol(kChunkedBuffer)]: [],
+    [Symbol(kChunkedLength)]: 0,
+    [Symbol(kSocket)]: <ref *1> Socket {
       connecting: false,
       _hadError: false,
       _parent: null,
       _host: null,
       _closeAfterHandlingError: false,
-      _readableState: [ReadableState
-            ],
-      _events: [Object: null prototype
-            ],
-      _eventsCount: 8,
-      _maxListeners: undefined,
-      _writableState: [WritableState
-            ],
+      _events: [Object],
+      _readableState: [ReadableState],
+      _writableState: [WritableState],
       allowHalfOpen: true,
+      _maxListeners: undefined,
+      _eventsCount: 8,
       _sockname: null,
       _pendingData: null,
       _pendingEncoding: '',
-      server: [Server
-            ],
-      _server: [Server
-            ],
-      parser: [HTTPParser
-            ],
-      on: [Function: socketListenerWrap
-            ],
-      addListener: [Function: socketListenerWrap
-            ],
-      prependListener: [Function: socketListenerWrap
-            ],
-      setEncoding: [Function: socketSetEncoding
-            ],
+      server: [Server],
+      _server: [Server],
+      parser: [HTTPParser],
+      on: [Function: socketListenerWrap],
+      addListener: [Function: socketListenerWrap],
+      prependListener: [Function: socketListenerWrap],
+      setEncoding: [Function: socketSetEncoding],
       _paused: false,
-      _httpMessage: [Circular *3
-            ],
-      _peername: [Object
-            ],
-            [Symbol(async_id_symbol)
-            ]: 159,
-            [Symbol(kHandle)
-            ]: [TCP
-            ],
-            [Symbol(lastWriteQueueSize)
-            ]: 0,
-            [Symbol(timeout)
-            ]: null,
-            [Symbol(kBuffer)
-            ]: null,
-            [Symbol(kBufferCb)
-            ]: null,
-            [Symbol(kBufferGen)
-            ]: null,
-            [Symbol(kCapture)
-            ]: false,
-            [Symbol(kSetNoDelay)
-            ]: true,
-            [Symbol(kSetKeepAlive)
-            ]: false,
-            [Symbol(kSetKeepAliveInitialDelay)
-            ]: 0,
-            [Symbol(kBytesRead)
-            ]: 0,
-            [Symbol(kBytesWritten)
-            ]: 0
-        },
-    _header: null,
-    _keepAliveTimeout: 5000,
-    _onPendingData: [Function: bound updateOutgoingData
-        ],
-    req: [Circular *2
-        ],
-    _sent100: false,
-    _expect_continue: false,
-    _maxRequestsPerSocket: 0,
-    locals: [Object: null prototype
-        ] {},
-    _startAt: undefined,
-    _startTime: undefined,
-    writeHead: [Function: writeHead
-        ],
-    __onFinished: [Function: listener
-        ] { queue: [Array
-            ]
-        },
-    flush: [Function: flush
-        ],
-    write: [Function: write
-        ],
-    end: [Function: end
-        ],
-    on: [Function: on
-        ],
-        [Symbol(kCapture)
-        ]: false,
-        [Symbol(kBytesWritten)
-        ]: 0,
-        [Symbol(kNeedDrain)
-        ]: false,
-        [Symbol(corked)
-        ]: 0,
-        [Symbol(kOutHeaders)
-        ]: [Object: null prototype
-        ] {
-      vary: [Array
-            ],
-      'access-control-allow-credentials': [Array
-            ],
-      'content-security-policy': [Array
-            ],
-      'cross-origin-opener-policy': [Array
-            ],
-      'cross-origin-resource-policy': [Array
-            ],
-      'origin-agent-cluster': [Array
-            ],
-      'referrer-policy': [Array
-            ],
-      'strict-transport-security': [Array
-            ],
-      'x-content-type-options': [Array
-            ],
-      'x-dns-prefetch-control': [Array
-            ],
-      'x-download-options': [Array
-            ],
-      'x-frame-options': [Array
-            ],
-      'x-permitted-cross-domain-policies': [Array
-            ],
-      'x-xss-protection': [Array
-            ],
-      'access-control-allow-origin': [Array
-            ],
-      'access-control-allow-headers': [Array
-            ]
-        },
-        [Symbol(errored)
-        ]: null,
-        [Symbol(kHighWaterMark)
-        ]: 16384,
-        [Symbol(kRejectNonStandardBodyWrites)
-        ]: false,
-        [Symbol(kUniqueHeaders)
-        ]: null
+      _httpMessage: [Circular *3],
+      _peername: [Object],
+      [Symbol(async_id_symbol)]: 20,
+      [Symbol(kHandle)]: [TCP],
+      [Symbol(lastWriteQueueSize)]: 0,
+      [Symbol(timeout)]: null,
+      [Symbol(kBuffer)]: null,
+      [Symbol(kBufferCb)]: null,
+      [Symbol(kBufferGen)]: null,
+      [Symbol(shapeMode)]: true,
+      [Symbol(kCapture)]: false,
+      [Symbol(kSetNoDelay)]: true,
+      [Symbol(kSetKeepAlive)]: false,
+      [Symbol(kSetKeepAliveInitialDelay)]: 0,
+      [Symbol(kBytesRead)]: 0,
+      [Symbol(kBytesWritten)]: 0
     },
+    [Symbol(kOutHeaders)]: [Object: null prototype] {
+      vary: [Array],
+      'access-control-allow-credentials': [Array],
+      'content-security-policy': [Array],
+      'cross-origin-opener-policy': [Array],
+      'cross-origin-resource-policy': [Array],
+      'origin-agent-cluster': [Array],
+      'referrer-policy': [Array],
+      'strict-transport-security': [Array],
+      'x-content-type-options': [Array],
+      'x-dns-prefetch-control': [Array],
+      'x-download-options': [Array],
+      'x-frame-options': [Array],
+      'x-permitted-cross-domain-policies': [Array],
+      'x-xss-protection': [Array],
+      'access-control-allow-origin': [Array],
+      'access-control-allow-headers': [Array]
+    },
+    [Symbol(errored)]: null,
+    [Symbol(kHighWaterMark)]: 16384,
+    [Symbol(kRejectNonStandardBodyWrites)]: false,
+    [Symbol(kUniqueHeaders)]: null
+  },
   body: {},
-  _startAt: [
-        40910,
-        783708333
-    ],
-  _startTime: 2023-12-30T19: 50: 24.556Z,
-  _remoteAddress: '127.0.0.1',
-  user: {
-    id: 1,
-    username: 'test',
-    email: 'test@algoramming.com',
-    password: '$2b$10$hG.Havrgu.LJPjd7R8jk7eC94vY84dJrpUXSKaSsPgJQtTuTt3BIK',
-    name: 'Test User',
-    avatar: null,
-    created: 2023-12-27T19: 02: 43.665Z,
-    updated: 2023-12-27T19: 02: 43.665Z
-    },
-  route: Route {
-    path: '/',
-    stack: [
-            [Layer
-            ],
-            [Layer
-            ]
-        ],
-    methods: { get: true, post: true
-        }
-    },
-    [Symbol(kCapture)
-    ]: false,
-    [Symbol(kHeaders)
-    ]: {
-    'user-agent': 'Dart/3.2 (dart:io)',
-    'content-type': 'application/json',
-    'accept-encoding': 'gzip',
-    authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzAzOTY1ODIwLCJleHAiOjE3MDM5Njc2MjB9.HLiccBYtjf9iwvbETA8-z13t8Zc4haF1x2kNAXIy7Bo',
-    host: '127.0.0.1: 4200'
-    },
-    [Symbol(kHeadersCount)
-    ]: 10,
-    [Symbol(kTrailers)
-    ]: null,
-    [Symbol(kTrailersCount)
-    ]: 0
+  _startAt: [ 694689, 667762375 ],
+  _startTime: 2024-01-07T09:26:42.190Z,
+  _remoteAddress: '103.177.166.78',
+  [Symbol(shapeMode)]: true,
+  [Symbol(kCapture)]: false,
+  [Symbol(kHeaders)]: {
+    host: 'home.algoramming.com:4200',
+    'upgrade-insecure-requests': '1',
+    accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) GSA/297.0.594082364 Mobile/15E148 Safari/604.1',
+    'accept-language': 'en-GB,en;q=0.9',
+    'accept-encoding': 'gzip, deflate',
+    connection: 'keep-alive'
+  },
+  [Symbol(kHeadersCount)]: 14,
+  [Symbol(kTrailers)]: null,
+  [Symbol(kTrailersCount)]: 0
 }
