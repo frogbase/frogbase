@@ -1,7 +1,7 @@
-const userService = require("../services/user.service");
-const { ErrorHandler } = require("../helpers/error");
+import ErrorHandler from "../helpers/error.mjs";
+import userService from "../services/user.service.mjs";
 
-const getAllUsers = async (req, res) => {
+export const getAllUsers = async (req, res) => {
   const results = await userService.getAllUsers();
   res.status(200).json({
     success: true,
@@ -11,7 +11,7 @@ const getAllUsers = async (req, res) => {
   });
 };
 
-const getUserById = async (req, res) => {
+export const getUserById = async (req, res) => {
   try {
     const user = await userService.getUserById(req.params.id);
     return res.status(200).json({
@@ -25,7 +25,7 @@ const getUserById = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
   const { username, email, name, avatar } = req.body;
   try {
     const result = await userService.updateUser({
@@ -47,7 +47,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   try {
     const result = await userService.deleteUser(req.params.id);
     res.status(200).json({
@@ -59,11 +59,4 @@ const deleteUser = async (req, res) => {
   } catch (error) {
     throw new ErrorHandler(error.statusCode, error.message);
   }
-};
-
-module.exports = {
-  getAllUsers,
-  getUserById,
-  updateUser,
-  deleteUser,
 };

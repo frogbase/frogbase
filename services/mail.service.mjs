@@ -1,6 +1,6 @@
-const nodemailer = require("nodemailer");
-const { logger } = require("../utils/logger");
-const { ErrorHandler } = require("../helpers/error");
+import nodemailer from "nodemailer";
+import ErrorHandler from "../helpers/error.mjs";
+import logger from "../utils/logger.mjs";
 
 const transporter = nodemailer.createTransport({
   port: process.env.SMTP_PORT,
@@ -130,5 +130,4 @@ const changePasswordMail = async (user) => {
   }
 };
 
-
-module.exports = { signupMail, signinMail, forgetPasswordMail, changePasswordMail };
+export default { signupMail, signinMail, forgetPasswordMail, changePasswordMail };

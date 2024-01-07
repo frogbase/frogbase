@@ -1,7 +1,6 @@
-const { ErrorHandler } = require("../helpers/error");
-const { logger } = require("../utils/logger");
+import logger from "../utils/logger.mjs";
 
-const multer = require("multer");
+import multer from "multer";
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) { cb(null, "uploads/"); },
@@ -20,4 +19,4 @@ const upload = multer({
     // fileFilter: fileFilter,
 });
 
-module.exports = { upload };
+export default { upload };

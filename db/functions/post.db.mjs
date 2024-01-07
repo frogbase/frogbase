@@ -1,6 +1,6 @@
-const pool = require("../config");
+import pool from "../config/index.mjs";
 
-const getAllPostsDb = async (page, limit, filter) => {
+export const getAllPostsDb = async (page, limit, filter) => {
     const offset = (page - 1) * limit;
 
     let whereClause = '';
@@ -71,7 +71,7 @@ const getAllPostsDb = async (page, limit, filter) => {
     return posts;
 };
 
-const createPostDb = async ({ title, description, image, creator }) => {
+export const createPostDb = async ({ title, description, image, creator }) => {
     image = image || null;
     const { rows: posts } = await pool.query(
         `INSERT INTO posts(title, description, image, creator)
@@ -82,7 +82,7 @@ const createPostDb = async ({ title, description, image, creator }) => {
     return posts[0];
 };
 
-const getPostByIdDb = async (id) => {
+export const getPostByIdDb = async (id) => {
     const { rows: posts } = await pool.query(
         `
         SELECT
@@ -130,7 +130,7 @@ const getPostByIdDb = async (id) => {
     return posts[0];
 };
 
-const updatePostDb = async ({ id, title, description, image, updator }) => {
+export const updatePostDb = async ({ id, title, description, image, updator }) => {
     const { rows: posts } = await pool.query(
         `UPDATE posts set title = $2, description = $3, image = $4, updator = $5
     WHERE id = $1
@@ -140,15 +140,7 @@ const updatePostDb = async ({ id, title, description, image, updator }) => {
     return posts[0];
 };
 
-const deletePostDb = async (id) => {
+export const deletePostDb = async (id) => {
     const { rows: posts } = await pool.query(`DELETE FROM posts WHERE id = $1 RETURNING *`, [id]);
     return posts[0];
-};
-
-module.exports = {
-    getAllPostsDb,
-    getPostByIdDb,
-    createPostDb,
-    updatePostDb,
-    deletePostDb,
 };

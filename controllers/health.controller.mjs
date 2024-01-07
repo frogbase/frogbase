@@ -1,5 +1,4 @@
-
-const os = require('os');
+import os from 'os';
 
 const PORT = process.env.PORT || 9000;
 const IP = process.env.IP || `0.0.0.0`;
@@ -22,4 +21,4 @@ const healthCheck = (req, res) => {
     });
 };
 
-module.exports = { healthCheck };
+export default { healthCheck };

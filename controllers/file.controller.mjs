@@ -13,4 +13,4 @@ const fileUpload = async (req, res) => {
     });
 };
 
-module.exports = { fileUpload };
+export default { fileUpload };

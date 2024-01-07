@@ -1,4 +1,5 @@
-const { logger } = require("../utils/logger");
+import logger from "../utils/logger.mjs";
+
 class ErrorHandler extends Error {
   constructor(statusCode, message) {
     super();
@@ -20,7 +21,4 @@ const handleError = (err, req, res, next) => {
   });
   next();
 };
-module.exports = {
-  ErrorHandler,
-  handleError,
-};
+export default { ErrorHandler, handleError };

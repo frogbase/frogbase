@@ -2,10 +2,10 @@
   "name": "frogbase",
   "version": "0.0.1",
   "description": "An open source extended verision of pocketbase backend using node js and postgresql for your next SaaS software.",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
-    "start": "cross-env NODE_ENV=production nodemon index.js",
-    "dev": "cross-env NODE_ENV=development nodemon index.js"
+    "start": "cross-env NODE_ENV=production nodemon --experimental-modules index.mjs",
+    "dev": "cross-env NODE_ENV=development nodemon --experimental-modules index.mjs"
   },
   "repository": {
     "type": "git",

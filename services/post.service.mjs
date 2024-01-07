@@ -1,13 +1,14 @@
-const {
+import {
+    createPostDb,
+    deletePostDb,
     getAllPostsDb,
     getPostByIdDb,
-    createPostDb,
     updatePostDb,
-    deletePostDb,
-} = require("../db/functions/post.db");
-const { ErrorHandler } = require("../helpers/error");
-const { logger } = require("../utils/logger");
-const fs = require('fs');
+} from "../db/functions/post.db.mjs";
+
+import fs from 'fs';
+import ErrorHandler from "../helpers/error.mjs";
+import logger from "../utils/logger.mjs";
 
 class PostService {
 
@@ -74,4 +75,4 @@ class PostService {
     }
 }
 
-module.exports = new PostService();
+export default new PostService();

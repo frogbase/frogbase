@@ -1,8 +1,9 @@
-require("dotenv").config({ path: __dirname + "/.env" });
+import dotenv from "dotenv";
+dotenv.config({ path: __dirname + "/.env" });
 
-const http = require("http");
-const app = require("./app");
-const { logger } = require("./utils/logger");
+import http from "http";
+import app from "./app.mjs";
+import logger from "./utils/logger.mjs";
 
 const server = http.createServer(app);
 

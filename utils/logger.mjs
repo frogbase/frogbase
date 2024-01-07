@@ -1,4 +1,4 @@
-const pino = require("pino");
+import pino from "pino";
 
 // Create a logging instance
 const logger = pino({
@@ -6,4 +6,4 @@ const logger = pino({
   prettyPrint: true,
 });
 
-module.exports.logger = logger;
+export default { logger };

@@ -1,12 +1,12 @@
-const express = require("express");
-require("express-async-errors");
-const cors = require("cors");
-const morgan = require("morgan");
-const routes = require("./routes");
-const helmet = require("helmet");
-const compression = require("compression");
-const unknownEndpoint = require("./middleware/unKnownEndpoint");
-const { handleError } = require("./helpers/error");
+import compression from "compression";
+import cors from "cors";
+import express from "express";
+import "express-async-errors";
+import helmet from "helmet";
+import morgan from "morgan";
+import handleError from "./helpers/error.mjs";
+import unknownEndpoint from "./middleware/unKnownEndpoint.mjs";
+import routes from "./routes/index.mjs";
 
 const app = express();
 
@@ -37,4 +37,4 @@ app.use(`/api`, routes);
 app.use('*', unknownEndpoint);
 app.use(handleError);
 
-module.exports = app;
+export default app;

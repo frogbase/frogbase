@@ -1,7 +1,7 @@
-const authService = require("../services/auth.service");
-const mail = require("../services/mail.service");
+import authService from "../services/auth.service.mjs";
+import mail from "../services/mail.service.mjs";
 
-const signup = async (req, res) => {
+export const signup = async (req, res) => {
   const { accessToken, refreshToken, user } = await authService.signUp(req.body);
 
   await mail.signupMail(user);
@@ -18,7 +18,7 @@ const signup = async (req, res) => {
   });
 };
 
-const signin = async (req, res) => {
+export const signin = async (req, res) => {
   const { accessToken, refreshToken, user } = await authService.signin(req.body);
 
   await mail.signinMail(user);
@@ -35,7 +35,7 @@ const signin = async (req, res) => {
   });
 };
 
-const regenerateTokens = async (req, res) => {
+export const regenerateTokens = async (req, res) => {
   const rft = req.body["refresh-token"];
   if (!rft) throw new ErrorHandler(401, "Refresh Token missing");
 
@@ -51,7 +51,7 @@ const regenerateTokens = async (req, res) => {
   });
 };
 
-const forgetPassword = async (req, res) => {
+export const forgetPassword = async (req, res) => {
   const { email } = req.body;
 
   const { user, fpSalt } = await authService.forgetPassword(email);
@@ -66,7 +66,7 @@ const forgetPassword = async (req, res) => {
   });
 };
 
-const resetPassword = async (req, res) => {
+export const resetPassword = async (req, res) => {
   const { email, token, password } = req.body;
 
   const { user } = await authService.resetPassword(email, token, password);
@@ -79,7 +79,7 @@ const resetPassword = async (req, res) => {
   });
 };
 
-const changePassword = async (req, res) => {
+export const changePassword = async (req, res) => {
   const { email, oldPassword, newPassword } = req.body;
 
   const user = await authService.changePassword(email, oldPassword, newPassword);
@@ -91,5 +91,3 @@ const changePassword = async (req, res) => {
     data: user,
   });
 };
-
-module.exports = { signup, signin, regenerateTokens, forgetPassword, resetPassword, changePassword };

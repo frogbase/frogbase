@@ -1,11 +1,11 @@
-const pool = require("../config");
+import pool from "../config/index.mjs";
 
-const getAllUsersDb = async () => {
+export const getAllUsersDb = async () => {
   const { rows: users } = await pool.query("SELECT * FROM users");
   return users;
 };
 
-const createUserDb = async ({ username, email, password, name, avatar }) => {
+export const createUserDb = async ({ username, email, password, name, avatar }) => {
   email = email.trim();
   avatar = avatar || null;
   const { rows: users } = await pool.query(
@@ -17,22 +17,22 @@ const createUserDb = async ({ username, email, password, name, avatar }) => {
   return users[0];
 };
 
-const getUserByIdDb = async (id) => {
+export const getUserByIdDb = async (id) => {
   const { rows: users } = await pool.query(`SELECT * FROM users WHERE id = $1`, [id]);
   return users[0];
 };
 
-const getUserByUsernameDb = async (username) => {
+export const getUserByUsernameDb = async (username) => {
   const { rows: users } = await pool.query(`SELECT * FROM users WHERE username = lower($1)`, [username]);
   return users[0];
 };
 
-const getUserByEmailDb = async (email) => {
+export const getUserByEmailDb = async (email) => {
   const { rows: users } = await pool.query(`SELECT * FROM users WHERE email = lower($1)`, [email]);
   return users[0];
 };
 
-const updateUserDb = async ({ id, username, email, name, avatar }) => {
+export const updateUserDb = async ({ id, username, email, name, avatar }) => {
   const { rows: users } = await pool.query(
     `UPDATE users set username = $2, email = $3, name = $4, avatar = $5
     WHERE id = $1
@@ -42,23 +42,12 @@ const updateUserDb = async ({ id, username, email, name, avatar }) => {
   return users[0];
 };
 
-const deleteUserDb = async (id) => {
+export const deleteUserDb = async (id) => {
   const { rows: users } = await pool.query(`DELETE FROM users WHERE id = $1 RETURNING *`, [id]);
   return users[0];
 };
 
-const changeUserPasswordDb = async (email, password) => {
+export const changeUserPasswordDb = async (email, password) => {
   const { rows: users } = await pool.query(`UPDATE users SET password = $2 WHERE email = $1 RETURNING *`, [email, password]);
   return users[0];
-};
-
-module.exports = {
-  getAllUsersDb,
-  getUserByIdDb,
-  getUserByEmailDb,
-  getUserByUsernameDb,
-  createUserDb,
-  updateUserDb,
-  deleteUserDb,
-  changeUserPasswordDb,
 };
