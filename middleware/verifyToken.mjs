@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
-const { ErrorHandler } = require("../helpers/error");
-const pool = require("../db/config")
+import jwt from "jsonwebtoken";
+import pool from "../db/config/index.mjs";
+import { ErrorHandler } from "../helpers/error.class.mjs";
 
 const verifyToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
@@ -21,4 +21,4 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-module.exports = verifyToken;
+export default verifyToken;

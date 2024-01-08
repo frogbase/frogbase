@@ -1,14 +1,14 @@
-const { setTokenStatusDb, createResetTokenDb, deleteResetTokenDb, isValidTokenDb } = require("../db/functions/auth.db");
-const { getUserByUsernameDb, getUserByEmailDb, createUserDb } = require("../db/functions/user.db");
-const { validateEmail, validatePassword } = require("../helpers/validateUser");
-const { hashPassword, comparePassword } = require("../helpers/hashPassword");
-const { changeUserPasswordDb } = require("../db/functions/user.db");
-const { ErrorHandler } = require("../helpers/error");
-const { logger } = require("../utils/logger");
-const mail = require("./mail.service");
-const jwt = require("jsonwebtoken");
-const moment = require("moment");
-const crypto = require("crypto");
+import crypto from "crypto";
+import jwt from "jsonwebtoken";
+import moment from "moment";
+import { createResetTokenDb, deleteResetTokenDb, isValidTokenDb, setTokenStatusDb } from "../db/functions/auth.db.mjs";
+import { changeUserPasswordDb, createUserDb, getUserByEmailDb, getUserByUsernameDb } from "../db/functions/user.db.mjs";
+import { ErrorHandler } from "../helpers/error.class.mjs";
+import { comparePassword, hashPassword } from "../helpers/hashPassword.mjs";
+import { validateEmail, validatePassword } from "../helpers/validateUser.mjs";
+import { logger } from "../utils/logger.mjs";
+import mail from "./mail.service.mjs";
+
 let curDate = moment().format();
 
 class AuthService {
@@ -193,4 +193,4 @@ class AuthService {
   }
 }
 
-module.exports = new AuthService();
+export default new AuthService();

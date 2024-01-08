@@ -1,7 +1,6 @@
-const { ErrorHandler } = require("../helpers/error");
-const { logger } = require("../utils/logger");
+import { logger } from "../utils/logger.mjs";
 
-const multer = require("multer");
+import multer from "multer";
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) { cb(null, "uploads/"); },
@@ -14,10 +13,8 @@ const fileFilter = (req, file, cb) => {
     logger.error("Invalid file type");
     return cb(new Error("Invalid file type"), false);
 }
-const upload = multer({
+export const upload = multer({
     storage: storage,
     // limits: { fileSize: 1024 * 1024 * 5 },
     // fileFilter: fileFilter,
 });
-
-module.exports = { upload };

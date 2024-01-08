@@ -1,16 +1,18 @@
-const router = require("express").Router();
-const {
+import express from "express";
+import {
     createPost,
+    deletePost,
     getAllPosts,
     getPostById,
     updatePost,
-    deletePost,
-} = require("../controllers/post.controller");
+} from "../controllers/post.controller.mjs";
 
-const verifyToken = require("../middleware/verifyToken");
+import verifyToken from "../middleware/verifyToken.mjs";
+
+const router = express.Router();
 
 router.use(verifyToken);
 router.route("/").get(getAllPosts).post(createPost);
 router.route("/:id").get(getPostById).put(updatePost).delete(deletePost);
 
-module.exports = router;
+export default router;

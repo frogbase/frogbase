@@ -1,15 +1,16 @@
-const express = require("express");
-require("express-async-errors");
-const cors = require("cors");
-const morgan = require("morgan");
-const routes = require("./routes");
-// const helmet = require("helmet");
-const compression = require("compression");
-const unknownEndpoint = require("./middleware/unKnownEndpoint");
-const { handleError } = require("./helpers/error");
-const { pool } = require("./db/config");
+import compression from "compression";
+import cors from "cors";
+import express from "express";
+import "express-async-errors";
+import morgan from "morgan";
+import path from 'path';
+import { handleError } from "./helpers/error.mjs";
+import { unknownEndpoint } from "./middleware/unKnownEndpoint.mjs";
+import routes from "./routes/index.mjs";
+import adminRouter from './services/admin.service.mjs';
 
-
+const __filename = new URL(import.meta.url).pathname;
+const __dirname = path.dirname(__filename);
 const app = express();
 
 app.set("trust proxy", 1);
@@ -17,8 +18,12 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(compression());
+<<<<<<< HEAD:app.js
 // app.use(helmet());
 app.use("/uploads", express.static("uploads"));
+=======
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+>>>>>>> 78097b7490017c6a7b3c738a9ab6afa9225d048c:app.mjs
 
 // CORS handling
 app.use((req, res, next) => {
@@ -35,6 +40,7 @@ app.use((req, res, next) => {
 });
 
 app.use(`/api`, routes);
+app.use('/admin', adminRouter);
 
 Promise.all([
     import('adminjs'),
@@ -111,5 +117,9 @@ Promise.all([
     app.use(handleError);
 });
 
+<<<<<<< HEAD:app.js
 module.exports = app;
 
+=======
+export default app;
+>>>>>>> 78097b7490017c6a7b3c738a9ab6afa9225d048c:app.mjs

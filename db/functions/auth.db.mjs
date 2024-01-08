@@ -1,6 +1,6 @@
-const pool = require("../config");
+import pool from "../config/index.mjs";
 
-const isValidTokenDb = async ({ token, email, curDate }) => {
+export const isValidTokenDb = async ({ token, email, curDate }) => {
     const { rows: tokens } = await pool.query(
         `SELECT EXISTS(
             SELECT * FROM public."resetTokens"
@@ -11,7 +11,7 @@ const isValidTokenDb = async ({ token, email, curDate }) => {
     return tokens[0].exists;
 };
 
-const createResetTokenDb = async ({ email, expireDate, fpSalt }) => {
+export const createResetTokenDb = async ({ email, expireDate, fpSalt }) => {
     await pool.query(
         `INSERT INTO public."resetTokens"  (email, expiration, token) VALUES ($1, $2, $3)`,
         [email, expireDate, fpSalt],
@@ -19,7 +19,7 @@ const createResetTokenDb = async ({ email, expireDate, fpSalt }) => {
     return true;
 };
 
-const setTokenStatusDb = async (email) => {
+export const setTokenStatusDb = async (email) => {
     await pool.query(
         `UPDATE public."resetTokens"  SET used = $1 WHERE email = $2`,
         [true, email],
@@ -27,17 +27,10 @@ const setTokenStatusDb = async (email) => {
     return true;
 };
 
-const deleteResetTokenDb = async (curDate) => {
+export const deleteResetTokenDb = async (curDate) => {
     await pool.query(
         `DELETE FROM public."resetTokens"  WHERE expiration <= $1`,
         [curDate],
     );
     return true;
-};
-
-module.exports = {
-    isValidTokenDb,
-    createResetTokenDb,
-    setTokenStatusDb,
-    deleteResetTokenDb,
 };

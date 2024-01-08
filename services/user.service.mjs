@@ -1,14 +1,15 @@
-const {
-  getUserByEmailDb,
-  getUserByIdDb,
-  updateUserDb,
+import {
   deleteUserDb,
   getAllUsersDb,
+  getUserByEmailDb,
+  getUserByIdDb,
   getUserByUsernameDb,
-} = require("../db/functions/user.db");
-const { ErrorHandler } = require("../helpers/error");
-const { logger } = require("../utils/logger");
-const fs = require('fs');
+  updateUserDb,
+} from "../db/functions/user.db.mjs";
+
+import fs from 'fs';
+import { ErrorHandler } from "../helpers/error.class.mjs";
+import { logger } from "../utils/logger.mjs";
 
 class UserService {
   async getAllUsers() {
@@ -102,4 +103,4 @@ class UserService {
   }
 }
 
-module.exports = new UserService();
+export default new UserService();
