@@ -8,6 +8,5 @@ const router = express.Router();
 
 router.use(verifyToken);
 router.post("/", upload.array('files'), fileUpload);
-// router.post("/", fileUpload);
 
 export default router;
