@@ -3,7 +3,7 @@ import { ErrorHandler } from "../helpers/error.class.mjs";
 import { logger } from "../utils/logger.mjs";
 
 class MailService {
-
+  // TODO: Add email configuration
   transporter = nodemailer.createTransport({
     port: process.env.SMTP_PORT,
     host: process.env.SMTP_HOST,
@@ -33,7 +33,7 @@ class MailService {
       `,
       };
 
-      await transporter.sendMail(message);
+      await this.transporter.sendMail(message);
     } catch (error) {
       logger.error(error);
     }
@@ -59,7 +59,7 @@ class MailService {
       `,
       };
 
-      await transporter.sendMail(message);
+      await this.transporter.sendMail(message);
     } catch (error) {
       logger.error(error);
     }
@@ -98,8 +98,7 @@ class MailService {
       `,
       };
 
-      const res = await transporter.sendMail(message);
-      return res;
+      await this.transporter.sendMail(message);
     } catch (error) {
       logger.error(error);
       throw new ErrorHandler(500, error.message);
@@ -125,7 +124,7 @@ class MailService {
       `,
       };
 
-      await transporter.sendMail(message);
+      await this.transporter.sendMail(message);
     } catch (error) {
       logger.error(error);
       throw new ErrorHandler(500, error.message);
