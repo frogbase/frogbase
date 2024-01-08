@@ -2,17 +2,15 @@ import compression from "compression";
 import cors from "cors";
 import express from "express";
 import "express-async-errors";
-import helmet from "helmet";
 import morgan from "morgan";
+import path from 'path';
 import { handleError } from "./helpers/error.mjs";
 import { unknownEndpoint } from "./middleware/unKnownEndpoint.mjs";
 import routes from "./routes/index.mjs";
-
-import path from 'path';
+import adminRouter from './services/admin.service.mjs';
 
 const __filename = new URL(import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
-
 const app = express();
 
 app.set("trust proxy", 1);
@@ -20,9 +18,7 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(compression());
-app.use(helmet());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
 
 // CORS handling
 app.use((req, res, next) => {
@@ -39,6 +35,7 @@ app.use((req, res, next) => {
 });
 
 app.use(`/api`, routes);
+app.use('/admin', adminRouter);
 
 app.use('*', unknownEndpoint);
 app.use(handleError);
