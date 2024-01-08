@@ -1,4 +1,4 @@
-import logger from "../utils/logger.mjs";
+import { logger } from "../utils/logger.mjs";
 
 import multer from "multer";
 
@@ -13,10 +13,8 @@ const fileFilter = (req, file, cb) => {
     logger.error("Invalid file type");
     return cb(new Error("Invalid file type"), false);
 }
-const upload = multer({
+export const upload = multer({
     storage: storage,
     // limits: { fileSize: 1024 * 1024 * 5 },
     // fileFilter: fileFilter,
 });
-
-export default { upload };
