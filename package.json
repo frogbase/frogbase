@@ -26,6 +26,7 @@
   "dependencies": {
     "@adminjs/express": "^6.1.0",
     "@adminjs/sql": "^2.2.1",
+    "@adminjs/themes": "^1.0.1",
     "adminjs": "^7.5.2",
     "bcrypt": "^5.1.1",
     "compression": "^1.7.4",

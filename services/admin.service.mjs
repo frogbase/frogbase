@@ -4,23 +4,21 @@ import AdminJS from 'adminjs';
 
 import Connect from 'connect-pg-simple';
 
+import { dark, light, noSidebar } from '@adminjs/themes';
 import "express-async-errors";
 import session from 'express-session';
 
 
 const connectionString = `postgresql://postgres:72428@localhost:5432/frogbase`;
 
-AdminJS.registerAdapter({
-    Database,
-    Resource,
-});
+AdminJS.registerAdapter({ Database, Resource });
 
 const db = await new Adapter('postgresql', {
     connectionString: connectionString,
     database: 'frogbase',
 }).init()
 
-const DEFAULT_ADMIN = { email: 'admin@algoramming.com', password: '@Admin123', name: 'FrogBase Admin' }
+const DEFAULT_ADMIN = { email: 'admin@algoramming.com', password: '@Admin123' }
 
 const authenticate = async (email, password) => {
     if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) return Promise.resolve(DEFAULT_ADMIN)
@@ -28,6 +26,15 @@ const authenticate = async (email, password) => {
 }
 
 const admin = new AdminJS({
+    branding: {
+        companyName: 'FrogBase',
+        favicon: 'https://avatars.githubusercontent.com/u/153280938?s=48&v=4',
+        logo: 'https://avatars.githubusercontent.com/u/153280938?s=200&v=4',
+        withMadeWithLove: false,
+    },
+    settings: { defaultPerPage: 10 },
+    defaultTheme: light.id,
+    availableThemes: [dark, light, noSidebar],
     version: { admin: true, app: process.env.PROJECT_VERSION || '0.0.0' },
     rootPath: "/admin",
     resources: [
@@ -40,7 +47,7 @@ const admin = new AdminJS({
             options: {},
         },
     ],
-    // databases: [db], <- not recommended
+    // databases: [db], <- not recommended,
 });
 
 const ConnectSession = Connect(session);
