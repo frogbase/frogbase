@@ -1,27 +1,29 @@
 import nodemailer from "nodemailer";
-import ErrorHandler from "../helpers/error.mjs";
-import logger from "../utils/logger.mjs";
+import ErrorHandler from "../helpers/error.class.mjs";
+import { logger } from "../utils/logger.mjs";
 
-const transporter = nodemailer.createTransport({
-  port: process.env.SMTP_PORT,
-  host: process.env.SMTP_HOST,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
-  },
-  secure: process.env.NODE_ENV === "production",
-});
+class MailService {
 
-const signupMail = async (user) => {
-  try {
-    const message = {
-      from: {
-        name: process.env.SMTP_SENDER_NAME,
-        address: process.env.SMTP_FROM,
-      },
-      to: user.email,
-      subject: `Welcome to ${process.env.PROJECT_NAME}`,
-      html: `
+  transporter = nodemailer.createTransport({
+    port: process.env.SMTP_PORT,
+    host: process.env.SMTP_HOST,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
+    },
+    secure: process.env.NODE_ENV === "production",
+  });
+
+  async signupMail(user) {
+    try {
+      const message = {
+        from: {
+          name: process.env.SMTP_SENDER_NAME,
+          address: process.env.SMTP_FROM,
+        },
+        to: user.email,
+        subject: `Welcome to ${process.env.PROJECT_NAME}`,
+        html: `
         <p>Hello ${user.name},</p>
         <p> Welcome to ${process.env.PROJECT_NAME}. We are glad to have you.</p>
         <p>
@@ -29,24 +31,24 @@ const signupMail = async (user) => {
           ${process.env.PROJECT_NAME} team
         </p>
       `,
-    };
+      };
 
-    await transporter.sendMail(message);
-  } catch (error) {
-    logger.error(error);
-  }
-};
+      await transporter.sendMail(message);
+    } catch (error) {
+      logger.error(error);
+    }
+  };
 
-const signinMail = async (user) => {
-  try {
-    const message = {
-      from: {
-        name: process.env.SMTP_SENDER_NAME,
-        address: process.env.SMTP_FROM,
-      },
-      to: user.email,
-      subject: `Welcome back to ${process.env.PROJECT_NAME}`,
-      html: `
+  async signinMail(user) {
+    try {
+      const message = {
+        from: {
+          name: process.env.SMTP_SENDER_NAME,
+          address: process.env.SMTP_FROM,
+        },
+        to: user.email,
+        subject: `Welcome back to ${process.env.PROJECT_NAME}`,
+        html: `
         <p>Hello ${user.name},</p>
         <p> Welcome back to ${process.env.PROJECT_NAME}. We are glad to have you.</p>
         <p><i>If you didn't sign in, we recommend you to change your password immediately.</i></p>
@@ -55,29 +57,29 @@ const signinMail = async (user) => {
           ${process.env.PROJECT_NAME} team
         </p>
       `,
-    };
+      };
 
-    await transporter.sendMail(message);
-  } catch (error) {
-    logger.error(error);
-  }
-};
+      await transporter.sendMail(message);
+    } catch (error) {
+      logger.error(error);
+    }
+  };
 
-const forgetPasswordMail = async (user, fpSalt) => {
-  try {
-    // Calculate the expiration time (15 minutes from now)
-    const expirationTime = new Date(Date.now() + 15 * 60 * 1000).toLocaleString(); // 15 minutes in milliseconds
-    const date = expirationTime.split(",")[0].trim();
-    const time = expirationTime.split(",")[1].trim();
+  async forgetPasswordMail(user, fpSalt) {
+    try {
+      // Calculate the expiration time (15 minutes from now)
+      const expirationTime = new Date(Date.now() + 15 * 60 * 1000).toLocaleString(); // 15 minutes in milliseconds
+      const date = expirationTime.split(",")[0].trim();
+      const time = expirationTime.split(",")[1].trim();
 
-    const message = {
-      from: {
-        name: process.env.SMTP_SENDER_NAME,
-        address: process.env.SMTP_FROM,
-      },
-      to: user.email,
-      subject: `Forget Password token of your ${process.env.PROJECT_NAME}.`,
-      html: `
+      const message = {
+        from: {
+          name: process.env.SMTP_SENDER_NAME,
+          address: process.env.SMTP_FROM,
+        },
+        to: user.email,
+        subject: `Forget Password token of your ${process.env.PROJECT_NAME}.`,
+        html: `
         <p>Hello ${user.name},</p>
         <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
           <h2 style="color: #333; font-size: 24px;">Forgot Password</h2>
@@ -94,26 +96,26 @@ const forgetPasswordMail = async (user, fpSalt) => {
           ${process.env.PROJECT_NAME} team
         </p>
       `,
-    };
+      };
 
-    const res = await transporter.sendMail(message);
-    return res;
-  } catch (error) {
-    logger.error(error);
-    throw new ErrorHandler(500, error.message);
-  }
-};
+      const res = await transporter.sendMail(message);
+      return res;
+    } catch (error) {
+      logger.error(error);
+      throw new ErrorHandler(500, error.message);
+    }
+  };
 
-const changePasswordMail = async (user) => {
-  try {
-    const message = {
-      from: {
-        name: process.env.SMTP_SENDER_NAME,
-        address: process.env.SMTP_FROM,
-      },
-      to: user.email,
-      subject: `Password Changed of your ${process.env.PROJECT_NAME}.`,
-      html: `
+  async changePasswordMail(user) {
+    try {
+      const message = {
+        from: {
+          name: process.env.SMTP_SENDER_NAME,
+          address: process.env.SMTP_FROM,
+        },
+        to: user.email,
+        subject: `Password Changed of your ${process.env.PROJECT_NAME}.`,
+        html: `
         <p>Hello ${user.name},</p>
         <p>Your password has been changed successfully.</p>
         <p>
@@ -121,13 +123,14 @@ const changePasswordMail = async (user) => {
           ${process.env.PROJECT_NAME} team
         </p>
       `,
-    };
+      };
 
-    await transporter.sendMail(message);
-  } catch (error) {
-    logger.error(error);
-    throw new ErrorHandler(500, error.message);
-  }
-};
+      await transporter.sendMail(message);
+    } catch (error) {
+      logger.error(error);
+      throw new ErrorHandler(500, error.message);
+    }
+  };
+}
 
-export default { signupMail, signinMail, forgetPasswordMail, changePasswordMail };
+export default new MailService();

@@ -4,8 +4,8 @@ import express from "express";
 import "express-async-errors";
 import helmet from "helmet";
 import morgan from "morgan";
-import handleError from "./helpers/error.mjs";
-import unknownEndpoint from "./middleware/unKnownEndpoint.mjs";
+import { handleError } from "./helpers/error.mjs";
+import { unknownEndpoint } from "./middleware/unKnownEndpoint.mjs";
 import routes from "./routes/index.mjs";
 
 const app = express();

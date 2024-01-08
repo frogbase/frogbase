@@ -1,4 +1,4 @@
-import ErrorHandler from "../helpers/error.mjs";
+import ErrorHandler from "../helpers/error.class.mjs";
 import userService from "../services/user.service.mjs";
 
 export const getAllUsers = async (req, res) => {

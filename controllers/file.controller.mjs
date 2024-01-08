@@ -1,5 +1,5 @@
 
-const fileUpload = async (req, res) => {
+export const fileUpload = async (req, res) => {
     return res.status(201).json({
         success: true,
         statusCode: 201,
@@ -12,5 +12,3 @@ const fileUpload = async (req, res) => {
         }),
     });
 };
-
-export default { fileUpload };

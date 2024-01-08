@@ -3,7 +3,7 @@ import os from 'os';
 const PORT = process.env.PORT || 9000;
 const IP = process.env.IP || `0.0.0.0`;
 
-const healthCheck = (req, res) => {
+export const healthCheck = (req, res) => {
     return res.status(200).json({
         success: true,
         statusCode: 200,
@@ -11,7 +11,7 @@ const healthCheck = (req, res) => {
         log: {
             method: req.method,
             url: `${req.protocol}://${req.get('host')}${req.originalUrl}`,
-            "remote-ip": Object.values(os.networkInterfaces())
+            "server-ip": Object.values(os.networkInterfaces())
                 .flat()
                 .filter((details) => details.family === 'IPv4' && !details.internal)
                 .pop().address,
@@ -20,5 +20,3 @@ const healthCheck = (req, res) => {
         }
     });
 };
-
-export default { healthCheck };

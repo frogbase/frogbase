@@ -3,11 +3,11 @@ import jwt from "jsonwebtoken";
 import moment from "moment";
 import { createResetTokenDb, deleteResetTokenDb, isValidTokenDb, setTokenStatusDb } from "../db/functions/auth.db.mjs";
 import { changeUserPasswordDb, createUserDb, getUserByEmailDb, getUserByUsernameDb } from "../db/functions/user.db.mjs";
-import ErrorHandler from "../helpers/error.mjs";
+import ErrorHandler from "../helpers/error.class.mjs";
 import { comparePassword, hashPassword } from "../helpers/hashPassword.mjs";
 import { validateEmail, validatePassword } from "../helpers/validateUser.mjs";
-import logger from "../utils/logger.mjs";
-import mail from "./mail.service.mjs";
+import { logger } from "../utils/logger.mjs";
+import { } from "./mail.service.mjs";
 
 let curDate = moment().format();
 
