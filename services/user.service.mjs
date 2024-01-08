@@ -8,7 +8,7 @@ import {
 } from "../db/functions/user.db.mjs";
 
 import fs from 'fs';
-import ErrorHandler from "../helpers/error.class.mjs";
+import { ErrorHandler } from "../helpers/error.class.mjs";
 import { logger } from "../utils/logger.mjs";
 
 class UserService {

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import pool from "../db/config/index.mjs";
-import ErrorHandler from "../helpers/error.class.mjs";
+import { ErrorHandler } from "../helpers/error.class.mjs";
 
 const verifyToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];

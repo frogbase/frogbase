@@ -1,4 +1,4 @@
-import ErrorHandler from "../helpers/error.class.mjs";
+import { ErrorHandler } from "../helpers/error.class.mjs";
 import postService from "../services/post.service.mjs";
 
 export const createPost = async (req, res) => {

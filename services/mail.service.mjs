@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import ErrorHandler from "../helpers/error.class.mjs";
+import { ErrorHandler } from "../helpers/error.class.mjs";
 import { logger } from "../utils/logger.mjs";
 
 class MailService {

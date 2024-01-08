@@ -1,4 +1,4 @@
-import ErrorHandler from "../helpers/error.class.mjs";
+import { ErrorHandler } from "../helpers/error.class.mjs";
 
 // eslint-disable-next-line no-unused-vars
 export const unknownEndpoint = (_, __) => {

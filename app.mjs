@@ -8,6 +8,11 @@ import { handleError } from "./helpers/error.mjs";
 import { unknownEndpoint } from "./middleware/unKnownEndpoint.mjs";
 import routes from "./routes/index.mjs";
 
+import path from 'path';
+
+const __filename = new URL(import.meta.url).pathname;
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
 app.set("trust proxy", 1);
@@ -16,7 +21,9 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(compression());
 app.use(helmet());
-app.use("/uploads", express.static("uploads"));
+// app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 // CORS handling
 app.use((req, res, next) => {

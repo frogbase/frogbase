@@ -7,7 +7,7 @@ import {
 } from "../db/functions/post.db.mjs";
 
 import fs from 'fs';
-import ErrorHandler from "../helpers/error.class.mjs";
+import { ErrorHandler } from "../helpers/error.class.mjs";
 import { logger } from "../utils/logger.mjs";
 
 class PostService {
