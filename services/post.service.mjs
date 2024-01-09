@@ -1,10 +1,4 @@
-import {
-    createPostDb,
-    deletePostDb,
-    getAllPostsDb,
-    getPostByIdDb,
-    updatePostDb,
-} from "../db/functions/post.db.mjs";
+import postDB from "../db/functions/post.db.mjs";
 
 import fs from 'fs';
 import { ErrorHandler } from "../helpers/error.class.mjs";
@@ -15,14 +9,14 @@ class PostService {
     async createPost(post) {
         const { title, description, image, creator } = post;
         try {
-            return await createPostDb({ title, description, image, creator });
+            return await postDB.createPostDb({ title, description, image, creator });
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message);
         }
     }
     async getAllPosts(page, limit, filter) {
         try {
-            return await getAllPostsDb(page, limit, filter);
+            return await postDB.getAll(page, limit, filter);
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message);
         }
@@ -30,7 +24,7 @@ class PostService {
 
     async getPostById(id) {
         try {
-            return await getPostByIdDb(id);
+            return await postDB.getById(id);
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message);
         }
@@ -39,7 +33,7 @@ class PostService {
     async updatePost(post) {
         const { id, title, description, image, updator } = post;
         try {
-            const getPost = await getPostByIdDb(id);
+            const getPost = await postDB.getById(id);
             if (!getPost) throw new ErrorHandler(403, "Post not found");
 
             if (!post.title) post.title = getPost.title;
@@ -47,7 +41,7 @@ class PostService {
             if (!post.image) post.image = getPost.image;
             if (post.image && getPost.image) await this.deleteFile(getPost.image)
 
-            return await updatePostDb(post);
+            return await postDB.update(post);
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message);
         }
@@ -55,7 +49,7 @@ class PostService {
 
     async deletePost(id) {
         try {
-            const post = await deletePostDb(id);
+            const post = await postDB.delete(id);
             if (!post) throw new ErrorHandler(404, "Post not found");
             if (post.image) await this.deleteFile(post.image)
             return post;

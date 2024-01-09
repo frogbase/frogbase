@@ -1,13 +1,14 @@
 import pool from "../config/index.mjs";
 
-export const getAllPostsDb = async (page, limit, filter) => {
-    const offset = (page - 1) * limit;
+class PostDB {
+    async getAll(page, limit, filter) {
+        const offset = (page - 1) * limit;
 
-    let whereClause = '';
-    let filterParam = '';
+        let whereClause = '';
+        let filterParam = '';
 
-    if (filter) {
-        whereClause = `
+        if (filter) {
+            whereClause = `
             WHERE
                 posts.title ILIKE $3 OR
                 posts.description ILIKE $3 OR
@@ -18,10 +19,10 @@ export const getAllPostsDb = async (page, limit, filter) => {
                 (users_updator.name ILIKE $3 AND users_updator.name IS NOT NULL) OR
                 (users_updator.email ILIKE $3 AND users_updator.email IS NOT NULL)
         `;
-        filterParam = `%${filter}%`;
-    }
+            filterParam = `%${filter}%`;
+        }
 
-    const queryString = `
+        const queryString = `
         SELECT
             posts.id,
             posts.title,
@@ -65,26 +66,26 @@ export const getAllPostsDb = async (page, limit, filter) => {
         LIMIT $1 OFFSET $2
     `;
 
-    const queryParams = filter ? [limit, offset, filterParam] : [limit, offset];
+        const queryParams = filter ? [limit, offset, filterParam] : [limit, offset];
 
-    const { rows: posts } = await pool.query(queryString, queryParams);
-    return posts;
-};
+        const { rows: posts } = await pool.query(queryString, queryParams);
+        return posts;
+    };
 
-export const createPostDb = async ({ title, description, image, creator }) => {
-    image = image || null;
-    const { rows: posts } = await pool.query(
-        `INSERT INTO posts(title, description, image, creator)
+    async createPostDb({ title, description, image, creator }) {
+        image = image || null;
+        const { rows: posts } = await pool.query(
+            `INSERT INTO posts(title, description, image, creator)
     VALUES($1, $2, $3, $4)
     returning *`,
-        [title, description, image, creator.id],
-    );
-    return posts[0];
-};
+            [title, description, image, creator.id],
+        );
+        return posts[0];
+    };
 
-export const getPostByIdDb = async (id) => {
-    const { rows: posts } = await pool.query(
-        `
+    async getById(id) {
+        const { rows: posts } = await pool.query(
+            `
         SELECT
             posts.id,
             posts.title,
@@ -126,21 +127,24 @@ export const getPostByIdDb = async (id) => {
         WHERE
             posts.id = $1;
         `,
-        [id]);
-    return posts[0];
-};
+            [id]);
+        return posts[0];
+    };
 
-export const updatePostDb = async ({ id, title, description, image, updator }) => {
-    const { rows: posts } = await pool.query(
-        `UPDATE posts set title = $2, description = $3, image = $4, updator = $5
+    async update({ id, title, description, image, updator }) {
+        const { rows: posts } = await pool.query(
+            `UPDATE posts set title = $2, description = $3, image = $4, updator = $5
     WHERE id = $1
     RETURNING *`,
-        [id, title, description, image, updator.id],
-    );
-    return posts[0];
-};
+            [id, title, description, image, updator.id],
+        );
+        return posts[0];
+    };
 
-export const deletePostDb = async (id) => {
-    const { rows: posts } = await pool.query(`DELETE FROM posts WHERE id = $1 RETURNING *`, [id]);
-    return posts[0];
-};
+    async delete(id) {
+        const { rows: posts } = await pool.query(`DELETE FROM posts WHERE id = $1 RETURNING *`, [id]);
+        return posts[0];
+    };
+}
+
+export default new PostDB();

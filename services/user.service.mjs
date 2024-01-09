@@ -1,11 +1,4 @@
-import {
-  deleteUserDb,
-  getAllUsersDb,
-  getUserByEmailDb,
-  getUserByIdDb,
-  getUserByUsernameDb,
-  updateUserDb,
-} from "../db/functions/user.db.mjs";
+import userDB from "../db/functions/user.db.mjs";
 
 import fs from 'fs';
 import { ErrorHandler } from "../helpers/error.class.mjs";
@@ -14,7 +7,7 @@ import { logger } from "../utils/logger.mjs";
 class UserService {
   async getAllUsers() {
     try {
-      return await getAllUsersDb();
+      return await userDB.getAll();
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
@@ -22,7 +15,7 @@ class UserService {
 
   async getUserById(id) {
     try {
-      const user = await getUserByIdDb(id);
+      const user = await userDB.getById(id);
       if (!user) throw new ErrorHandler(404, "User not found with this user id.");
       return user;
     } catch (error) {
@@ -32,7 +25,7 @@ class UserService {
 
   async getUserByEmail(email) {
     try {
-      const user = await getUserByEmailDb(email);
+      const user = await userDB.getByEmail(email);
       if (!user) throw new ErrorHandler(404, "User not found with this email.");
       return user;
     } catch (error) {
@@ -42,7 +35,7 @@ class UserService {
 
   async getUserByUsername(username) {
     try {
-      const user = await getUserByUsernameDb(username);
+      const user = await userDB.getByUsername(username);
       if (!user) throw new ErrorHandler(404, "User not found with this username.");
       return user;
     } catch (error) {
@@ -54,11 +47,11 @@ class UserService {
     const { id, username, email, name, avatar } = user;
     const errors = {};
     try {
-      const getUser = await getUserByIdDb(id);
+      const getUser = await userDB.getById(id);
       if (!getUser) throw new ErrorHandler(403, "User not found");
 
-      const findUserByEmail = await getUserByEmailDb(email);
-      const findUserByUsername = await getUserByUsernameDb(username);
+      const findUserByEmail = await userDB.getByEmail(email);
+      const findUserByUsername = await userDB.getByUsername(username);
 
       const emailChanged = email && getUser.email.toLowerCase() !== email.toLowerCase();
       const usernameChanged = username && getUser.username.toLowerCase() !== username.toLowerCase();
@@ -75,7 +68,7 @@ class UserService {
       if (!user.avatar) user.avatar = getUser.avatar;
       if (user.avatar && getUser.avatar) await this.deleteFile(getUser.avatar)
 
-      return await updateUserDb(user);
+      return await userDB.update(user);
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
@@ -83,7 +76,7 @@ class UserService {
 
   async deleteUser(id) {
     try {
-      const user = await deleteUserDb(id);
+      const user = await userDB.delete(id);
       if (!user) throw new ErrorHandler(404, "User not found");
       if (user.avatar) await this.deleteFile(user.avatar)
       return user;

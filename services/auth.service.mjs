@@ -1,8 +1,8 @@
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import moment from "moment";
-import { createResetTokenDb, deleteResetTokenDb, isValidTokenDb, setTokenStatusDb } from "../db/functions/auth.db.mjs";
-import { changeUserPasswordDb, createUserDb, getUserByEmailDb, getUserByUsernameDb } from "../db/functions/user.db.mjs";
+import authDB from "../db/functions/auth.db.mjs";
+import userDB from "../db/functions/user.db.mjs";
 import { ErrorHandler } from "../helpers/error.class.mjs";
 import { comparePassword, hashPassword } from "../helpers/hashPassword.mjs";
 import { validateEmail, validatePassword } from "../helpers/validateUser.mjs";
@@ -20,15 +20,15 @@ class AuthService {
       if (!validateEmail(email)) throw new ErrorHandler(401, "Invalid email!");
       if (!validatePassword(password)) throw new ErrorHandler(401, "Password must be at least 6 characters!");
 
-      const userByUsername = await getUserByUsernameDb(username);
+      const userByUsername = await userDB.getByUsername(username);
       if (userByUsername) throw new ErrorHandler(401, "Username already taken!");
 
-      const userByEmail = await getUserByEmailDb(email);
+      const userByEmail = await userDB.getByEmail(email);
       if (userByEmail) throw new ErrorHandler(401, "Email already taken!");
 
       const hashedPassword = await hashPassword(password);
 
-      const newUser = await createUserDb({ ...user, password: hashedPassword });
+      const newUser = await userDB.create({ ...user, password: hashedPassword });
 
       const accessToken = await this.signAccessToken({ id: newUser.id });
 
@@ -47,7 +47,7 @@ class AuthService {
 
       if (!validateEmail(email)) throw new ErrorHandler(401, "Invalid email!");
 
-      const newUser = await getUserByEmailDb(email);
+      const newUser = await userDB.getByEmail(email);
 
       if (!newUser) throw new ErrorHandler(403, "No user found with this email.");
 
@@ -118,13 +118,13 @@ class AuthService {
 
     if (!validateEmail(email)) throw new ErrorHandler(401, "Invalid email!");
 
-    const user = await getUserByEmailDb(email);
+    const user = await userDB.getByEmail(email);
 
     if (!user) throw new ErrorHandler(403, "No user found with this email.");
 
     try {
-      await deleteResetTokenDb(curDate);
-      await setTokenStatusDb(email);
+      await authDB.deleteResetToken(curDate);
+      await authDB.setTokenStatus(email);
 
       //Create a random reset token
       var fpSalt = crypto.randomBytes(64).toString("base64").slice(0, 6);
@@ -132,7 +132,7 @@ class AuthService {
       //token expires after 15 mintues
       var expireDate = moment().add(15, "m").format();
 
-      await createResetTokenDb({ email, expireDate, fpSalt });
+      await authDB.createResetToken({ email, expireDate, fpSalt });
 
       return { user, fpSalt };
     } catch (error) {
@@ -145,19 +145,19 @@ class AuthService {
     if (!validateEmail(email)) throw new ErrorHandler(401, "Invalid email!");
     if (!validatePassword(password)) throw new ErrorHandler(401, "Password must be at least 6 characters!");
 
-    const user = await getUserByEmailDb(email);
+    const user = await userDB.getByEmail(email);
     if (!user) throw new ErrorHandler(403, "No user found with this email.");
 
     try {
-      const isTokenValid = await isValidTokenDb({ token, email, curDate });
+      const isTokenValid = await authDB.isValidToken({ token, email, curDate });
 
       if (!isTokenValid) throw new ErrorHandler(400, "Token is invalid! Please try the reset password process again.",);
 
-      await setTokenStatusDb(email);
+      await authDB.setTokenStatus(email);
 
       const hashedPassword = await hashPassword(password);
 
-      return await changeUserPasswordDb(email, hashedPassword);
+      return await userDB.changePassword(email, hashedPassword);
 
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
@@ -169,7 +169,7 @@ class AuthService {
 
       if (!validateEmail(email)) throw new ErrorHandler(401, "Invalid email!");
 
-      const user = await getUserByEmailDb(email);
+      const user = await userDB.getByEmaib(email);
 
       if (!user) throw new ErrorHandler(403, "No user found with this email.");
 
@@ -181,7 +181,7 @@ class AuthService {
 
       const hashedPassword = await hashPassword(newPassword);
 
-      const newUser = await changeUserPasswordDb(email, hashedPassword);
+      const newUser = await userDB.changePassword(email, hashedPassword);
 
       await mail.changePasswordMail(newUser);
 
