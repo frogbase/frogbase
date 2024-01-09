@@ -3,7 +3,6 @@ import { ErrorHandler } from "../helpers/error.class.mjs";
 import { logger } from "../utils/logger.mjs";
 
 class MailService {
-  // TODO: Add email configuration
   transporter = nodemailer.createTransport({
     port: process.env.SMTP_PORT,
     host: process.env.SMTP_HOST,

@@ -1,10 +1,5 @@
-import dotenv from 'dotenv';
-import path from 'path';
-
-const __filename = new URL(import.meta.url).pathname;
-const __dirname = path.dirname(__filename);
-
-dotenv.config({ path: path.join(__dirname, '.env') });
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 import http from "http";
 import app from "./app.mjs";
