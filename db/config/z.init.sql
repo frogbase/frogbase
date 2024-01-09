@@ -3,7 +3,7 @@ CREATE DATABASE frogbase;
 \c frogbase;
 
 -- users table
-CREATE TABLE public.users (
+CREATE TABLE IF NOT EXISTS public.users (
     id SERIAL PRIMARY KEY NOT NULL,
     username character varying(50) UNIQUE NOT NULL,
     email character varying(100) UNIQUE NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE public.users (
 );
 
 -- resetTokens table
-CREATE TABLE public."resetTokens" (
+CREATE TABLE IF NOT EXISTS public."resetTokens" (
     id SERIAL PRIMARY KEY NOT NULL,
     email character varying NOT NULL,
     token character varying NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE public."resetTokens" (
 );
 
 -- posts table
-CREATE TABLE public.posts (
+CREATE TABLE IF NOT EXISTS public.posts (
     id SERIAL PRIMARY KEY NOT NULL,
     title character varying(100) NOT NULL,
     description text NOT NULL,
@@ -50,31 +50,31 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Create the AFTER INSERT trigger
-CREATE TRIGGER set_created_timestamp_trigger AFTER
+CREATE OR REPLACE TRIGGER set_created_timestamp_trigger AFTER
 INSERT ON public.users FOR EACH ROW EXECUTE FUNCTION set_created_timestamp();
 
 -- Create the AFTER UPDATE trigger
-CREATE TRIGGER set_updated_timestamp_trigger AFTER
+CREATE OR REPLACE TRIGGER set_updated_timestamp_trigger AFTER
 UPDATE ON public.users FOR EACH ROW EXECUTE FUNCTION set_updated_timestamp();
 
 -- Create the AFTER INSERT trigger
-CREATE TRIGGER set_created_timestamp_trigger AFTER
+CREATE OR REPLACE TRIGGER set_created_timestamp_trigger AFTER
 INSERT ON public."resetTokens" FOR EACH ROW EXECUTE FUNCTION set_created_timestamp();
 
 -- Create the AFTER UPDATE trigger
-CREATE TRIGGER set_updated_timestamp_trigger AFTER
+CREATE OR REPLACE TRIGGER  set_updated_timestamp_trigger AFTER
 UPDATE ON public."resetTokens" FOR EACH ROW EXECUTE FUNCTION set_updated_timestamp();
 
 -- Create the AFTER INSERT trigger
-CREATE TRIGGER set_created_timestamp_trigger AFTER
+CREATE OR REPLACE TRIGGER set_created_timestamp_trigger AFTER
 INSERT ON public.posts FOR EACH ROW EXECUTE FUNCTION set_created_timestamp();
 
 -- Create the AFTER UPDATE trigger
-CREATE TRIGGER set_updated_timestamp_trigger AFTER
+CREATE OR REPLACE TRIGGER set_updated_timestamp_trigger AFTER
 UPDATE ON public.posts FOR EACH ROW EXECUTE FUNCTION set_updated_timestamp();
 
 -- Indexes
-CREATE UNIQUE INDEX users_unique_lower_email_idx ON public.users (lower(email));
-CREATE UNIQUE INDEX users_unique_lower_username_idx ON public.users (lower(username));
+CREATE UNIQUE INDEX IF NOT EXISTS users_unique_lower_email_idx ON public.users (lower(email));
+CREATE UNIQUE INDEX IF NOT EXISTS users_unique_lower_username_idx ON public.users (lower(username));
 
-CREATE INDEX posts_creator_idx ON public.posts (creator);
+CREATE INDEX IF NOT EXISTS posts_creator_idx ON public.posts (creator);

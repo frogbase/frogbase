@@ -5,7 +5,10 @@ import Connect from 'connect-pg-simple';
 import * as dotenv from 'dotenv';
 import "express-async-errors";
 import session from 'express-session';
+import pool from "../db/config/index.mjs";
+import { logger } from "../utils/logger.mjs";
 dotenv.config();
+logger.info(`Connected to PostgreSQL database: ${pool.status}`);
 
 const connectionString = `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`;
 
