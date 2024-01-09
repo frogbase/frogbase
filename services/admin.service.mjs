@@ -32,21 +32,44 @@ const adminJS = new AdminJS({
         theme: {
             colors: {
                 primary100: "#008080",
+                primary80: "#008080",
+                primary60: "#008080",
+                primary40: "#008080",
+                primary20: "#008080",
                 accent: "#008080",
+                accent75: "#008080",
+                accent50: "#008080",
+                accent25: "#008080",
             },
         },
     },
-    settings: { defaultPerPage: 10 },
+    settings: { defaultPerPage: 15 },
     version: { admin: true, app: process.env.PROJECT_VERSION },
     rootPath: "/admin",
     resources: [
         {
             resource: db.table('users'),
-            options: {},
+            options: {
+                sort: {
+                    sortBy: 'id',
+                    direction: 'asc',
+                },
+                listProperties: ['id', 'username', 'email', 'name', 'avatar', 'created', 'updated'],
+                showProperties: ['id', 'username', 'email', 'name', 'avatar', 'created', 'updated'],
+                editProperties: ['username', 'email', 'name', 'avatar'],
+            },
         },
         {
             resource: db.table('posts'),
-            options: {},
+            options: {
+                sort: {
+                    sortBy: 'id',
+                    direction: 'asc',
+                },
+                listProperties: ['id', 'title', 'description', 'creator', 'updator', 'created', 'updated'],
+                showProperties: ['id', 'title', 'description', 'creator', 'updator', 'created', 'updated'],
+                editProperties: ['title', 'description', 'creator', 'updator'],
+            },
         },
     ],
     // databases: [db], <- not recommended,
