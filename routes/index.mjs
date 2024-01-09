@@ -6,6 +6,9 @@ import health from "./health.mjs";
 import posts from "./post.mjs";
 import users from "./user.mjs";
 
+import swaggerUi from "swagger-ui-express";
+import docs from "../docs/index.mjs";
+
 const router = express.Router();
 
 router.use("/health", health);
@@ -13,5 +16,6 @@ router.use("/auth", auth);
 router.use("/users", users);
 router.use("/file", file);
 router.use("/posts", posts);
+router.use("/docs", swaggerUi.serve, swaggerUi.setup(docs));
 
 export default router;
