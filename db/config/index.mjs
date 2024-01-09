@@ -33,14 +33,16 @@ await defaultPool.connect()
         logger.info(`Connected to Default PostgreSQL database.`);
         await init_db()
             .then(() => {
-                logger.info(`Database initialize complete!`);
+                logger.info(`Database initialize complete.`);
             })
             .catch((err) => {
-                logger.error(`Error initializing database: ${err}`);
+                logger.error(`Error initializing database: ${err}!`);
+                throw err;
             });
     })
     .catch((err) => {
-        logger.error(`Error connecting to Default PostgreSQL: ${err}`);
+        logger.error(`Error connecting to Default PostgreSQL: ${err}!`);
+        throw err;
     });
 
 // Create the database if they don't exist
@@ -48,17 +50,17 @@ async function init_db() {
     try {
         const dbExists = await defaultPool.query(sql.dbExists);
 
-        logger.info(`Database (${process.env.POSTGRES_DB}) is exists: ${dbExists.rows[0].exists}`);
+        logger.info(`Database (${process.env.POSTGRES_DB}) is exists: ${dbExists.rows[0].exists}.`);
 
         if (!dbExists.rows[0].exists) {
-            logger.info(`Creating (${process.env.POSTGRES_DB}) database.`);
+            logger.info(`Creating (${process.env.POSTGRES_DB}) database.....`);
 
             await defaultPool.query(sql.dbCreate)
                 .then(() => {
-                    logger.info(`Database (${process.env.POSTGRES_DB}) created!`);
+                    logger.info(`Database (${process.env.POSTGRES_DB}) created.`);
                 })
                 .catch((err) => {
-                    logger.error(`Error creating database (${process.env.POSTGRES_DB}):`, err);
+                    logger.error(`Error creating database (${process.env.POSTGRES_DB}): ${err}!`);
                     throw err;
                 });
         } else {
@@ -68,6 +70,7 @@ async function init_db() {
         await change_pool();
         //
     } catch (err) {
+        logger.error(`Error checking if database (${process.env.POSTGRES_DB}) exists: ${err}!`);
         throw err;
     }
 };
@@ -75,24 +78,26 @@ async function init_db() {
 // defaultPool off and pool on for production
 async function change_pool() {
 
-    logger.info(`Connecting to (${process.env.POSTGRES_DB}) database...`);
+    logger.info(`Connecting to (${process.env.POSTGRES_DB}) database.....`);
 
     await pool.connect()
         .then(async () => {
             logger.info(`Connected to (${process.env.POSTGRES_DB}) database.`);
             await init_tables()
                 .then(() => {
-                    logger.info(`Tables initialize complete!`);
+                    logger.info(`Tables initialize complete.`);
                 })
                 .catch((err) => {
-                    console.error(`Error initializing tables: ${err}`);
+                    logger.error(`Error initializing tables: ${err}!`);
+                    throw err;
                 });
         })
         .catch((err) => {
-            logger.error(`Error connecting to (${process.env.POSTGRES_DB}): ${err}`);
+            logger.error(`Error connecting to (${process.env.POSTGRES_DB}): ${err}!`);
             throw err;
         });
-    // Close the Default PostgreSQL connection
+
+    // Close the Default PostgreSQL connection.
     // await end_default_pool();
 }
 
@@ -101,31 +106,29 @@ async function init_tables() {
 
     await pool.query(sql.tableCreate)
         .then(() => {
-            logger.info('Tables created or already exist');
+            logger.info(`Tables, Functions, Triggers, Indexs created or already exist.`);
         })
         .catch((err) => {
-            logger.error('Error creating tables: ', err);
+            logger.error(`Error creating tables: ${err}!`);
             throw err;
         });
 }
 
 // Close the PostgreSQL connection
 async function end_default_pool() {
-    logger.info("Closing Default PostgreSQL connection...");
+    logger.info(`Closing Default PostgreSQL connection.....`);
     await defaultPool.end()
         .then(() => {
             logger.info(`Default PostgreSQL connection closed.`);
             return;
         }).catch((err) => {
-            logger.error(`Error closing Default PostgreSQL connection: ${err}`);
+            logger.error(`Error closing Default PostgreSQL connection: ${err}!`);
             throw err;
         });
 }
 
-
-
 export default {
     query: (text, params) => pool.query(text, params),
     end: () => pool.end(),
-    status: 'Success'
+    status: `PostgreSQL database initialized.`,
 };
