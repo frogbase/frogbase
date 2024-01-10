@@ -178,6 +178,19 @@ export default {
           },
         },
       },
+      File: {
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+            example: "rahat-avatar.jpg",
+          },
+          path: {
+            type: "string",
+            example: "uploads/2024-01-10T11-02-52.818Z_dt_rahat-avatar.jpg",
+          },
+          },
+      },
       Error: {
         type: "object",
         properties: {
