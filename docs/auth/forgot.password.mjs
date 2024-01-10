@@ -1,15 +1,12 @@
-module.exports = {
-  // operation's method
+export default {
   post: {
-    tags: ["Auth"], // operation's tag
-    description: "Forgot password", // short desc
-    summary: "Retrieve password",
-    operationId: "forgotPassword", // unique operation id
+    tags: ["Auth"], 
+    summary: "Forgot Password", 
+    description: "Change your password if you forgot it. A reset password token will be sent to your registered email address.",
+    operationId: "forgot-password", 
     parameters: [],
     requestBody: {
-      // expected request body
       content: {
-        // content-type
         "application/json": {
           schema: {
             type: "object",
@@ -23,18 +20,15 @@ module.exports = {
         },
       },
     },
-    // expected responses
     responses: {
-      // response code
       200: {
-        description: "Success", // response desc
+        description: "Success", 
       },
       400: {
-        description: "Email not found", // response desc
+        description: "Email not found", 
       },
-      // response code
       500: {
-        description: "Server error", // response desc
+        description: "Server error", 
       },
     },
   },

@@ -1,34 +1,29 @@
-module.exports = {
-  // method of operation
+export default {
   get: {
-    tags: ["Users"], // operation's tag.
-    description: "Get users", // operation's desc.
+    tags: ["User"],
     summary: "Get all users",
-    operationId: "getUsers", // unique operation id.
+    description: "Get all users by providing a valid access token.", 
+    operationId: "get-users", 
     security: [
       {
         JWT: [],
       },
     ],
-    parameters: [], // expected params.
-    // expected responses
+    parameters: [], 
     responses: {
-      // response code
       200: {
-        description: "Users were obtained", // response desc.
+        description: "Users were obtained", 
         content: {
-          // content-type
           "application/json": {
             schema: {
-              $ref: "#/components/schemas/User", // user model
+              $ref: "#/components/schemas/User", 
             },
           },
         },
       },
       401: {
-        description: "Unauthorized", // response desc.
+        description: "Unauthorized", 
         content: {
-          // content-type
           "application/json": {
             schema: {
               $ref: "#/components/schemas/Error",
@@ -37,9 +32,8 @@ module.exports = {
         },
       },
       500: {
-        description: "Internal Server error", // response desc.
+        description: "Internal Server error", 
         content: {
-          // content-type
           "application/json": {
             schema: {
               $ref: "#/components/schemas/Error",

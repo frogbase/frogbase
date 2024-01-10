@@ -1,22 +1,19 @@
-module.exports = {
-  // operation's method
+export default {
   post: {
-    tags: ["Auth"], // operation's tag
-    description: "Create a login session", // short desc
-    summary: "Login",
-    operationId: "login", // unique operation id
+    tags: ["Auth"],
+    summary: "Signin",
+    description: "Signin to your account by providing your email and password.",
+    operationId: "signin",
     parameters: [],
     requestBody: {
-      // expected request body
       content: {
-        // content-type
         "application/json": {
           schema: {
-            type: "object", // data type
+            type: "object",
             properties: {
               email: {
-                type: "string", // data type
-                example: "sabikrahat72428@gmail.com", // example of a title
+                type: "string",
+                example: "sabikrahat72428@gmail.com",
               },
               password: {
                 type: "string",
@@ -27,18 +24,15 @@ module.exports = {
         },
       },
     },
-    // expected responses
     responses: {
-      // response code
       200: {
-        description: "Login successful", // response desc
+        description: "Login successful. A welcome back email has been sent to your email address.",
       },
       403: {
-        description: "Invalid login", // response desc
+        description: "Invalid login",
       },
-      // response code
       500: {
-        description: "Server error", // response desc
+        description: "Server error",
       },
     },
   },

@@ -1,39 +1,39 @@
-module.exports = {
-  // operation's method
+export default {
   post: {
-    tags: ["Auth"], // operation's tag
-    description: "Verify password reset token", // short desc
-    summary: "Verify password reset token",
-    operationId: "checkToken", // unique operation id
+    tags: ["Auth"],
+    summary: "Change Password",
+    description: "Change password by providing old password.",
+    operationId: "change-password",
     parameters: [],
     requestBody: {
-      // expected request body
       content: {
-        // content-type
         "application/json": {
           schema: {
             type: "object",
             properties: {
-              token: {
-                type: "string",
-              },
               email: {
                 type: "string",
+                example: "sabikrahat72428@gmail.com",
+              },
+              oldPassword: {
+                type: "string",
+                example: "@Rahat123",
+              },
+              newPassword: {
+                type: "string",
+                example: "12345678",
               },
             },
           },
         },
       },
     },
-    // expected responses
     responses: {
-      // response code
       200: {
-        description: "Success", // response desc
+        description: "Success",
       },
-      // response code
       500: {
-        description: "Server error", // response desc
+        description: "Server error",
       },
     },
   },

@@ -1,48 +1,42 @@
-module.exports = {
-  // operation's method
+export default {
   post: {
-    tags: ["Auth"], // operation's tag
-    description: "Reset password", // short desc
-    summary: "Change password",
-    operationId: "resetPassword", // unique operation id
+    tags: ["Auth"], 
+    summary: "Reset password", 
+    description: "Reset your password by providing the token sent to your email address.",
+    operationId: "reset-password", 
     parameters: [],
     requestBody: {
-      // expected request body
       content: {
-        // content-type
         "application/json": {
           schema: {
             type: "object",
             properties: {
-              token: {
-                type: "string",
-                example: "a1B2c3",
-              },
               email: {
                 type: "string",
                 example: "sabikrahat72428@gmail.com",
               },
+              token: {
+                type: "string",
+                example: "a1B2c3",
+              },
               password: {
                 type: "string",
-                example: "123456",
+                example: "12345678",
               },
             },
           },
         },
       },
     },
-    // expected responses
     responses: {
-      // response code
       200: {
-        description: "Password reset successful", // response desc
+        description: "Password reset successful", 
       },
       400: {
-        description: "validation error", // response desc
+        description: "validation error", 
       },
-      // response code
       500: {
-        description: "Server error", // response desc
+        description: "Server error", 
       },
     },
   },
