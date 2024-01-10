@@ -26,6 +26,19 @@ export default {
           },
         },
       },
+      Token: {
+        type: "object",
+        properties: {
+          'access-token': {
+            type: "string",
+            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzA0OTEyOTM5LCJleHAiOjE3MDQ5MTM1Mzl9.-ahHPzNFdzXd6T_AaUxr5KQMnkS7OEHZbSqDQEBeL-M",
+          },
+          'refresh-token': {
+            type: "string",
+            exmaple: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzA0OTEyOTM5LCJleHAiOjE3MDQ5MTQ3Mzl9.4rdxDAMzIRiNwILx1YoXScBN5R9fQi7ryos4dOUKtaQ",
+          },
+        },
+      },
       User: {
         type: "object",
         properties: {
@@ -189,7 +202,7 @@ export default {
             type: "string",
             example: "uploads/2024-01-10T11-02-52.818Z_dt_rahat-avatar.jpg",
           },
-          },
+        },
       },
       Error: {
         type: "object",

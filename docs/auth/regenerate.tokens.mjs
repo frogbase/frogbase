@@ -6,6 +6,7 @@ export default {
     operationId: "regenerate-tokens",
     parameters: [],
     requestBody: {
+      required: true,
       content: {
         "application/json": {
           schema: {
@@ -23,6 +24,14 @@ export default {
     responses: {
       200: {
         description: "success",
+        content: {
+          "application/json": {
+            schema: {
+              type: "object",
+              $ref: "#/components/schemas/Token",
+            },
+          }
+        },
       },
       500: {
         description: "Server error",

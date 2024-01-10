@@ -6,6 +6,7 @@ export default {
     operationId: "forgot-password", 
     parameters: [],
     requestBody: {
+      required: true,
       content: {
         "application/json": {
           schema: {

@@ -21,6 +21,7 @@ export default {
       },
     ],
     requestBody: {
+      required: true,
       content: {
         "application/json": {
           schema: {

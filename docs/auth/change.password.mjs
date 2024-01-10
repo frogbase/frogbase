@@ -6,6 +6,7 @@ export default {
     operationId: "change-password",
     parameters: [],
     requestBody: {
+      required: true,
       content: {
         "application/json": {
           schema: {
@@ -30,7 +31,7 @@ export default {
     },
     responses: {
       200: {
-        description: "Success",
+        description: "Success - Password changed successfully",
       },
       500: {
         description: "Server error",

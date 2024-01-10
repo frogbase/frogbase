@@ -2,27 +2,30 @@ export default {
   get: {
     tags: ["User"],
     summary: "Get all users",
-    description: "Get all users by providing a valid access token.", 
-    operationId: "get-users", 
+    description: "Get all users by providing a valid access token.",
+    operationId: "get-users",
     security: [
       {
         JWT: [],
       },
     ],
-    parameters: [], 
+    parameters: [],
     responses: {
       200: {
-        description: "Users were obtained", 
+        description: "Users were obtained",
         content: {
           "application/json": {
             schema: {
-              $ref: "#/components/schemas/User", 
+              type: "array",
+              items: {
+                $ref: "#/components/schemas/User",
+              },
             },
           },
         },
       },
       401: {
-        description: "Unauthorized", 
+        description: "Unauthorized",
         content: {
           "application/json": {
             schema: {
@@ -32,7 +35,7 @@ export default {
         },
       },
       500: {
-        description: "Internal Server error", 
+        description: "Internal Server error",
         content: {
           "application/json": {
             schema: {

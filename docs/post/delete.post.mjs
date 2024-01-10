@@ -2,8 +2,8 @@ export default {
   delete: {
     tags: ["Post"],
     summary: "Delete a post",
-    description: "Deleting a post by providing user id. Only creator of the post can delete it.", 
-    operationId: "delete-post", 
+    description: "Deleting a post by providing user id.",
+    operationId: "delete-post",
     security: [
       {
         JWT: [],
@@ -11,13 +11,13 @@ export default {
     ],
     parameters: [
       {
-        name: "id", 
-        in: "path", 
+        name: "id",
+        in: "path",
         schema: {
-          $ref: "#/components/schemas/id", 
+          $ref: "#/components/schemas/id",
         },
-        required: true, 
-        description: "Deleting a post", 
+        required: true,
+        description: "Deleting a post",
       },
     ],
     responses: {
@@ -32,13 +32,13 @@ export default {
         },
       },
       401: {
-        description: "Unauthorized", 
+        description: "Unauthorized",
       },
       404: {
-        description: "Post not found", 
+        description: "Post not found",
       },
       500: {
-        description: "Server error", 
+        description: "Server error",
       },
     },
   },
