@@ -3,9 +3,9 @@ dotenv.config();
 
 class Sql {
 
-    dbExists = `SELECT EXISTS (SELECT 1 FROM pg_database WHERE datname = '${process.env.POSTGRES_DB}');`;
+    dbExists = `SELECT EXISTS (SELECT 1 FROM pg_database WHERE datname = '${process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_DB : process.env.POSTGRES_LOCAL_DB}');`;
 
-    dbCreate = `CREATE DATABASE ${process.env.POSTGRES_DB}`;
+    dbCreate = `CREATE DATABASE ${process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_DB : process.env.POSTGRES_LOCAL_DB}`;
 
     tableCreate = `
     -- users table

@@ -8,15 +8,23 @@ import session from 'express-session';
 import pool from "../db/config/index.mjs";
 import { logger } from "../utils/logger.mjs";
 dotenv.config();
-logger.info(`Connected to PostgreSQL database: ${pool.status}`);
+logger.info(`${pool.status}`);
 
-const connectionString = `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`;
+const user = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_USER : process.env.POSTGRES_LOCAL_USER;
+const password = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_PASSWORD : process.env.POSTGRES_LOCAL_PASSWORD;
+const host = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_HOST : process.env.POSTGRES_LOCAL_HOST;
+const port = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_PORT : process.env.POSTGRES_LOCAL_PORT;
+const database = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_DB : process.env.POSTGRES_LOCAL_DB;
+const ssl = process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false;
+
+
+const connectionString = `postgresql://${user}:${password}@${host}:${port}/${database}`;
 
 AdminJS.registerAdapter({ Database, Resource });
 
 const db = await new Adapter('postgresql', {
     connectionString: connectionString,
-    database: process.env.POSTGRES_DB,
+    database: database,
 }).init()
 
 const DEFAULT_ADMIN = { email: process.env.ADMIN_EMAIL, password: process.env.ADMIN_PASSWORD }
@@ -83,9 +91,7 @@ const ConnectSession = Connect(session);
 const sessionStore = new ConnectSession({
     conObject: {
         connectionString: connectionString,
-        ssl: process.env.NODE_ENV === "production"
-            ? { rejectUnauthorized: false }
-            : false,
+        ssl: ssl,
     },
     tableName: process.env.ADMIN_SESSION_TABLE,
     createTableIfMissing: true,
