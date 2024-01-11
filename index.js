@@ -5,7 +5,6 @@ const app = require("./app.js");
 
 const logger  = require("./utils/logger.js");
 
-
 const server = http.createServer(app);
 
 const PORT = process.env.PORT || 9000;
