@@ -7,10 +7,7 @@ const handleError = require("./helpers/error.js");
 const unknownEndpoint = require("./middleware/unknown.endpoint.js");
 const routes = require("./routes/index.js");
 const app = express();
-const pool = require("./db/config/index.js");
 const logger = require("./utils/logger.js");
-
-logger.info(`${pool.status}`);
 
 app.set("trust proxy", 1);
 app.use(cors({ credentials: true, origin: true }));
@@ -42,14 +39,17 @@ Promise.all([
     import('connect-pg-simple'),
     import('express-session'),
     import('@adminjs/sql'),
+    import('./db/config/index.js'),
 ]).then(async ([
     { default: AdminJS },
     { default: AdminJSExpress },
     { default: Connect },
     { default: session },
     { default: Adapter, Resource, Database },
+    { default: pool },
 ]) => {
-    logger.info(`${pool.status}`);
+
+    logger.info(`${await pool.init()}`)
 
     const user = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_USER : process.env.POSTGRES_LOCAL_USER;
     const password = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_PASSWORD : process.env.POSTGRES_LOCAL_PASSWORD;

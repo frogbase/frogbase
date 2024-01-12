@@ -34,22 +34,43 @@ const defaultPool = new Pool(defaultConnectionConfig);
 const pool = new Pool(connectionConfig);
 
 // Connect to the Default PostgreSQL database
-defaultPool.connect()
-    .then(async () => {
-        logger.info(`Connected to Default PostgreSQL database (${default_database}).`);
-        await init_db()
-            .then(() => {
-                logger.info(`Database initialize complete.`);
-            })
-            .catch((err) => {
-                logger.error(`Error initializing database: ${err}!`);
-                throw err;
-            });
-    })
-    .catch((err) => {
-        logger.error(`Error connecting to Default PostgreSQL: ${err}!`);
-        throw err;
-    });
+// defaultPool.connect()
+//     .then(async () => {
+//         logger.info(`Connected to Default PostgreSQL database (${default_database}).`);
+//         await init_db()
+//             .then(() => {
+//                 logger.info(`Database initialize complete.`);
+//             })
+//             .catch((err) => {
+//                 logger.error(`Error initializing database: ${err}!`);
+//                 throw err;
+//             });
+//     })
+//     .catch((err) => {
+//         logger.error(`Error connecting to Default PostgreSQL: ${err}!`);
+//         throw err;
+//     });
+
+// initialize
+async function init() {
+    await defaultPool.connect()
+        .then(async () => {
+            logger.info(`Connected to Default PostgreSQL database (${default_database}).`);
+            await init_db()
+                .then(() => {
+                    logger.info(`Database initialize complete.`);
+                })
+                .catch((err) => {
+                    logger.error(`Error initializing database: ${err}!`);
+                    throw err;
+                });
+        })
+        .catch((err) => {
+            logger.error(`Error connecting to Default PostgreSQL: ${err}!`);
+            throw err;
+        });
+    return `PostgreSQL database initialized.`;
+}
 
 // Create the database if they don't exist
 async function init_db() {
@@ -136,5 +157,5 @@ async function end_default_pool() {
 module.exports = {
     query: (text, params) => pool.query(text, params),
     end: () => pool.end(),
-    status: `PostgreSQL database initialized.`,
+    init: () => init(),
 };
