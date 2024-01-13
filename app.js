@@ -63,7 +63,8 @@ function adminJsSetup(app) {
         const host = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_HOST : process.env.POSTGRES_LOCAL_HOST;
         const port = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_PORT : process.env.POSTGRES_LOCAL_PORT;
         const database = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_DB : process.env.POSTGRES_LOCAL_DB;
-        const ssl = process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false;
+        // const ssl = process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false;
+        const ssl = false;
 
         const connectionString = `postgresql://${user}:${password}@${host}:${port}/${database}`;
 

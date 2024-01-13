@@ -8,7 +8,8 @@ const host = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE
 const port = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_PORT : process.env.POSTGRES_LOCAL_PORT;
 const default_database = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_DEFAULT_DB : process.env.POSTGRES_LOCAL_DEFAULT_DB;
 const database = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_DB : process.env.POSTGRES_LOCAL_DB;
-const ssl = process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false;
+// const ssl = process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false;
+const ssl = false;
 
 const defaultConnectionConfig = {
     user: user,
