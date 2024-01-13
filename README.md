@@ -35,3 +35,6 @@
 ### Unistall package
 
 - npm uninstall --save <package-name>
+
+### ftp + github action
+- ```https://www.youtube.com/watch?v=MrN3lTp2Ndo```
