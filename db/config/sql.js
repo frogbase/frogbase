@@ -106,6 +106,24 @@ class Sql {
         CREATE OR REPLACE TRIGGER set_updated_timestamp_trigger AFTER
         UPDATE ON public."logs" FOR EACH ROW EXECUTE FUNCTION set_updated_timestamp();
 
+        -- Trigger function to delete the oldest log if the count exceeds 250
+        CREATE OR REPLACE FUNCTION delete_oldest_log_trigger() RETURNS TRIGGER AS $$
+        BEGIN
+            -- Check if the total number of logs exceeds the limit (250)
+            IF (SELECT COUNT(*) FROM public."logs") > 250 THEN
+                -- Delete the oldest log
+                DELETE FROM public."logs"
+                WHERE id = (SELECT id FROM public."logs" ORDER BY created ASC LIMIT 1);
+            END IF;
+
+            RETURN NEW;
+        END;
+        $$ LANGUAGE plpgsql;
+
+        -- Create the AFTER INSERT trigger for logs table
+        CREATE OR REPLACE TRIGGER delete_oldest_log_trigger AFTER
+        INSERT ON public."logs" FOR EACH ROW EXECUTE FUNCTION delete_oldest_log_trigger();
+
         -- Indexes
         CREATE UNIQUE INDEX IF NOT EXISTS users_unique_lower_email_idx ON public.users (lower(email));
         CREATE UNIQUE INDEX IF NOT EXISTS users_unique_lower_username_idx ON public.users (lower(username));
