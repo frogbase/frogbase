@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const pool = require("../db/config/index.js");
-const { ErrorHandler } = require("../helpers/error.class.js");
+const ErrorHandler = require("../helpers/error.class.js");
 
 const verifyToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];

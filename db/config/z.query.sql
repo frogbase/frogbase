@@ -25,6 +25,20 @@ CREATE TABLE IF NOT EXISTS public."resetTokens" (
     updated timestamp with time zone DEFAULT CURRENT_TIMESTAMP
 );
 
+-- logs table
+CREATE TABLE IF NOT EXISTS public."logs" (
+    id SERIAL PRIMARY KEY NOT NULL,
+    status character varying,
+    method character varying,
+    url character varying,
+    server character varying,
+    client character varying,
+    agent character varying,
+    meta character varying,
+    created TIMESTAMP with time zone DEFAULT CURRENT_TIMESTAMP,
+    updated timestamp with time zone DEFAULT CURRENT_TIMESTAMP
+);
+
 -- posts table
 CREATE TABLE IF NOT EXISTS public.posts (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -49,32 +63,45 @@ RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
--- Create the AFTER INSERT trigger
+-- Create the AFTER INSERT trigger for users table
 CREATE OR REPLACE TRIGGER set_created_timestamp_trigger AFTER
 INSERT ON public.users FOR EACH ROW EXECUTE FUNCTION set_created_timestamp();
 
--- Create the AFTER UPDATE trigger
+-- Create the AFTER UPDATE trigger for users table
 CREATE OR REPLACE TRIGGER set_updated_timestamp_trigger AFTER
 UPDATE ON public.users FOR EACH ROW EXECUTE FUNCTION set_updated_timestamp();
 
--- Create the AFTER INSERT trigger
+-- Create the AFTER INSERT trigger for resetTokens table
 CREATE OR REPLACE TRIGGER set_created_timestamp_trigger AFTER
 INSERT ON public."resetTokens" FOR EACH ROW EXECUTE FUNCTION set_created_timestamp();
 
--- Create the AFTER UPDATE trigger
+-- Create the AFTER UPDATE trigger for resetTokens table
 CREATE OR REPLACE TRIGGER  set_updated_timestamp_trigger AFTER
 UPDATE ON public."resetTokens" FOR EACH ROW EXECUTE FUNCTION set_updated_timestamp();
 
--- Create the AFTER INSERT trigger
+-- Create the AFTER INSERT trigger for posts table
 CREATE OR REPLACE TRIGGER set_created_timestamp_trigger AFTER
 INSERT ON public.posts FOR EACH ROW EXECUTE FUNCTION set_created_timestamp();
 
--- Create the AFTER UPDATE trigger
+-- Create the AFTER UPDATE trigger for posts table
 CREATE OR REPLACE TRIGGER set_updated_timestamp_trigger AFTER
 UPDATE ON public.posts FOR EACH ROW EXECUTE FUNCTION set_updated_timestamp();
+
+-- Create the AFTER INSERT trigger for logs table
+CREATE OR REPLACE TRIGGER set_created_timestamp_trigger AFTER
+INSERT ON public."logs" FOR EACH ROW EXECUTE FUNCTION set_created_timestamp();
+
+-- Create the AFTER UPDATE trigger for logs table
+CREATE OR REPLACE TRIGGER set_updated_timestamp_trigger AFTER
+UPDATE ON public."logs" FOR EACH ROW EXECUTE FUNCTION set_updated_timestamp();
 
 -- Indexes
 CREATE UNIQUE INDEX IF NOT EXISTS users_unique_lower_email_idx ON public.users (lower(email));
 CREATE UNIQUE INDEX IF NOT EXISTS users_unique_lower_username_idx ON public.users (lower(username));
 
 CREATE INDEX IF NOT EXISTS posts_creator_idx ON public.posts (creator);
+CREATE INDEX IF NOT EXISTS posts_updator_idx ON public.posts (updator);
+
+CREATE INDEX IF NOT EXISTS logs_user_idx ON public."logs" (client);
+CREATE INDEX IF NOT EXISTS logs_server_idx ON public."logs" (server);
+

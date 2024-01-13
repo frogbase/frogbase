@@ -8,7 +8,7 @@ class PostService {
     async createPost(post) {
         const { title, description, image, creator } = post;
         try {
-            return await postDB.createPostDb({ title, description, image, creator });
+            return await postDB.create({ title, description, image, creator });
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message);
         }

@@ -72,7 +72,7 @@ class PostDB {
         return posts;
     };
 
-    async createPostDb({ title, description, image, creator }) {
+    async create({ title, description, image, creator }) {
         image = image || null;
         const { rows: posts } = await pool.query(
             `INSERT INTO posts(title, description, image, creator)
