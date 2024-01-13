@@ -1,5 +1,3 @@
-require("dotenv").config({ path: __dirname + "/.env" });
-
 class Sql {
 
     dbExists = `SELECT EXISTS (SELECT 1 FROM pg_database WHERE datname = '${process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_DB : process.env.POSTGRES_LOCAL_DB}');`;

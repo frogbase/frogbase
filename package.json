@@ -4,7 +4,7 @@
   "description": "An open source extended verision of pocketbase backend using node js and postgresql for your next SaaS software.",
   "main": "index.mjs",
   "scripts": {
-    "start": "cross-env NODE_ENV=production nodemon index.js",
+    "start": "cross-env NODE_ENV=production index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js"
   },
   "repository": {
@@ -41,13 +41,12 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.7",
     "pg": "^8.11.3",
-    "pino": "^6.14.0",
+    "pino": "^8.17.2",
     "swagger-ui-express": "^5.0.0",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "nodemon": "^3.0.2",
-    "pino-pretty": "^4.8.0"
+    "nodemon": "^3.0.2"
   }
 }

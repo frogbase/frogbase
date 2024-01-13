@@ -1,9 +1,9 @@
-const pino = require("pino");
+const logger = require("pino")();
 
 // Create a logging instance
-const logger = pino({
-  level: "debug",
-  prettyPrint: true,
-});
+// const logger = pino({
+//   level: "debug",
+//   prettyPrint: true,
+// });
 
 module.exports = logger;
