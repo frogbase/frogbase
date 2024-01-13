@@ -6,7 +6,6 @@ const userDB = require("../db/functions/user.db.js");
 const ErrorHandler = require("../helpers/error.class.js");
 const { comparePassword, hashPassword } = require("../helpers/hash.password.js");
 const { validateEmail, validatePassword } = require("../helpers/validate.user.js");
-const logger = require("../utils/logger.js");
 const mail = require("./mail.service.js");
 
 let curDate = moment().format();
@@ -70,7 +69,7 @@ class AuthService {
     try {
       return jwt.sign(data, process.env.SECRET, { expiresIn: process.env.SECRET_EXP });
     } catch (error) {
-      logger.error(error);
+      console.log(error);
       throw new ErrorHandler(500, "An error occurred while signing token.");
     }
   }
@@ -79,7 +78,7 @@ class AuthService {
     try {
       return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: process.env.REFRESH_SECRET_EXP });
     } catch (error) {
-      logger.error(error);
+      console.log(error);
       throw new ErrorHandler(500, error.message);
     }
   }
@@ -88,7 +87,7 @@ class AuthService {
     try {
       return jwt.verify(token, process.env.SECRET);
     } catch (error) {
-      logger.error(error);
+      console.log(error);
       throw new ErrorHandler(500, `An error occurred while verifying access token. ${error.message}`);
     }
   }
@@ -97,7 +96,7 @@ class AuthService {
     try {
       return jwt.verify(token, process.env.REFRESH_SECRET);
     } catch (error) {
-      logger.error(error);
+      console.log(error);
       throw new ErrorHandler(500, `An error occurred while verifying refresh token. ${error.message}`);
     }
   }

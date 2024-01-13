@@ -1,5 +1,3 @@
-const logger = require("../utils/logger.js");
-
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -10,7 +8,7 @@ const storage = multer.diskStorage({
 const fileFilter = (req, file, cb) => {
     // reject a file
     if (file.mimetype === "image/jpeg" || file.mimetype === "image/png" || file.mimetype === "image/jpg") return cb(null, true);
-    logger.error("Invalid file type");
+    console.log("Invalid file type");
     return cb(new Error("Invalid file type"), false);
 }
 const upload = multer({

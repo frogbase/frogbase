@@ -1,5 +1,4 @@
 
-const logger = require("../../utils/logger.js");
 const sql = require('./sql.js');
 const { Pool } = require("pg");
 
@@ -36,18 +35,18 @@ const pool = new Pool(connectionConfig);
 // Connect to the Default PostgreSQL database
 // defaultPool.connect()
 //     .then(async () => {
-//         logger.info(`Connected to Default PostgreSQL database (${default_database}).`);
+//         console.log(`Connected to Default PostgreSQL database (${default_database}).`);
 //         await init_db()
 //             .then(() => {
-//                 logger.info(`Database initialize complete.`);
+//                 console.log(`Database initialize complete.`);
 //             })
 //             .catch((err) => {
-//                 logger.error(`Error initializing database: ${err}!`);
+//                 console.log(`Error initializing database: ${err}!`);
 //                 throw err;
 //             });
 //     })
 //     .catch((err) => {
-//         logger.error(`Error connecting to Default PostgreSQL: ${err}!`);
+//         console.log`Error connecting to Default PostgreSQL: ${err}!`);
 //         throw err;
 //     });
 
@@ -55,18 +54,18 @@ const pool = new Pool(connectionConfig);
 async function init() {
     await defaultPool.connect()
         .then(async () => {
-            logger.info(`Connected to Default PostgreSQL database (${default_database}).`);
+            console.log(`Connected to Default PostgreSQL database (${default_database}).`);
             await init_db()
                 .then(() => {
-                    logger.info(`Database initialize complete.`);
+                    console.log(`Database initialize complete.`);
                 })
                 .catch((err) => {
-                    logger.error(`Error initializing database: ${err}!`);
+                    console.log(`Error initializing database: ${err}!`);
                     throw err;
                 });
         })
         .catch((err) => {
-            logger.error(`Error connecting to Default PostgreSQL: ${err}!`);
+            console.log(`Error connecting to Default PostgreSQL: ${err}!`);
             throw err;
         });
     return `PostgreSQL database initialized.`;
@@ -77,27 +76,27 @@ async function init_db() {
     try {
         const dbExists = await defaultPool.query(sql.dbExists);
 
-        logger.info(`Database (${database}) is exists: ${dbExists.rows[0].exists}.`);
+        console.log(`Database (${database}) is exists: ${dbExists.rows[0].exists}.`);
 
         if (!dbExists.rows[0].exists) {
-            logger.info(`Creating (${database}) database.....`);
+            console.log(`Creating (${database}) database.....`);
 
             await defaultPool.query(sql.dbCreate)
                 .then(() => {
-                    logger.info(`Database (${database}) created.`);
+                    console.log(`Database (${database}) created.`);
                 })
                 .catch((err) => {
-                    logger.error(`Error creating database (${database}): ${err}!`);
+                    console.log(`Error creating database (${database}): ${err}!`);
                     throw err;
                 });
         } else {
-            logger.info(`Database (${database}) already exists.`);
+            console.log(`Database (${database}) already exists.`);
         }
         //
         await change_pool();
         //
     } catch (err) {
-        logger.error(`Error checking if database (${database}) exists: ${err}!`);
+        console.log(`Error checking if database (${database}) exists: ${err}!`);
         throw err;
     }
 };
@@ -105,22 +104,22 @@ async function init_db() {
 // defaultPool off and pool on for production
 async function change_pool() {
 
-    logger.info(`Connecting to (${database}) database.....`);
+    console.log(`Connecting to (${database}) database.....`);
 
     await pool.connect()
         .then(async () => {
-            logger.info(`Connected to (${database}) database.`);
+            console.log(`Connected to (${database}) database.`);
             await init_tables()
                 .then(() => {
-                    logger.info(`Tables initialize complete.`);
+                    console.log(`Tables initialize complete.`);
                 })
                 .catch((err) => {
-                    logger.error(`Error initializing tables: ${err}!`);
+                    console.log(`Error initializing tables: ${err}!`);
                     throw err;
                 });
         })
         .catch((err) => {
-            logger.error(`Error connecting to (${database}): ${err}!`);
+            console.log(`Error connecting to (${database}): ${err}!`);
             throw err;
         });
 
@@ -133,23 +132,23 @@ async function init_tables() {
 
     await pool.query(sql.tableCreate)
         .then(() => {
-            logger.info(`Tables, Functions, Triggers, Indexes created or already exist.`);
+            console.log(`Tables, Functions, Triggers, Indexes created or already exist.`);
         })
         .catch((err) => {
-            logger.error(`Error creating tables: ${err}!`);
+            console.log(`Error creating tables: ${err}!`);
             throw err;
         });
 }
 
 // Close the PostgreSQL connection
 async function end_default_pool() {
-    logger.info(`Closing Default PostgreSQL (${default_database}) connection.....`);
+    console.log(`Closing Default PostgreSQL (${default_database}) connection.....`);
     await defaultPool.end()
         .then(() => {
-            logger.info(`Default PostgreSQL (${default_database}) connection closed.`);
+            console.log(`Default PostgreSQL (${default_database}) connection closed.`);
             return;
         }).catch((err) => {
-            logger.error(`Error closing Default PostgreSQL (${default_database}) connection: ${err}!`);
+            console.log(`Error closing Default PostgreSQL (${default_database}) connection: ${err}!`);
             throw err;
         });
 }

@@ -1,7 +1,6 @@
 const userDB = require("../db/functions/user.db.js");
 const fs = require('fs');
 const ErrorHandler = require("../helpers/error.class.js");
-const logger = require("../utils/logger.js");
 
 class UserService {
   async getAllUsers() {
@@ -87,9 +86,9 @@ class UserService {
   async deleteFile(path) {
     fs.unlink(path, (err) => {
       if (err) {
-        logger.debug(`Error deleting file path: ${path} Error: ${err.message}`);
+        console.log(`Error deleting file path: ${path} Error: ${err.message}`);
       } else {
-        logger.debug(`File ${path} has been deleted successfully`);
+        console.log(`File ${path} has been deleted successfully`);
       }
     });
   }

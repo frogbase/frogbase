@@ -1,7 +1,5 @@
 const nodemailer = require("nodemailer");
 const ErrorHandler = require("../helpers/error.class.js");
-const logger = require("../utils/logger.js");
-
 class MailService {
   transporter = nodemailer.createTransport({
     port: process.env.SMTP_PORT,
@@ -34,7 +32,7 @@ class MailService {
 
       await this.transporter.sendMail(message);
     } catch (error) {
-      logger.error(error);
+      console.log(error);
     }
   };
 
@@ -60,7 +58,7 @@ class MailService {
 
       await this.transporter.sendMail(message);
     } catch (error) {
-      logger.error(error);
+      console.log(error);
     }
   };
 
@@ -99,7 +97,7 @@ class MailService {
 
       await this.transporter.sendMail(message);
     } catch (error) {
-      logger.error(error);
+      console.log(error);
       throw new ErrorHandler(500, error.message);
     }
   };
@@ -125,7 +123,7 @@ class MailService {
 
       await this.transporter.sendMail(message);
     } catch (error) {
-      logger.error(error);
+      console.log(error);
       throw new ErrorHandler(500, error.message);
     }
   };

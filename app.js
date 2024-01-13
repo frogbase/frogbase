@@ -7,7 +7,6 @@ const handleError = require("./helpers/error.js");
 const unknownEndpoint = require("./middleware/unknown.endpoint.js");
 const routes = require("./routes/index.js");
 const app = express();
-const logger = require("./utils/logger.js");
 const logMiddleware = require("./middleware/log.js");
 
 app.set("trust proxy", 1);
@@ -57,7 +56,7 @@ function adminJsSetup(app) {
         { default: pool },
     ]) => {
 
-        logger.info(`${await pool.init()}`)
+        console.log(`${await pool.init()}`)
 
         const user = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_USER : process.env.POSTGRES_LOCAL_USER;
         const password = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_PASSWORD : process.env.POSTGRES_LOCAL_PASSWORD;
@@ -176,16 +175,6 @@ function adminJsSetup(app) {
         )
         app.use(adminJS.options.rootPath, adminRouter);
 
-        // app.use(logMiddleware);
-        // app.use((req, res, next) => {
-        //     console.log(`Rahat ${req.originalUrl}`);
-        //     // if (!req.path.startsWith(adminJS.options.rootPath) && req.originalUrl !== '/favicon.ico') {
-        //     if (!req.path.startsWith(adminJS.options.rootPath)) {
-        //         logMiddleware(req, res, next); // Apply only to non-AdminJS routes
-        //     } else {
-        //         next(); // Skip for AdminJS routes
-        //     }
-        // });
         app.use('*', unknownEndpoint);
         app.use(handleError);
     });
