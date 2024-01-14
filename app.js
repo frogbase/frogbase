@@ -8,6 +8,7 @@ const unknownEndpoint = require("./middleware/unknown.endpoint.js");
 const routes = require("./routes/index.js");
 const app = express();
 const logMiddleware = require("./middleware/log.js");
+const pool = require("./db/config/index.js");
 
 app.set("trust proxy", 1);
 app.use(cors({ credentials: true, origin: true }));
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(compression());
 app.use("/uploads", express.static("uploads"));
+app.use(logMiddleware);
 
 // CORS handling
 app.use((req, res, next) => {
@@ -30,15 +32,13 @@ app.use((req, res, next) => {
     next();
 });
 
-// Use the logging middleware
-app.use(logMiddleware);
-
 app.use(`/api`, routes);
 
 adminJsSetup(app);
 
 module.exports = app;
 
+// AdminJS Setup
 function adminJsSetup(app) {
     Promise.all([
         import('adminjs'),
@@ -46,33 +46,19 @@ function adminJsSetup(app) {
         import('connect-pg-simple'),
         import('express-session'),
         import('@adminjs/sql'),
-        import('./db/config/index.js'),
     ]).then(async ([
         { default: AdminJS },
         { default: AdminJSExpress },
         { default: Connect },
         { default: session },
         { default: Adapter, Resource, Database },
-        { default: pool },
     ]) => {
-
-        console.log(`${await pool.init()}`)
-
-        const user = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_USER : process.env.POSTGRES_LOCAL_USER;
-        const password = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_PASSWORD : process.env.POSTGRES_LOCAL_PASSWORD;
-        const host = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_HOST : process.env.POSTGRES_LOCAL_HOST;
-        const port = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_PORT : process.env.POSTGRES_LOCAL_PORT;
-        const database = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_REMOTE_DB : process.env.POSTGRES_LOCAL_DB;
-        // const ssl = process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false;
-        const ssl = false;
-
-        const connectionString = `postgresql://${user}:${password}@${host}:${port}/${database}`;
 
         AdminJS.registerAdapter({ Database, Resource })
 
         const db = await new Adapter('postgresql', {
-            connectionString: connectionString,
-            database: database,
+            connectionString: pool.connectionString,
+            database: process.env.POSTGRES_DB,
         }).init();
 
         const DEFAULT_ADMIN = { email: process.env.ADMIN_EMAIL, password: process.env.ADMIN_PASSWORD }
@@ -102,7 +88,7 @@ function adminJsSetup(app) {
                     },
                 },
             },
-            settings: { defaultPerPage: 15 },
+            settings: { defaultPerPage: 25 },
             version: { admin: true, app: process.env.PROJECT_VERSION },
             rootPath: "/admin",
             resources: [
@@ -148,8 +134,8 @@ function adminJsSetup(app) {
         const ConnectSession = Connect(session)
         const sessionStore = new ConnectSession({
             conObject: {
-                connectionString: connectionString,
-                ssl: ssl,
+                connectionString: pool.connectionString,
+                ssl: pool.ssl,
             },
             tableName: process.env.ADMIN_SESSION_TABLE,
             createTableIfMissing: true,
@@ -168,8 +154,8 @@ function adminJsSetup(app) {
                 saveUninitialized: true,
                 secret: process.env.COOKIE_SECRET,
                 cookie: {
-                    httpOnly: process.env.NODE_ENV === 'production',
-                    secure: process.env.NODE_ENV === 'production',
+                    httpOnly: pool.ssl,
+                    secure: pool.ssl,
                 },
                 name: process.env.COOKIE_NAME,
             }

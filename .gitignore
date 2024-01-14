@@ -4,4 +4,4 @@ node_modules/
 request.http
 *.rest
 uploads
-/.adminjs/
+.adminjs

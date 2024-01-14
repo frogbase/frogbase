@@ -9,7 +9,7 @@ class MailService {
       pass: process.env.SMTP_PASSWORD,
     },
     // secure: process.env.NODE_ENV === "production",
-    secure: false
+    secure: false,
   });
 
   async signupMail(user) {

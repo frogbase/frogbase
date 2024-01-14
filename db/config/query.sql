@@ -99,7 +99,7 @@ UPDATE ON public."logs" FOR EACH ROW EXECUTE FUNCTION set_updated_timestamp();
 CREATE OR REPLACE FUNCTION delete_oldest_log_trigger() RETURNS TRIGGER AS $$
 BEGIN
     -- Check if the total number of logs exceeds the limit (250)
-    IF (SELECT COUNT(*) FROM public."logs") > 250 THEN
+    IF (SELECT COUNT(*) FROM public."logs") > 50 THEN
         -- Delete the oldest log
         DELETE FROM public."logs"
         WHERE id = (SELECT id FROM public."logs" ORDER BY created ASC LIMIT 1);
