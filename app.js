@@ -7,7 +7,7 @@ const handleError = require("./helpers/error.js");
 const unknownEndpoint = require("./middleware/unknown.endpoint.js");
 const routes = require("./routes/index.js");
 const app = express();
-const logMiddleware = require("./middleware/log.js");
+// const logMiddleware = require("./middleware/log.js");
 const pool = require("./db/config/index.js");
 
 app.set("trust proxy", 1);
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(compression());
 app.use("/uploads", express.static("uploads"));
-app.use(logMiddleware);
+// app.use(logMiddleware);
 
 // CORS handling
 app.use((req, res, next) => {
@@ -116,18 +116,18 @@ function adminJsSetup(app) {
                         editProperties: ['title', 'description', 'creator', 'updator'],
                     },
                 },
-                {
-                    resource: db.table('logs'),
-                    options: {
-                        sort: {
-                            sortBy: 'id',
-                            direction: 'desc',
-                        },
-                        listProperties: ['id', 'status', 'method', 'url', 'server', 'client', 'agent', 'meta', 'created', 'updated'],
-                        showProperties: ['id', 'status', 'method', 'url', 'server', 'client', 'agent', 'meta', 'created', 'updated'],
-                        editProperties: ['status', 'method', 'url', 'server', 'client', 'agent', 'meta'],
-                    },
-                },
+                // {
+                //     resource: db.table('logs'),
+                //     options: {
+                //         sort: {
+                //             sortBy: 'id',
+                //             direction: 'desc',
+                //         },
+                //         listProperties: ['id', 'status', 'method', 'url', 'server', 'client', 'agent', 'meta', 'created', 'updated'],
+                //         showProperties: ['id', 'status', 'method', 'url', 'server', 'client', 'agent', 'meta', 'created', 'updated'],
+                //         editProperties: ['status', 'method', 'url', 'server', 'client', 'agent', 'meta'],
+                //     },
+                // },
             ],
             // databases: [db], <- not recommended,
         });
