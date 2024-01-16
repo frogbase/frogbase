@@ -5,7 +5,7 @@ const handleError = (err, req, res, next) => {
         success: false,
         status: "error",
         statusCode: statusCode || 500,
-        message: statusCode === 500 ? "An error occurred" : message,
+        message: statusCode === 500 ? "Internal Server Error" : message,
     });
     next();
 };

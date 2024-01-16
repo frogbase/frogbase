@@ -34,135 +34,138 @@ app.use((req, res, next) => {
 
 app.use(`/api`, routes);
 
-adminJsSetup(app);
+// adminJsSetup(app);
+
+app.use('*', unknownEndpoint);
+app.use(handleError);
 
 module.exports = app;
 
-// AdminJS Setup
-function adminJsSetup(app) {
-    Promise.all([
-        import('adminjs'),
-        import('@adminjs/express'),
-        import('connect-pg-simple'),
-        import('express-session'),
-        import('@adminjs/sql'),
-    ]).then(async ([
-        { default: AdminJS },
-        { default: AdminJSExpress },
-        { default: Connect },
-        { default: session },
-        { default: Adapter, Resource, Database },
-    ]) => {
+// // AdminJS Setup
+// function adminJsSetup(app) {
+//     Promise.all([
+//         import('adminjs'),
+//         import('@adminjs/express'),
+//         import('connect-pg-simple'),
+//         import('express-session'),
+//         import('@adminjs/sql'),
+//     ]).then(async ([
+//         { default: AdminJS },
+//         { default: AdminJSExpress },
+//         { default: Connect },
+//         { default: session },
+//         { default: Adapter, Resource, Database },
+//     ]) => {
 
-        AdminJS.registerAdapter({ Database, Resource })
+//         AdminJS.registerAdapter({ Database, Resource })
 
-        const db = await new Adapter('postgresql', {
-            connectionString: pool.connectionString,
-            database: process.env.POSTGRES_DB,
-        }).init();
+//         const db = await new Adapter('postgresql', {
+//             connectionString: pool.connectionString,
+//             database: process.env.POSTGRES_DB,
+//         }).init();
 
-        const DEFAULT_ADMIN = { email: process.env.ADMIN_EMAIL, password: process.env.ADMIN_PASSWORD }
+//         const DEFAULT_ADMIN = { email: process.env.ADMIN_EMAIL, password: process.env.ADMIN_PASSWORD }
 
-        const authenticate = async (email, password) => {
-            if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) return Promise.resolve(DEFAULT_ADMIN)
-            return null
-        }
+//         const authenticate = async (email, password) => {
+//             if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) return Promise.resolve(DEFAULT_ADMIN)
+//             return null
+//         }
 
-        const adminJS = new AdminJS({
-            branding: {
-                companyName: process.env.PROJECT_NAME,
-                logo: process.env.ADMIN_LOGO,
-                favicon: process.env.ADMIN_FAVICON,
-                withMadeWithLove: false,
-                theme: {
-                    colors: {
-                        primary100: "#008080",
-                        primary80: "#008080",
-                        primary60: "#008080",
-                        primary40: "#008080",
-                        primary20: "#008080",
-                        accent: "#008080",
-                        accent75: "#008080",
-                        accent50: "#008080",
-                        accent25: "#008080",
-                    },
-                },
-            },
-            settings: { defaultPerPage: 25 },
-            version: { admin: true, app: process.env.PROJECT_VERSION },
-            rootPath: "/admin",
-            resources: [
-                {
-                    resource: db.table('users'),
-                    options: {
-                        sort: {
-                            sortBy: 'id',
-                            direction: 'desc',
-                        },
-                        listProperties: ['id', 'username', 'email', 'name', 'avatar', 'created', 'updated'],
-                        showProperties: ['id', 'username', 'email', 'name', 'avatar', 'created', 'updated'],
-                        editProperties: ['username', 'email', 'name', 'avatar'],
-                    },
-                },
-                {
-                    resource: db.table('posts'),
-                    options: {
-                        sort: {
-                            sortBy: 'id',
-                            direction: 'desc',
-                        },
-                        listProperties: ['id', 'title', 'description', 'creator', 'updator', 'created', 'updated'],
-                        showProperties: ['id', 'title', 'description', 'creator', 'updator', 'created', 'updated'],
-                        editProperties: ['title', 'description', 'creator', 'updator'],
-                    },
-                },
-                // {
-                //     resource: db.table('logs'),
-                //     options: {
-                //         sort: {
-                //             sortBy: 'id',
-                //             direction: 'desc',
-                //         },
-                //         listProperties: ['id', 'status', 'method', 'url', 'server', 'client', 'agent', 'meta', 'created', 'updated'],
-                //         showProperties: ['id', 'status', 'method', 'url', 'server', 'client', 'agent', 'meta', 'created', 'updated'],
-                //         editProperties: ['status', 'method', 'url', 'server', 'client', 'agent', 'meta'],
-                //     },
-                // },
-            ],
-            // databases: [db], <- not recommended,
-        });
-        const ConnectSession = Connect(session)
-        const sessionStore = new ConnectSession({
-            conObject: {
-                connectionString: pool.connectionString,
-                ssl: pool.ssl,
-            },
-            tableName: process.env.ADMIN_SESSION_TABLE,
-            createTableIfMissing: true,
-        });
-        const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
-            adminJS,
-            {
-                authenticate,
-                cookieName: process.env.COOKIE_NAME,
-                cookiePassword: process.env.COOKIE_SECRET,
-            },
-            null,
-            {
-                store: sessionStore,
-                resave: true,
-                saveUninitialized: true,
-                secret: process.env.COOKIE_SECRET,
-                cookie: {
-                    httpOnly: pool.ssl,
-                    secure: pool.ssl,
-                },
-                name: process.env.COOKIE_NAME,
-            }
-        )
-        app.use(adminJS.options.rootPath, adminRouter);
+//         const adminJS = new AdminJS({
+//             branding: {
+//                 companyName: process.env.PROJECT_NAME,
+//                 logo: process.env.ADMIN_LOGO,
+//                 favicon: process.env.ADMIN_FAVICON,
+//                 withMadeWithLove: false,
+//                 theme: {
+//                     colors: {
+//                         primary100: "#008080",
+//                         primary80: "#008080",
+//                         primary60: "#008080",
+//                         primary40: "#008080",
+//                         primary20: "#008080",
+//                         accent: "#008080",
+//                         accent75: "#008080",
+//                         accent50: "#008080",
+//                         accent25: "#008080",
+//                     },
+//                 },
+//             },
+//             settings: { defaultPerPage: 25 },
+//             version: { admin: true, app: process.env.PROJECT_VERSION },
+//             rootPath: "/admin",
+//             resources: [
+//                 {
+//                     resource: db.table('users'),
+//                     options: {
+//                         sort: {
+//                             sortBy: 'id',
+//                             direction: 'desc',
+//                         },
+//                         listProperties: ['id', 'username', 'email', 'name', 'avatar', 'created', 'updated'],
+//                         showProperties: ['id', 'username', 'email', 'name', 'avatar', 'created', 'updated'],
+//                         editProperties: ['username', 'email', 'name', 'avatar'],
+//                     },
+//                 },
+//                 {
+//                     resource: db.table('posts'),
+//                     options: {
+//                         sort: {
+//                             sortBy: 'id',
+//                             direction: 'desc',
+//                         },
+//                         listProperties: ['id', 'title', 'description', 'creator', 'updator', 'created', 'updated'],
+//                         showProperties: ['id', 'title', 'description', 'creator', 'updator', 'created', 'updated'],
+//                         editProperties: ['title', 'description', 'creator', 'updator'],
+//                     },
+//                 },
+//                 // {
+//                 //     resource: db.table('logs'),
+//                 //     options: {
+//                 //         sort: {
+//                 //             sortBy: 'id',
+//                 //             direction: 'desc',
+//                 //         },
+//                 //         listProperties: ['id', 'status', 'method', 'url', 'server', 'client', 'agent', 'meta', 'created', 'updated'],
+//                 //         showProperties: ['id', 'status', 'method', 'url', 'server', 'client', 'agent', 'meta', 'created', 'updated'],
+//                 //         editProperties: ['status', 'method', 'url', 'server', 'client', 'agent', 'meta'],
+//                 //     },
+//                 // },
+//             ],
+//             // databases: [db], <- not recommended,
+//         });
+//         const ConnectSession = Connect(session)
+//         const sessionStore = new ConnectSession({
+//             conObject: {
+//                 connectionString: pool.connectionString,
+//                 ssl: pool.ssl,
+//             },
+//             tableName: process.env.ADMIN_SESSION_TABLE,
+//             createTableIfMissing: true,
+//         });
+//         const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
+//             adminJS,
+//             {
+//                 authenticate,
+//                 cookieName: process.env.COOKIE_NAME,
+//                 cookiePassword: process.env.COOKIE_SECRET,
+//             },
+//             null,
+//             {
+//                 store: sessionStore,
+//                 resave: true,
+//                 saveUninitialized: true,
+//                 secret: process.env.COOKIE_SECRET,
+//                 cookie: {
+//                     httpOnly: pool.ssl,
+//                     secure: pool.ssl,
+//                 },
+//                 name: process.env.COOKIE_NAME,
+//             }
+//         )
+//         app.use(adminJS.options.rootPath, adminRouter);
 
-        app.use('*', unknownEndpoint);
-        app.use(handleError);
-    });
-}
+//         // app.use('*', unknownEndpoint);
+//         // app.use(handleError);
+//     });
+// }
