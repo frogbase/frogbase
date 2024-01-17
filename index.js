@@ -15,6 +15,7 @@ server.listen(PORT, IP, () =>
 ╟────────────────────────────────────────────────────────────────╢
 ║ >> Visit: http://localhost:${PORT}/api/health/                    ║
 ║ >> Draft: http://localhost:${PORT}/api/docs/                      ║
+║ >> Admin: http://localhost:${PORT}/admin/                         ║
 ╟────────────────────────────────────────────────────────────────╢
 ║           Please press CTRL + C to stop the server.            ║
 ╚════════════════════════════════════════════════════════════════╝`,

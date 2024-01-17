@@ -1,8 +1,8 @@
 const logDB = require("../db/functions/log.db.js");
 
 const logMiddleware = async (req, res, next) => {
-    // Skip logging for requests coming from AdminJS or for specific URLs
-    if (req.path.startsWith('/admin') || req.url === '/favicon.ico') return next();
+    // Skip logging for requests coming from Admin or for specific URLs
+    if (req.path.startsWith('/admin') || req.url === '/favicon.ico' ) return next();
 
     // Call the next middleware in the stack
     await next();

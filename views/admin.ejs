@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-5">Admin Dashboard</h1>
+
+        <form id="tableSelectorForm">
+            <% Object.entries(data).forEach(([tableName, tableData])=> { %>
+                <input type="radio" name="tableSelector" value="<%= tableName %>">
+                <label for="<%= tableName %>">
+                    <%= tableName %> Table
+                </label>
+                <% }); %>
+        </form>
+
+        <% Object.entries(data).forEach(([tableName, tableData])=> { %>
+            <div id="<%= tableName %>Table" class="table-container">
+                <h2 class="mt-4">
+                    <%= tableName %> Table
+                </h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <% tableData.fields.forEach(column=> { %>
+                                <th>
+                                    <%= column.name %>
+                                </th>
+                                <% }); %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% tableData.rows.forEach((row, index)=> { %>
+                            <tr>
+                                <td>
+                                    <%= index + 1 %>
+                                </td>
+                                <% tableData.fields.forEach(column=> { %>
+                                    <td>
+                                        <%= row[column.name] %>
+                                    </td>
+                                    <% }); %>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <% }); %>
+    </div>
+
+    <!-- Add Bootstrap JS and Popper.js scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript to handle radio button change event
+        const form = document.getElementById('tableSelectorForm');
+        form.addEventListener('change', (event) => {
+            const selectedTable = event.target.value;
+            // Hide all tables
+            document.querySelectorAll('.table-container').forEach(table => {
+                table.style.display = 'none';
+            });
+            // Show the selected table
+            document.getElementById(`${selectedTable}Table`).style.display = 'block';
+        });
+    </script>
+</body>
+
+</html>
