@@ -1,10 +1,4 @@
-/*
-Template Name: Qovex - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://themesbrand.com/
-Contact: themesbrand@gmail.com
-File: Sparkline 
-*/
+
 
 $(document).ready(function() {
     var SparklineCharts = function() {

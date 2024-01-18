@@ -1,5 +1,5 @@
 const pool = require("../config/index.js");
-// const os = require('os');
+const os = require('os');
 
 class LogDB {
     async create(req, res) {
@@ -11,12 +11,10 @@ class LogDB {
                 res.statusCode,
                 req.method,
                 `${req.protocol}://${req.get('host')}${req.originalUrl}`,
-                // Object.values(os.networkInterfaces())
-                //     .flat()
-                //     .filter((details) => details.family === 'IPv4' && !details.internal)
-                //     .pop().address,
-                // req.headers['x-forwarded-for'] || req.socket.remoteAddress,
-                req.hostname,
+                Object.values(os.networkInterfaces())
+                    .flat()
+                    .filter((details) => details.family === 'IPv4' && !details.internal)
+                    .pop().address,
                 req.ip,
                 req.headers['user-agent'],
                 res.statusMessage,

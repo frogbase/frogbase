@@ -5,7 +5,7 @@ require("express-async-errors");
 const morgan = require("morgan");
 const handleError = require("./helpers/error.js");
 const unknownEndpoint = require("./middleware/unknown.endpoint.js");
-const routes = require("./app.routes/index.js");
+const routes = require("./routes/index.js");
 const app = express();
 const logMiddleware = require("./middleware/log.js");
 const adminApp = require('./admin.js');

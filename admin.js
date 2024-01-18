@@ -6,10 +6,10 @@ var http = require('http').Server(app);
 var validator = require('express-validator');
 
 // import controller
-var AuthController = require('./controllers/AuthController');
+var AuthController = require('./controllers/admin.controller');
 
 // import Router file
-var pageRouter = require('./routers/route');
+var pageRouter = require('./routes/admin');
 
 var session = require('express-session');
 var bodyParser = require('body-parser');
@@ -23,9 +23,7 @@ app.use(session({
     secret: 'somerandonstuffs',
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        expires: 1200000
-    }
+    cookie: { expires: 1200000 }
 }));
 
 app.use(session({ resave: false, saveUninitialized: true, secret: 'nodedemo' }));

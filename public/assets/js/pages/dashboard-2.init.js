@@ -1,12 +1,4 @@
-/*
-Template Name: Qovex - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://themesbrand.com/
-Contact: themesbrand@gmail.com
-File: Dashboard-2
-*/
 
-// Radial chart 1
 var options= {
   series: [70],
   chart: {

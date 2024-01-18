@@ -4,7 +4,7 @@ const {
   getAllUsers,
   getUserById,
   updateUser,
-} = require("../app.controllers/user.controller.js");
+} = require("../controllers/user.controller.js");
 
 const verifyToken = require("../middleware/verify.token.js");
 

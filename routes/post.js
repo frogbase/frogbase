@@ -5,7 +5,7 @@ const {
     getAllPosts,
     getPostById,
     updatePost,
-} = require("../app.controllers/post.controller.js");
+} = require("../controllers/post.controller.js");
 
 const verifyToken = require("../middleware/verify.token.js");
 

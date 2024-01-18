@@ -1,10 +1,3 @@
-/*
-Template Name: Qovex - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://themesbrand.com/
-Contact: themesbrand@gmail.com
-File: Form edittor
-*/
 
 $(document).ready(function () {
     if($("#elm1").length > 0){

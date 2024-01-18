@@ -1,13 +1,4 @@
-/*
-Template Name: Qovex - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://themesbrand.com/
-Contact: themesbrand@gmail.com
-File: Apex chart
-*/
 
-//  line chart datalabel
-   
 var options = {
     chart: {
       height: 380,
