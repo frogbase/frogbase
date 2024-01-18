@@ -1,0 +1,237 @@
+<!-- ========== Left Sidebar Start ========== -->
+<div class="vertical-menu">
+
+    <div class="h-100">
+
+        <div class="user-wid text-center py-4">
+            <div class="user-img">
+                <img src="public/assets/images/users/avatar-2.jpg" alt="" class="avatar-md mx-auto rounded-circle">
+            </div>
+
+            <div class="mt-3">
+
+                <a href="#" class="text-dark fw-medium font-size-16">Patrick Becker</a>
+                <p class="text-body mt-1 mb-0 font-size-13">UI/UX Designer</p>
+
+            </div>
+        </div>
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <li class="menu-title"><%=translation.Menu%></li>
+
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="mdi mdi-airplay"></i><span class="badge rounded-pill bg-info float-end">2</span>
+                        <span><%=translation.Dashboard%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/"><%=translation.Dashboard%> 1</a></li>
+                        <li><a href="index-2"><%=translation.Dashboard%> 2</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-flip-horizontal"></i>
+                        <span><%=translation.Layouts%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li><a href="javascript: void(0);" class="has-arrow"><%=translation.Vertical%></a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a href="layouts-compact-sidebar"><%=translation.Compact_Sidebar%></a></li>
+                                <li><a href="layouts-icon-sidebar"><%=translation.Icon_Sidebar%></a></li>
+                                <li><a href="layouts-boxed"><%=translation.Boxed_Layout%></a></li>
+                                <li><a href="layouts-preloader"><%=translation.Preloader%></a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="javascript: void(0);" class="has-arrow"><%=translation.Horizontal%></a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a href="layouts-horizontal"><%=translation.Horizontal%></a></li>
+                                <li><a href="layouts-hori-topbarlight"><%=translation.Topbar_Light%></a></li>
+                                <li><a href="layouts-hori-boxed"><%=translation.Boxed_Layout%></a></li>
+                                <li><a href="layouts-hori-preloader"><%=translation.Preloader%></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </li>
+
+                <li>
+                    <a href="calendar" class=" waves-effect">
+                        <i class="mdi mdi-calendar-text"></i>
+                        <span><%=translation.Calendar%></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-inbox-full"></i>
+                        <span><%=translation.Email%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="email-inbox"><%=translation.Inbox%></a></li>
+                        <li><a href="email-read"><%=translation.Read_Email%></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-calendar-check"></i>
+                        <span><%=translation.Tasks%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="tasks-list"><%=translation.Task_List%></a></li>
+                        <li><a href="tasks-kanban"><%=translation.Kanban_Board%></a></li>
+                        <li><a href="tasks-create"><%=translation.Create_Task%></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-account-circle-outline"></i>
+                        <span><%=translation.Pages%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="pages-login"><%=translation.Login%></a></li>
+                        <li><a href="pages-register"><%=translation.Register%></a></li>
+                        <li><a href="pages-recoverpw"><%=translation.Recover_Password%></a></li>
+                        <li><a href="pages-lock-screen"><%=translation.Lock_Screen%></a></li>
+                        <li><a href="pages-starter"><%=translation.Starter_Page%></a></li>
+                        <li><a href="pages-invoice"><%=translation.Invoice%></a></li>
+                        <li><a href="pages-profile"><%=translation.Profile%></a></li>
+                        <li><a href="pages-maintenance"><%=translation.Maintenance%></a></li>
+                        <li><a href="pages-comingsoon"><%=translation.Coming_Soon%></a></li>
+                        <li><a href="pages-timeline"><%=translation.Timeline%></a></li>
+                        <li><a href="pages-faqs"><%=translation.FAQs%></a></li>
+                        <li><a href="pages-pricing"><%=translation.Pricing%></a></li>
+                        <li><a href="pages-404"><%=translation.Error_404%></a></li>
+                        <li><a href="pages-500"><%=translation.Error_500%></a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-title"><%=translation.Components%></li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                        <span><%=translation.UI_Elements%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="ui-alerts"><%=translation.Alerts%></a></li>
+                        <li><a href="ui-buttons"><%=translation.Buttons%></a></li>
+                        <li><a href="ui-cards"><%=translation.Cards%></a></li>
+                        <li><a href="ui-carousel"><%=translation.Carousel%></a></li>
+                        <li><a href="ui-dropdowns"><%=translation.Dropdowns%></a></li>
+                        <li><a href="ui-grid"><%=translation.Grid%></a></li>
+                        <li><a href="ui-images"><%=translation.Images%></a></li>
+                        <li><a href="ui-lightbox"><%=translation.Lightbox%></a></li>
+                        <li><a href="ui-modals"><%=translation.Modals%></a></li>
+                        <li><a href="ui-rangeslider"><%=translation.Range_Slider%></a></li>
+                        <li><a href="ui-session-timeout"><%=translation.Session_Timeout%></a></li>
+                        <li><a href="ui-progressbars"><%=translation.Progress_Bars%></a></li>
+                        <li><a href="ui-sweet-alert"><%=translation.Sweet_Alert%></a></li>
+                        <li><a href="ui-tabs-accordions"><%=translation.Tabs_and_Accordions%></a></li>
+                        <li><a href="ui-typography"><%=translation.Typography%></a></li>
+                        <li><a href="ui-video"><%=translation.Video%></a></li>
+                        <li><a href="ui-general"><%=translation.General%></a></li>
+                        <li><a href="ui-colors"><%=translation.Colors%></a></li>
+                        <li><a href="ui-rating"><%=translation.Rating%></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="mdi mdi-newspaper"></i>
+                        <span class="badge rounded-pill bg-danger float-end">6</span>
+                        <span><%=translation.Forms%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="form-elements"><%=translation.Form_Elements%></a></li>
+                        <li><a href="form-validation"><%=translation.Form_Validation%></a></li>
+                        <li><a href="form-advanced"><%=translation.Form_Advanced%></a></li>
+                        <li><a href="form-editors"><%=translation.Form_Editors%></a></li>
+                        <li><a href="form-uploads"><%=translation.Form_File_Upload%></a></li>
+                        <li><a href="form-xeditable"><%=translation.Form_Xeditable%></a></li>
+                        <li><a href="form-repeater"><%=translation.Form_Repeater%></a></li>
+                        <li><a href="form-wizard"><%=translation.Form_Wizard%></a></li>
+                        <li><a href="form-mask"><%=translation.Form_Mask%></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-clipboard-list-outline"></i>
+                        <span><%=translation.Tables%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="tables-basic"><%=translation.Basic_Tables%></a></li>
+                        <li><a href="tables-datatable"><%=translation.Data_Tables%></a></li>
+                        <li><a href="tables-responsive"><%=translation.Responsive_Table%></a></li>
+                        <li><a href="tables-editable"><%=translation.Editable_Table%></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-chart-donut"></i>
+                        <span><%=translation.Charts%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="charts-apex"><%=translation.Apex_charts%></a></li>
+                        <li><a href="charts-chartjs"><%=translation.Chartjs_Chart%></a></li>
+                        <li><a href="charts-flot"><%=translation.Flot_Chart%></a></li>
+                        <li><a href="charts-knob"><%=translation.Jquery_Knob_Chart%></a></li>
+                        <li><a href="charts-sparkline"><%=translation.Sparkline_Chart%></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-emoticon-happy-outline"></i>
+                        <span><%=translation.Icons%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="icons-boxicons"><%=translation.Boxicons%></a></li>
+                        <li><a href="icons-materialdesign"><%=translation.Material_Design%></a></li>
+                        <li><a href="icons-dripicons"><%=translation.Dripicons%></a></li>
+                        <li><a href="icons-fontawesome"><%=translation.Font_awesome%></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-map-marker-outline"></i>
+                        <span><%=translation.Maps%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="maps-google"><%=translation.Google_Maps%></a></li>
+                        <li><a href="maps-vector"><%=translation.Vector_Maps%></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-file-tree"></i>
+                        <span><%=translation.Multi_Level%></span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li><a href="javascript: void(0);"><%=translation.Level_1_1%></a></li>
+                        <li><a href="javascript: void(0);" class="has-arrow"><%=translation.Level_1_2%></a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a href="javascript: void(0);"><%=translation.Level_2_1%></a></li>
+                                <li><a href="javascript: void(0);"><%=translation.Level_2_2%></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+<!-- Left Sidebar End -->

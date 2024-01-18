@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+    <meta charset="utf-8">
+    <title>Horizontal | Qovex - Admin & Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
+    <meta content="Themesbrand" name="author">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="public/assets/images/favicon.ico">
+
+    <%- HeaderCss %>
+    <!-- Bootstrap Css -->
+    <link href="public/assets/css/bootstrap-rtl.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="public/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="public/assets/css/app-rtl.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body data-layout="horizontal" data-topbar="dark">
+    
+    <div class="container-fluid">
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+
+        <%- include ('./Partials/Horizontal')  %>
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+            <div class="main-content">
+                <div class="page-content">
+
+                    <%- breadcrumb %>
+                    <%- body %>
+
+                </div> <!-- End Page-content -->
+            </div> <!-- end main content-->
+            
+            <%- include ('./Partials/Footer') %>
+        </div> <!-- END layout-wrapper -->
+    </div> <!-- container-fluid -->
+
+    <%- include ('./Partials/Rightbar')  %>
+    <%- include ('./Partials/VendorScript')  %>
+
+    <%- FooterJs %>
+
+    <script src="public/assets/js/app-rtl.js"></script>
+    <%- BottomJs %>
+</body>
+
+</html>
