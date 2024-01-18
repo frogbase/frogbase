@@ -3,10 +3,8 @@ var app = require('express')();
 var express = require('express');
 var path = require('path');
 
-// import controller
 var AuthController = require('./controllers/admin.controller');
 
-// import Router file
 var pageRouter = require('./routes/admin');
 
 var session = require('express-session');
