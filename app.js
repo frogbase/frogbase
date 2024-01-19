@@ -8,7 +8,8 @@ const unknownEndpoint = require("./middleware/unknown.endpoint.js");
 const routes = require("./routes/index.js");
 const app = express();
 const logMiddleware = require("./middleware/log.js");
-const adminApp = require('./admin.js');
+const path = require('path');
+const admin = require('./admin.js');
 
 app.set("trust proxy", 1);
 app.use(cors({ credentials: true, origin: true }));
@@ -18,13 +19,16 @@ app.use(compression());
 
 
 app.use("/uploads", express.static("uploads"));
-app.get('/favicon.ico', (_, res) => res.status(204));
+app.use(express.static(__dirname + '/public'));
+// app.get('/favicon.ico', (_, res) => res.status(204));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(logMiddleware);
 
 app.use(`/api`, routes);
 
-app.use('/', adminApp);
+app.use('/admin', admin);
 
 app.use('*', unknownEndpoint);
 app.use(handleError);

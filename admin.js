@@ -1,55 +1,18 @@
-var app = require('express')();
 
-var express = require('express');
-var path = require('path');
+const ErrorHandler = require("./helpers/error.class.js");
+const pool = require('./db/config/index.js');
 
-var AuthController = require('./controllers/admin.controller');
+const admin = async (_, res) => {
+    try {
+        const users = (await pool.query('SELECT * FROM users ORDER BY created ASC'));
+        const posts = (await pool.query('SELECT * FROM posts ORDER BY created ASC'));
+        const logs = (await pool.query('SELECT * FROM logs ORDER BY created ASC'));
 
-var pageRouter = require('./routes/admin');
+        res.render('admin', { data: { users, posts, logs } });
+    } catch (error) {
+        console.error('Error retrieving data:', error);
+        throw new ErrorHandler(500, 'Internal Server Error!');
+    }
+}
 
-var session = require('express-session');
-var bodyParser = require('body-parser');
-var flash = require('connect-flash');
-var i18n = require("i18n-express");
-app.use(bodyParser.json());
-var urlencodeParser = bodyParser.urlencoded({ extended: true });
-
-app.use(session({
-    key: 'user_sid',
-    secret: 'somerandonstuffs',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { expires: 1200000 }
-}));
-
-app.use(session({ resave: false, saveUninitialized: true, secret: 'nodedemo' }));
-app.use(flash());
-app.use(i18n({
-    translationsPath: path.join(__dirname, 'i18n'), // <--- use here. Specify translations files path.
-    siteLangs: ["es", "en", "de", "ru", "it", "fr"],
-    textsVarName: 'translation'
-}));
-
-app.use('/public', express.static('public'));
-
-app.get('/layouts/', function (req, res) {
-    res.render('view');
-});
-
-// apply controller
-AuthController(app);
-
-//For set layouts of html view
-var expressLayouts = require('express-ejs-layouts');
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.use(expressLayouts);
-
-// Define All Route 
-pageRouter(app);
-
-app.get('/', function (req, res) {
-    res.redirect('/');
-});
-
-module.exports = app;
+module.exports = admin;

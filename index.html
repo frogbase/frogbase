@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="us-ascii">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./public/favicon.ico">
+    <title>FrogBase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .error-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            max-width: 400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .error-image {
+            width: 100%;
+            max-width: 160px;
+            height: auto;
+            margin-bottom: 20px;
+            animation: float 3s ease infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        a.btn-algo {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #38a6a5;
+            color: #ffffff;
+            border-radius: 6px;
+            font-size: 20px;
+            border: 1px solid #267372;
+            transition: background-color 0.3s ease;
+        }
+        a.btn-algo:hover {
+            background-color: #267372;
+        }
+
+
+        h2 {
+            font-size: 24px;
+            color: red;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            
+        }
+
+        h3 {
+            margin: 0 0 20px 0 ;
+            font-size: 20px;
+            color: #333;
+            
+        }
+
+        .btn-p {
+            margin: 12px ;
+            font-size: 18px;
+            text-align: center;
+            color: #438c6c;
+        }
+        .text-p {
+            margin: 18px 10px ;
+            font-size: 14px;
+            text-align: center;
+            color: #166a7d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="error-container">
+        <img class="error-image" src="./public/frogbase-only-logo.png" alt="Error Image">
+        <h2>Invalid URL!</h2>
+        <h3>Only Accessible for Algoramming's Developers.</h3>
+        <p class="btn-p">Feel free to explore FrogBase's api documentation for an enriching experience</p>
+        <a href="https://frogbase.algoramming.xyz/api/docs" class="btn-algo">Explore FrogBase</a>
+        <p class="text-p">We apologize for the inconvenience.<br> Please follow the api link.</p>
+    </div>
+</body>
+
+</html>
