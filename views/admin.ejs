@@ -11,12 +11,27 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
+<script>
+    const toNormalText = (text) => {
+        return text.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    };
+</script>
+
 <body>
     <style>
         .navbar-nav .nav-link.active {
             color: #008080;
             border-bottom: 3px solid #008080;
             border-radius: 50%;
+        }
+
+        th,
+        td {
+            max-width: 150px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-align: center;
         }
     </style>
 
@@ -35,7 +50,7 @@
                     <% Object.entries(data).forEach(([tableName, tableData])=> { %>
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-table="<%= tableName %>">
-                                <%= tableName %>
+                                <script>document.write(toNormalText('<%= tableName %>'));</script>
                             </a>
                         </li>
                         <% }); %>
@@ -48,7 +63,7 @@
         <% Object.entries(data).forEach(([tableName, tableData])=> { %>
             <div id="<%= tableName %>Table" class="table-container">
                 <h2 class="mt-4">
-                    <%= tableName %> Table
+                    <script>document.write(toNormalText('<%= tableName %>'));</script> Table
                 </h2>
                 <table class="table table-secondary table-striped table-bordered table-hover">
                     <thead>
@@ -56,7 +71,7 @@
                             <th>#</th>
                             <% tableData.fields.forEach(column=> { %>
                                 <th>
-                                    <%= column.name %>
+                                    <script>document.write(toNormalText('<%= column.name %>'));</script>
                                 </th>
                                 <% }); %>
                         </tr>
@@ -115,14 +130,6 @@
         if (navbarLinks.length > 0) {
             const firstTableName = navbarLinks[0].getAttribute('data-table');
             showTable(firstTableName);
-        }
-
-        function toNormalText(tex) {
-            return tex
-                .replace(/([a-z])([A-Z])/g, "$1 $2")
-                .replace(/^./, function (str) {
-                    return str.toUpperCase();
-                });
         }
     </script>
 
