@@ -33,6 +33,19 @@
             text-overflow: ellipsis;
             text-align: center;
         }
+
+        .show-details-btn {
+            background-color: #008080;
+            color: #ffffff;
+            border: 1px solid #008080;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .show-details-btn:hover {
+            background-color: #005757;
+            border: 1px solid #005757;
+        }
     </style>
 
     <!-- navbar -->
@@ -63,7 +76,10 @@
         <% Object.entries(data).forEach(([tableName, tableData])=> { %>
             <div id="<%= tableName %>Table" class="table-container">
                 <h2 class="mt-4">
-                    <script>document.write(toNormalText('<%= tableName %>'));</script> Table
+                    <script>
+                        document.write(toNormalText('<%= tableName %>'));
+                        document.write(' Table (' + '<%= tableData.rows.length %>' + ' Rows)');
+                    </script>
                 </h2>
                 <table class="table table-secondary table-striped table-bordered table-hover">
                     <thead>
@@ -74,6 +90,7 @@
                                     <script>document.write(toNormalText('<%= column.name %>'));</script>
                                 </th>
                                 <% }); %>
+                                    <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,7 +104,50 @@
                                         <%= row[column.name] %>
                                     </td>
                                     <% }); %>
+                                        <td>
+                                            <!-- Button to trigger modal -->
+                                            <button type="button" class="btn btn-primary show-details-btn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modal<%= tableName %><%= index %>">
+                                                Show Details
+                                            </button>
+                                        </td>
                             </tr>
+                            <!-- Modal for each row -->
+                            <div class="modal fade" id="modal<%= tableName %><%= index %>" tabindex="-1"
+                                aria-labelledby="modal<%= tableName %><%= index %>Label" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modal<%= tableName %><%= index %>Label">
+                                                Details for <%= tableName %> - Row <%= index + 1 %>
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Display table name in modal body -->
+                                            <p><strong>Table Name:</strong>
+                                                <%= tableName %>
+                                            </p>
+                                            <!-- Additional data for the modal goes here -->
+                                            <ul>
+                                                <% Object.entries(row).forEach(([key, value])=> { %>
+                                                    <li><strong>
+                                                            <%= key %>:
+                                                        </strong>
+                                                        <%= value %>
+                                                    </li>
+                                                    <% }); %>
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <% }); %>
                     </tbody>
                 </table>
